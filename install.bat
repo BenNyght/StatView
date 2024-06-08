@@ -11,6 +11,7 @@ vcpkg\vcpkg.exe install glew:x64-windows
 vcpkg\vcpkg.exe install sdl2:x64-windows
 vcpkg\vcpkg.exe install glm:x64-windows
 vcpkg\vcpkg.exe install imgui[core,sdl2-binding,opengl3-binding]:x64-windows
+vcpkg\vcpkg.exe install implot
 vcpkg\vcpkg.exe install stb
 vcpkg\vcpkg.exe install nlohmann-json
 
