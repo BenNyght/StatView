@@ -7,6 +7,7 @@
 #include "imgui_impl_opengl3.h"
 #include "imgui_impl_sdl2.h"
 #include "implot.h"
+#include "imgui_internal.h"
 
 int Window::Setup()
 {
@@ -18,7 +19,7 @@ int Window::Setup()
     }
 
     // Decide GL+GLSL versions
-    const auto glsl_version = "#version 130";
+    const char* glsl_version = "#version 130";
 
     // Create window with SDL
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_FLAGS, 0);
@@ -28,6 +29,11 @@ int Window::Setup()
 
     window = SDL_CreateWindow("StatView", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1280, 720, SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI);
     gl_context = SDL_GL_CreateContext(window);
+	if (!gl_context) {
+	    fprintf(stderr, "Failed to create OpenGL context: %s\n", SDL_GetError());
+	    return -1;
+	}
+
     ImPlot::CreateContext();
     SDL_GL_MakeCurrent(window, gl_context);
     SDL_GL_SetSwapInterval(1); // Enable vsync
@@ -43,9 +49,20 @@ int Window::Setup()
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
     ImGuiIO& io = ImGui::GetIO(); (void)io;
+    io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
+    io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
+    io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;         // Enable Docking
+    io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;       // Enable Multi-Viewport / Platform Windows
 
     // Setup Dear ImGui style
     ImGui::StyleColorsDark();
+
+    ImGuiStyle& style = ImGui::GetStyle();
+    if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+    {
+        style.WindowRounding = 0.0f;
+        style.Colors[ImGuiCol_WindowBg].w = 1.0f;
+    }
 
     // Setup Platform/Renderer bindings
     ImGui_ImplSDL2_InitForOpenGL(window, gl_context);
@@ -92,12 +109,47 @@ void Window::Update(bool& done) const
     // Render Guis
     guiDrawer.Draw();
 
+    ImGuiID dockId = 1;
+    ImVec2 size = {3, 3 };
+
+    if (ImGui::DockBuilderGetNode(dockId) == nullptr)
+    {
+    	ImGui::DockBuilderRemoveNode(dockId); // Clear out existing layout
+		ImGui::DockBuilderAddNode(dockId); // Add empty node
+		ImGui::DockBuilderSetNodeSize(dockId, size);
+
+		ImGuiID dock_main_id = dockId; // This variable will track the document node, however we are not using it here as we aren't docking anything into it.
+		ImGuiID dock_id_prop = ImGui::DockBuilderSplitNode(dock_main_id, ImGuiDir_Left, 0.20f, nullptr, &dock_main_id);
+		ImGuiID dock_id_bottom = ImGui::DockBuilderSplitNode(dock_main_id, ImGuiDir_Down, 0.20f, nullptr, &dock_main_id);
+
+		ImGui::DockBuilderDockWindow("Hello, world!", dock_id_bottom);
+		ImGui::DockBuilderDockWindow("Graph", dock_id_prop);
+		//ImGui::DockBuilderDockWindow("Mesh", dock_id_prop);
+		//ImGui::DockBuilderDockWindow("Extra", dock_id_prop);
+		ImGui::DockBuilderFinish(dockId);
+    }
+
+    ImGui::DockSpace(dockId);
+
     // Rendering
     ImGui::Render();
+
     glViewport(0, 0, 1280, 720);
     glClearColor(0.45f, 0.55f, 0.60f, 1.00f);
     glClear(GL_COLOR_BUFFER_BIT);
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
+     // Update and Render additional Platform Windows
+    // (Platform functions may change the current OpenGL context, so we save/restore it to make it easier to paste this code elsewhere.
+    //  For this specific demo app we could also call SDL_GL_MakeCurrent(window, gl_context) directly)
+    if (true)
+    {
+        SDL_Window* backup_current_window = SDL_GL_GetCurrentWindow();
+        SDL_GLContext backup_current_context = SDL_GL_GetCurrentContext();
+        ImGui::UpdatePlatformWindows();
+        ImGui::RenderPlatformWindowsDefault();
+        SDL_GL_MakeCurrent(backup_current_window, backup_current_context);
+    }
 
     SDL_GL_SwapWindow(window);
 }

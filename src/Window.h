@@ -2,6 +2,7 @@
 
 #include <SDL.h>
 
+#include "imgui.h"
 #include "Gui/GuiDrawer.h"
 
 class Window

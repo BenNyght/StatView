@@ -17,7 +17,7 @@ project("StatView")
 file(GLOB_RECURSE SOURCES "src/*.cpp" "src/*.h")
 file(GLOB_RECURSE GUI_SOURCES "include/imgui_impl_sdl2.cpp" "include/imgui_impl_opengl3.cpp")
 
-# Add source to this project's executable
+# Add source to this project's executable.
 add_executable(StatView ${SOURCES} ${GUI_SOURCES} "src/Gui/Guis/HelloWorldGui.cpp")
 
 if(CMAKE_VERSION VERSION_GREATER 3.12)
