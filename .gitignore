@@ -30,3 +30,12 @@
 *.exe
 *.out
 *.app
+
+# Project
+out/
+vcpkg/
+
+# Visual Studio cache files
+*.[Cc]ache
+!*.[Cc]ache/
+.vs/
