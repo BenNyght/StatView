@@ -7,12 +7,15 @@
 #include "IDrawer.h"
 #include "imgui.h"
 #include "imgui_internal.h"
+#include "PerformanceStats.h"
 #include "Guis/HelloWorldGui.h"
 #include "Guis/PerformanceGraphGui.h"
 #include "Guis/MenuBarGui.h"
 
 GuiDrawer::GuiDrawer()
 {
+    PerformanceStats::GenerateTestData();
+
     drawers.push_back(std::make_unique<MenuBarGui>());
     drawers.push_back(std::make_unique<PerformanceGraphGui>());
     drawers.push_back(std::make_unique<HelloWorldGui>());

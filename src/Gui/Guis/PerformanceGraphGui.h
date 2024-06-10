@@ -12,4 +12,7 @@ public:
 	void Draw() const override;
 
 	static inline std::string GuiName = "Performance Graph";
+
+private:
+	static void DrawGraphControls(bool& showLines, bool& showFills, float& fillRef, int& shadeMode);
 };
