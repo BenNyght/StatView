@@ -44,11 +44,12 @@ void GuiDrawer::SetupDockBuilder()
 
         ImGuiID dockIdLeft, dockIdRight;
 
-        ImGui::DockBuilderSplitNode(dockIdMain, ImGuiDir_Left, 0.5f, &dockIdLeft, &dockIdRight);
+        ImGui::DockBuilderSplitNode(dockIdMain, ImGuiDir_Left, 0.2f, &dockIdLeft, &dockIdRight);
 
-        // Dock windows into the respective sides
-        ImGui::DockBuilderDockWindow(PerformanceGraphGui::GuiName.c_str(), dockIdLeft);
-        ImGui::DockBuilderDockWindow(HelloWorldGui::GuiName.c_str(), dockIdRight);
+        ImGui::DockBuilderGetNode(dockIdRight)->LocalFlags |= ImGuiDockNodeFlags_NoTabBar; // Lock the performance gui in place
+        ImGui::DockBuilderDockWindow(PerformanceGraphGui::GuiName.c_str(), dockIdRight);
+
+        ImGui::DockBuilderDockWindow(HelloWorldGui::GuiName.c_str(), dockIdLeft);
 
         ImGui::DockBuilderFinish(dockIdMain); // Finish the docking setup
     }
