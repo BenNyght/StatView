@@ -11,7 +11,7 @@ PerformanceGraphGui::PerformanceGraphGui()
 
 void PerformanceGraphGui::Draw() const
 {
-	ImGui::Begin("Graph");
+	ImGui::Begin(PerformanceGraphGui::GuiName.c_str());
 
     static bool show_lines = true;
     static bool show_fills = true;

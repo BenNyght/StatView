@@ -4,10 +4,10 @@
 
 #include "../IDrawer.h"
 
-class HelloWorldGui : public IDrawer
+class MenuBarGui : public IDrawer
 {
 public:
 	void Draw() const override;
 
-	static inline std::string GuiName = "Hello World";
+	static inline std::string GuiName = "Menu Bar";
 };

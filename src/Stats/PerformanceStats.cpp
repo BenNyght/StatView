@@ -10,6 +10,6 @@ void PerformanceStats::GenerateTestData()
     for (int i = 0; i < 50; ++i) 
     {
         PerformanceStats::label.push_back(i);
-        PerformanceStats::frameTime.push_back(random_range(0, 200));
+        PerformanceStats::frameTime.push_back(random_range(0, 1000));
     }
 }

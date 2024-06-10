@@ -109,28 +109,6 @@ void Window::Update(bool& done) const
     // Render Guis
     guiDrawer.Draw();
 
-    ImGuiID dockId = 1;
-    ImVec2 size = {3, 3 };
-
-    if (ImGui::DockBuilderGetNode(dockId) == nullptr)
-    {
-    	ImGui::DockBuilderRemoveNode(dockId); // Clear out existing layout
-		ImGui::DockBuilderAddNode(dockId); // Add empty node
-		ImGui::DockBuilderSetNodeSize(dockId, size);
-
-		ImGuiID dock_main_id = dockId; // This variable will track the document node, however we are not using it here as we aren't docking anything into it.
-		ImGuiID dock_id_prop = ImGui::DockBuilderSplitNode(dock_main_id, ImGuiDir_Left, 0.20f, nullptr, &dock_main_id);
-		ImGuiID dock_id_bottom = ImGui::DockBuilderSplitNode(dock_main_id, ImGuiDir_Down, 0.20f, nullptr, &dock_main_id);
-
-		ImGui::DockBuilderDockWindow("Hello, world!", dock_id_bottom);
-		ImGui::DockBuilderDockWindow("Graph", dock_id_prop);
-		//ImGui::DockBuilderDockWindow("Mesh", dock_id_prop);
-		//ImGui::DockBuilderDockWindow("Extra", dock_id_prop);
-		ImGui::DockBuilderFinish(dockId);
-    }
-
-    ImGui::DockSpace(dockId);
-
     // Rendering
     ImGui::Render();
 
@@ -139,7 +117,7 @@ void Window::Update(bool& done) const
     glClear(GL_COLOR_BUFFER_BIT);
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
-     // Update and Render additional Platform Windows
+	// Update and Render additional Platform Windows
     // (Platform functions may change the current OpenGL context, so we save/restore it to make it easier to paste this code elsewhere.
     //  For this specific demo app we could also call SDL_GL_MakeCurrent(window, gl_context) directly)
     if (true)
