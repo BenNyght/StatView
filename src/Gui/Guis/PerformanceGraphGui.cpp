@@ -26,7 +26,7 @@ void PerformanceGraphGui::Draw() const
         const auto labels = PerformanceStats::label.data();
 
         ImPlot::SetupAxes("Index","Value");
-        ImPlot::SetupAxesLimits(0,length,PerformanceStats::MinFrameTime(),PerformanceStats::MaxFrameTime());
+        ImPlot::SetupAxesLimits(0,length,PerformanceStats::FrameTimeMin(),PerformanceStats::FrameTimeMax());
 
         if (show_fills) {
             ImPlot::PushStyleVar(ImPlotStyleVar_FillAlpha, 0.25f);

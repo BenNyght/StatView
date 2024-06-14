@@ -7,8 +7,9 @@ class PerformanceStats
 public:
 	static void GenerateTestData();
 
-	static double MaxFrameTime();
-	static double MinFrameTime();
+	static double FrameTimeAverage();
+	static double FrameTimeMax();
+	static double FrameTimeMin();
 
 	static inline std::vector<double> label = {};
 	static inline std::vector<double> frameTime = {};

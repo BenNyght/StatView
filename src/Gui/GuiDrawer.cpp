@@ -11,6 +11,7 @@
 #include "Guis/HelloWorldGui.h"
 #include "Guis/PerformanceGraphGui.h"
 #include "Guis/MenuBarGui.h"
+#include "Guis/StatsGui.h"
 
 GuiDrawer::GuiDrawer()
 {
@@ -18,7 +19,7 @@ GuiDrawer::GuiDrawer()
 
     drawers.push_back(std::make_unique<MenuBarGui>());
     drawers.push_back(std::make_unique<PerformanceGraphGui>());
-    drawers.push_back(std::make_unique<HelloWorldGui>());
+    drawers.push_back(std::make_unique<StatsGui>());
 }
 
 void GuiDrawer::Draw() const
@@ -36,7 +37,8 @@ void GuiDrawer::SetupDockBuilder()
     ImGuiID viewDockSpaceId = ImGui::DockSpaceOverViewport(0, ImGui::GetMainViewport(), ImGuiDockNodeFlags_None);
 
     static bool dockSpaceSetup = false;
-    if (!dockSpaceSetup) {
+    if (!dockSpaceSetup) 
+    {
         dockSpaceSetup = true;
 
         ImGui::DockBuilderRemoveNode(viewDockSpaceId);
@@ -45,14 +47,14 @@ void GuiDrawer::SetupDockBuilder()
 
         ImGuiID dockIdMain = viewDockSpaceId;
 
-        ImGuiID dockIdLeft, dockIdRight;
+        ImGuiID dockIdDown, dockIdUp;
 
-        ImGui::DockBuilderSplitNode(dockIdMain, ImGuiDir_Left, 0.2f, &dockIdLeft, &dockIdRight);
+        ImGui::DockBuilderSplitNode(dockIdMain, ImGuiDir_Up, 0.2f, &dockIdDown, &dockIdUp);
 
-        ImGui::DockBuilderGetNode(dockIdRight)->LocalFlags |= ImGuiDockNodeFlags_NoTabBar; // Lock the performance gui in place
-        ImGui::DockBuilderDockWindow(PerformanceGraphGui::GuiName.c_str(), dockIdRight);
+        ImGui::DockBuilderGetNode(dockIdUp)->LocalFlags |= ImGuiDockNodeFlags_NoTabBar; // Lock the performance gui in place
+        ImGui::DockBuilderDockWindow(PerformanceGraphGui::GuiName.c_str(), dockIdUp);
 
-        ImGui::DockBuilderDockWindow(HelloWorldGui::GuiName.c_str(), dockIdLeft);
+        ImGui::DockBuilderDockWindow(StatsGui::GuiName.c_str(), dockIdDown);
 
         ImGui::DockBuilderFinish(dockIdMain); // Finish the docking setup
     }
