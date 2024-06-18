@@ -4,10 +4,12 @@
 struct Statistic 
 {
 public:
-    Statistic(std::string name, std::string type);
+    Statistic() = default;
+    Statistic(std::string statName) : name(std::move(statName)) {}
+    Statistic(std::string statName, std::string statSuffix) : name(std::move(statName)), suffix(std::move(statSuffix)) {}
 
 	std::string name;
-    std::string type;
+    std::string suffix;
 
     double min;
     double max;

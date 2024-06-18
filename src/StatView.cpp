@@ -2,7 +2,7 @@
 #include <filesystem>
 #include <SDL.h>
 #include "Window.h"
-#include <LogParser.h>
+#include "Parsing/LogParser.h"
 
 int main(int, char**)
 {

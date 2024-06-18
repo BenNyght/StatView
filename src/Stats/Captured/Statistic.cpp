@@ -1,12 +1,6 @@
 #include "Statistic.h"
 #include "StatisticUtility.h"
 
-Statistic::Statistic(std::string name, std::string type) 
-    : name(name), type(type)
-{
-
-}
-
 void Statistic::CalculateStatistic()
 {
 	min = StatisticUtility::GetMin(values);

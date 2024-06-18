@@ -118,7 +118,8 @@
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <PostBuildEvent>
-      <Message>	</Message>
+      <Message>
+      </Message>
       <Command>setlocal
 C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noprofile -executionpolicy Bypass -file D:/dev/StatView/StatView/vcpkg/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary D:/dev/StatView/StatView/out/bin/StatView.exe -installedDir D:/dev/StatView/StatView/vcpkg/installed/x64-windows/debug/bin -OutVariable out
 if %errorlevel% neq 0 goto :cmEnd
@@ -187,7 +188,8 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <PostBuildEvent>
-      <Message>	</Message>
+      <Message>
+      </Message>
       <Command>setlocal
 C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noprofile -executionpolicy Bypass -file D:/dev/StatView/StatView/vcpkg/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary D:/dev/StatView/StatView/out/bin/StatView.exe -installedDir D:/dev/StatView/StatView/vcpkg/installed/x64-windows/bin -OutVariable out
 if %errorlevel% neq 0 goto :cmEnd
@@ -256,7 +258,8 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <PostBuildEvent>
-      <Message>	</Message>
+      <Message>
+      </Message>
       <Command>setlocal
 C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noprofile -executionpolicy Bypass -file D:/dev/StatView/StatView/vcpkg/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary D:/dev/StatView/StatView/out/bin/StatView.exe -installedDir D:/dev/StatView/StatView/vcpkg/installed/x64-windows/bin -OutVariable out
 if %errorlevel% neq 0 goto :cmEnd
@@ -324,7 +327,8 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <PostBuildEvent>
-      <Message>	</Message>
+      <Message>
+      </Message>
       <Command>setlocal
 C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noprofile -executionpolicy Bypass -file D:/dev/StatView/StatView/vcpkg/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary D:/dev/StatView/StatView/out/bin/StatView.exe -installedDir D:/dev/StatView/StatView/vcpkg/installed/x64-windows/bin -OutVariable out
 if %errorlevel% neq 0 goto :cmEnd
@@ -419,6 +423,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="D:\dev\StatView\StatView\src\Gui\GuiDrawer.cpp" />
+    <ClCompile Include="src\Stats\Parsing\VrApiStatistics.cpp" />
     <ClInclude Include="D:\dev\StatView\StatView\src\Gui\GuiDrawer.h" />
     <ClCompile Include="D:\dev\StatView\StatView\src\Gui\Guis\HelloWorldGui.cpp" />
     <ClInclude Include="D:\dev\StatView\StatView\src\Gui\Guis\HelloWorldGui.h" />
@@ -432,8 +437,8 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="D:\dev\StatView\StatView\src\StatView.cpp" />
     <ClCompile Include="D:\dev\StatView\StatView\src\Stats\Captured\Statistic.cpp" />
     <ClInclude Include="D:\dev\StatView\StatView\src\Stats\Captured\Statistic.h" />
-    <ClCompile Include="D:\dev\StatView\StatView\src\Stats\LogParser.cpp" />
-    <ClInclude Include="D:\dev\StatView\StatView\src\Stats\LogParser.h" />
+    <ClCompile Include="src\Stats\Parsing\LogParser.cpp" />
+    <ClInclude Include="src\Stats\Parsing\LogParser.h" />
     <ClCompile Include="D:\dev\StatView\StatView\src\Stats\PerformanceStats.cpp" />
     <ClInclude Include="D:\dev\StatView\StatView\src\Stats\PerformanceStats.h" />
     <ClCompile Include="D:\dev\StatView\StatView\src\Stats\StatisticUtility.cpp" />
@@ -443,6 +448,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="D:\dev\StatView\StatView\src\Window.h" />
     <ClCompile Include="D:\dev\StatView\StatView\include\imgui_impl_opengl3.cpp" />
     <ClCompile Include="D:\dev\StatView\StatView\include\imgui_impl_sdl2.cpp" />
+    <ClInclude Include="src\Stats\Parsing\VrApiStatistics.h" />
     <Natvis Include="D:\dev\StatView\StatView\vcpkg\installed\x64-windows\share\nlohmann_json\nlohmann_json.natvis">
     </Natvis>
   </ItemGroup>

@@ -61,9 +61,15 @@
 #pragma once
 
 #include <vector>
+#include <vector>
+#include <xstring>
 
 class LogParser
 {
 public:
 	void ParseLatest();
+
+private:
+	static std::vector<std::string> Split(const std::string& search, const std::string& delimiter);
+	static bool Contains(const std::string& search, const std::string& contains);
 };
