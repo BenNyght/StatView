@@ -2,6 +2,7 @@
 #include <filesystem>
 #include <SDL.h>
 #include "Window.h"
+#include <LogParser.h>
 
 int main(int, char**)
 {
@@ -11,6 +12,9 @@ int main(int, char**)
     {
 	    return result;
     }
+
+    LogParser parser { };
+	parser.ParseLatest();
 
  //   const std::string adbCommand = "adb logcat -d -s VrApi > ";
  //   std::string file = "VrApi.log";

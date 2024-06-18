@@ -12,7 +12,7 @@ void Statistic::CalculateStatistic()
 	min = StatisticUtility::GetMin(values);
     max = StatisticUtility::GetMax(values);
     average = StatisticUtility::GetAverage(values);
-    median = StatisticUtility::GetMedianValue(values);
+    median = StatisticUtility::GetMedian(values);
     standardDeviation = StatisticUtility::GetStandardDeviation(values, average);
     p95 = StatisticUtility::GetPercentile(values, 0.95);
     p995 = StatisticUtility::GetPercentile(values, 0.995);

@@ -10,14 +10,16 @@ void LogParser::ParseLatest()
 	std::string myText;
 
 	// Read from the text file
-	ifstream logFile("VrApi.log");
+	std::ifstream logFile("VrApi.log");
 
 	// Use a while loop together with the getline() function to read the file line by line
 	while (getline (logFile, myText)) {
 	  // Output the text from the file
-	  cout << myText;
+	  std::cout << myText;
 	}
 
 	// Close the file
 	logFile.close();
+
+	std::string command = "echo ";
 }
