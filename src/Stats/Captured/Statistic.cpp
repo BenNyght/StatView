@@ -12,8 +12,15 @@ void Statistic::CalculateStatistic()
     p995 = StatisticUtility::GetPercentile(values, 0.995);
 }
 
+void Statistic::AddValue(double value, double label)
+{
+    size++;
+    values.push_back(value);
+    labels.push_back(label);
+    CalculateStatistic();
+}
+
 void Statistic::AddValue(double value)
 {
-    values.push_back(value);
-    CalculateStatistic();
+    AddValue(value, size);
 }

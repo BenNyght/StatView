@@ -1,4 +1,6 @@
 #pragma once
+#include <iostream>
+
 #include "Captured/Statistic.h"
 
 // FPS={FPS},
@@ -30,6 +32,15 @@
 class VrApiStatistics
 {
 public:
+	VrApiStatistics(const VrApiStatistics&) = delete;
+    VrApiStatistics& operator=(const VrApiStatistics&) = delete;
+
+	static VrApiStatistics& GetInstance()
+	{
+		static VrApiStatistics instance;
+		return instance;
+	}
+
 	Statistic Fps { "FPS" };
 	Statistic PredictionTime { "Prediction", "ms" };
 	Statistic TearsInSecond { "Tears" };
@@ -52,4 +63,14 @@ public:
 	Statistic CpuPercentWorst { "Worst Core CPU Utilization" };
 
 	void MapRawStatistic(std::string);
+
+private:
+	VrApiStatistics() {
+        std::cout << "Singleton instance created!" << std::endl;
+    }
+
+    // Private destructor
+    ~VrApiStatistics() {
+        std::cout << "Singleton instance destroyed!" << std::endl;
+    }
 };

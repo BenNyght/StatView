@@ -7,17 +7,18 @@
 #include <sstream>
 
 #include "Captured/Statistic.h"
+#include "VrApiStatistics.h"
 
 void LogParser::ParseLatest()
 {
 	std::string logLine;
 	std::ifstream latestVrApiLog("resources/VrApi_TestFile.log");
 
-	Statistic statistic {"FPS", "FPS/90"};
+	auto& fps = VrApiStatistics::GetInstance().Fps;
 
 	while (getline (latestVrApiLog, logLine)) 
 	{
-		if (logLine.find("FPS") == std::string::npos) 
+		if (logLine.empty() || logLine.find("FPS") == std::string::npos) 
 		{
 			continue;
 		}
@@ -31,15 +32,20 @@ void LogParser::ParseLatest()
 			std::vector<std::string> split = Split(statisticRawValue, "=");
 			std::vector<std::string> fpsValue = Split(split[1], "/");
 		    std::cout << "Fps= " << fpsValue[0] << '\n';
-			statistic.AddValue(atof(fpsValue[0].c_str()));
+
+			double value = atof(fpsValue[0].c_str());
+			if (value > 40)
+			{
+				fps.AddValue(value);
+			}
 			break;
 		}
 	}
 
 	std::cout << "Stats " << std::endl;
-	std::cout << "Max: " << statistic.max << std::endl;
-	std::cout << "Min: " << statistic.min << std::endl;
-	std::cout << "Average: " << statistic.average << std::endl;
+	std::cout << "Max: " << fps.max << std::endl;
+	std::cout << "Min: " << fps.min << std::endl;
+	std::cout << "Average: " << fps.average << std::endl;
 
 	// Close the file
     latestVrApiLog.close();

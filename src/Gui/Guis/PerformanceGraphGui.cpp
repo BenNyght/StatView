@@ -2,6 +2,7 @@
 
 #include "imgui.h"
 #include "implot.h"
+#include "Parsing/VrApiStatistics.h"
 #include "Stats/PerformanceStats.h"
 
 PerformanceGraphGui::PerformanceGraphGui()
@@ -20,22 +21,28 @@ void PerformanceGraphGui::Draw() const
 
     DrawGraphControls(show_lines, show_fills, fill_ref, shade_mode);
 
+    auto fps = VrApiStatistics::GetInstance().Fps;
+
     if (ImPlot::BeginPlot("Performance")) 
     {
-        const auto length = PerformanceStats::frameTime.size();
-        const auto labels = PerformanceStats::label.data();
+        const size_t length = fps.size;
+        const auto labels = fps.labels;
+
+        const double range = fps.max - fps.min;
+        const double min = fps.min;
+        const double max = fps.max + (range * 0.15);
 
         ImPlot::SetupAxes("Index","Value");
-        ImPlot::SetupAxesLimits(0,length,PerformanceStats::FrameTimeMin(),PerformanceStats::FrameTimeMax());
+        ImPlot::SetupAxesLimits(0, length, min, max);
 
         if (show_fills) {
             ImPlot::PushStyleVar(ImPlotStyleVar_FillAlpha, 0.25f);
-            ImPlot::PlotShaded("Frame Time", labels, PerformanceStats::frameTime.data(), length, shade_mode == 0 ? -INFINITY : shade_mode == 1 ? INFINITY : fill_ref, 0);
+            ImPlot::PlotShaded("Frame Time", labels.data(), fps.values.data(), length, shade_mode == 0 ? -INFINITY : shade_mode == 1 ? INFINITY : fill_ref, 0);
             //ImPlot::PlotShaded("Stock 2", labels, PerformanceStats::frameTime.data(), length, shade_mode == 0 ? -INFINITY : shade_mode == 1 ? INFINITY : fill_ref, flags);
             ImPlot::PopStyleVar();
         }
         if (show_lines) {
-            ImPlot::PlotLine("Frame Time", labels, PerformanceStats::frameTime.data(), length);
+            ImPlot::PlotLine("Frame Time", labels.data(), fps.values.data(), length);
             //ImPlot::PlotLine("Stock 2", labels, PerformanceStats::frameTime.data(), length);
         }
         ImPlot::EndPlot();

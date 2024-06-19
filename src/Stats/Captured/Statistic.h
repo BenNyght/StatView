@@ -1,7 +1,9 @@
+#pragma once
+
 #include <string>
 #include <vector>
 
-struct Statistic 
+class Statistic 
 {
 public:
     Statistic() = default;
@@ -19,9 +21,12 @@ public:
     double p95;
     double p995;
 
+    size_t size;
     std::vector<double> values;
+    std::vector<double> labels;
 
 public:
     void CalculateStatistic();
     void AddValue(double value);
+    void AddValue(double value, double label);
 };
