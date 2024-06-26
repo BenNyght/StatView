@@ -1,42 +1,75 @@
 
 #include "StatsGui.h"
 
+#include <format>
+#include <iomanip>
+#include <sstream>
+
 #include "imgui.h"
+#include "Parsing/VrApiStatistics.h"
 
 void StatsGui::Draw() const
 {
 	ImGui::ShowDemoWindow();
 
-	ImGui::Begin(StatsGui::GuiName.c_str());
+	ImGui::Begin(GuiName.c_str());
 
-    static ImGuiTableFlags flags = ImGuiTableFlags_SizingFixedFit | ImGuiTableFlags_Resizable | ImGuiTableFlags_BordersOuter | ImGuiTableFlags_BordersV | ImGuiTableFlags_ContextMenuInBody;
+    static ImGuiTableFlags flags = ImGuiTableFlags_SizingStretchSame | ImGuiTableFlags_Resizable | ImGuiTableFlags_BordersOuter | ImGuiTableFlags_BordersV | ImGuiTableFlags_ContextMenuInBody;
+
+	auto statistics = VrApiStatistics::GetInstance().GetStatistics();
 
 	if (ImGui::BeginTable("Stat Table", 9, flags))
 	{
 		ImGui::TableSetupColumn("Statistic");
-		ImGui::TableSetupColumn("Minimum");
-		ImGui::TableSetupColumn("Maximum");
-		ImGui::TableSetupColumn("Average");
-		ImGui::TableSetupColumn("Median");
-		ImGui::TableSetupColumn("Standard Deviation");
-		ImGui::TableSetupColumn("95th Percentile");
-		ImGui::TableSetupColumn("99.5th Percentile");
-		ImGui::TableSetupColumn("Stat Count");
+
+		for (size_t i = 0; i < Statistic::GetIndexCount(); ++i)
+		{
+			ImGui::TableSetupColumn(Statistic::GetIndexName(i).c_str());
+		}
 		
 		ImGui::TableHeadersRow();
 
-		for (int row = 0; row < 5; row++)
+		for (size_t statisticIndex = 0; statisticIndex < statistics.size(); ++statisticIndex)
 		{
 			ImGui::TableNextRow();
-			for (int column = 0; column < 9; column++)
+
+			ImGui::TableNextColumn();
+			auto statistic = statistics[statisticIndex];
+			const bool itemIsSelected = Selection.contains(statisticIndex);
+			ImGuiSelectableFlags selectableFlags =  ImGuiSelectableFlags_SpanAllColumns | ImGuiSelectableFlags_AllowOverlap;
+            if (ImGui::Selectable(statistic.name.c_str(), itemIsSelected, selectableFlags))
+            {
+                if (ImGui::GetIO().KeyCtrl)
+                {
+                    if (itemIsSelected)
+                    {
+	                    Selection.find_erase_unsorted(statisticIndex);
+                    }
+                    else
+                    {
+	                    Selection.push_back(statisticIndex);
+                    }
+                }
+                else
+                {
+                    Selection.clear();
+                    Selection.push_back(statisticIndex);
+                }
+            }
+
+			for (size_t column = 0; column < Statistic::GetIndexCount(); column++)
 			{
 				ImGui::TableNextColumn();
-				ImGui::Text("1000.0");
+
+				std::stringstream stream;
+				stream << std::fixed << std::setprecision(2) << statistic.GetIndexValue(column);
+				std::string value = stream.str();
+				ImGui::Text("%s", value.c_str());
 			}
 		}
+
 		ImGui::EndTable();
 	}
 
     ImGui::End();
-
 }

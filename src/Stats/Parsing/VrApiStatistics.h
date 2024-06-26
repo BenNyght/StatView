@@ -62,7 +62,7 @@ public:
 	Statistic CpuPercentAverage { "Average CPU Utilization" };
 	Statistic CpuPercentWorst { "Worst Core CPU Utilization" };
 
-	void MapRawStatistic(std::string);
+	std::vector<Statistic> GetStatistics();
 
 private:
 	VrApiStatistics() {

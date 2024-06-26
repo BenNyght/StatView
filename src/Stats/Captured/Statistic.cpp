@@ -24,3 +24,58 @@ void Statistic::AddValue(double value)
 {
     AddValue(value, size);
 }
+
+size_t Statistic::GetIndexCount()
+{
+    return 8;
+}
+
+std::string Statistic::GetIndexName(const size_t index)
+{
+	switch (index)
+	{
+		case 0:
+            return "Minimum";
+        case 1:
+            return "Maximum";
+        case 2:
+            return "Average";
+        case 3:
+            return "Median";
+        case 4:
+            return "Standard Deviation";
+        case 5:
+            return "95th Percentile";
+        case 6:
+            return "99.5th Percentile";
+        case 7:
+            return "Count";
+		default:
+		    return "Unknown";
+	}
+}
+
+const double Statistic::GetIndexValue(const size_t index) const
+{
+	switch (index)
+	{
+		case 0:
+            return min;
+        case 1:
+            return max;
+        case 2:
+            return average;
+        case 3:
+            return median;
+        case 4:
+            return standardDeviation;
+        case 5:
+            return p95;
+        case 6:
+            return p995;
+        case 7:
+            return static_cast<double>(size);
+		default:
+		    return 0;
+	}
+}

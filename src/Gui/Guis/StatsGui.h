@@ -1,5 +1,6 @@
 #pragma once
 
+#include <imgui.h>
 #include <string>
 
 #include "../IDrawer.h"
@@ -10,7 +11,5 @@ public:
 	void Draw() const override;
 
 	static inline std::string GuiName = "Stats";
-
-private:
-	static void PushStyleCompact();
+	static inline ImVector<size_t> Selection {};
 };

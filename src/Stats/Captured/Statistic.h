@@ -25,8 +25,11 @@ public:
     std::vector<double> values;
     std::vector<double> labels;
 
-public:
     void CalculateStatistic();
     void AddValue(double value);
     void AddValue(double value, double label);
+
+    static size_t GetIndexCount();
+    static std::string GetIndexName(size_t index);
+    [[nodiscard]] const double GetIndexValue(size_t index) const;
 };
