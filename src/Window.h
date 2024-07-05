@@ -10,7 +10,7 @@ class Window
 public:
 	int Setup();
 	int TearDown() const;
-	void Update(bool&) const;
+	void Update(bool&);
 
 private:
 	GuiDrawer guiDrawer;

@@ -3,8 +3,6 @@
 #include <string>
 #include <iostream>
 #include <fstream>
-#include <map>
-#include <sstream>
 
 #include "Captured/Statistic.h"
 #include "VrApiStatistics.h"
@@ -31,7 +29,6 @@ void LogParser::ParseLatest()
 		{
 			std::vector<std::string> split = Split(statisticRawValue, "=");
 			std::vector<std::string> fpsValue = Split(split[1], "/");
-		    std::cout << "Fps= " << fpsValue[0] << '\n';
 
 			double value = atof(fpsValue[0].c_str());
 			if (value > 40)

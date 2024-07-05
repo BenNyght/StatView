@@ -13,7 +13,7 @@ PerformanceGraphGui::PerformanceGraphGui()
 
 void PerformanceGraphGui::Draw() const
 {
-	ImGui::Begin(PerformanceGraphGui::GuiName.c_str(), nullptr);
+	ImGui::Begin(GuiName.c_str(), nullptr);
 
     static bool show_lines = true;
     static bool show_fills = true;
@@ -94,4 +94,9 @@ void PerformanceGraphGui::DrawGraphControls(bool& showLines, bool& showFills, fl
             ImGui::DragFloat("##Ref",&fillRef, 1, -100, 500);
         }
     }
+}
+
+std::string& PerformanceGraphGui::GetName() const
+{
+	return GuiName;
 }

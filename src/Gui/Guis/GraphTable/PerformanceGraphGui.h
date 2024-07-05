@@ -1,8 +1,7 @@
 #pragma once
 
 #include <string>
-
-#include "../IDrawer.h"
+#include "Gui/IDrawer.h"
 
 class PerformanceGraphGui : public IDrawer
 {
@@ -10,6 +9,7 @@ public:
 	PerformanceGraphGui();
 
 	void Draw() const override;
+	std::string& GetName() const override;
 
 	static inline std::string GuiName = "Performance Graph";
 

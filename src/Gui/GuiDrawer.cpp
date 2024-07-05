@@ -1,6 +1,7 @@
 
 #include "GuiDrawer.h"
 
+#include <iostream>
 #include <vector>
 #include <memory>
 
@@ -8,25 +9,29 @@
 #include "imgui.h"
 #include "imgui_internal.h"
 #include "PerformanceStats.h"
-#include "Guis/HelloWorldGui.h"
-#include "Guis/PerformanceGraphGui.h"
 #include "Guis/MenuBarGui.h"
-#include "Guis/StatsGui.h"
+#include "Guis/TabGui.h"
+#include "Guis/GraphTable/PerformanceGraphGui.h"
+#include "Guis/GraphTable/StatsGui.h"
 
 GuiDrawer::GuiDrawer()
 {
     PerformanceStats::GenerateTestData();
 
-    drawers.push_back(std::make_unique<MenuBarGui>());
-    drawers.push_back(std::make_unique<PerformanceGraphGui>());
-    drawers.push_back(std::make_unique<StatsGui>());
+    AddDrawer<MenuBarGui>();
+    AddDrawer<PerformanceGraphGui>();
+    AddDrawer<StatsGui>();
+    AddDrawer<TabGui>();
+
+    AddActiveDrawer<PerformanceGraphGui>();
+    AddActiveDrawer<StatsGui>();
 }
 
-void GuiDrawer::Draw() const
+void GuiDrawer::Draw()
 {
     SetupDockBuilder();
 
-    for (const auto& drawer : drawers) 
+    for (const auto& drawer : activeDrawers) 
     {
         drawer->Draw();
     }
@@ -47,15 +52,70 @@ void GuiDrawer::SetupDockBuilder()
 
         ImGuiID dockIdMain = viewDockSpaceId;
 
-        ImGuiID dockIdDown, dockIdUp;
+        ImGuiID dockIdUp;
+        ImGuiID dockIdDown;
 
-        ImGui::DockBuilderSplitNode(dockIdMain, ImGuiDir_Up, 0.2f, &dockIdDown, &dockIdUp);
+        ImGui::DockBuilderSplitNode(dockIdMain, ImGuiDir_Up, 0.3f, &dockIdDown, &dockIdUp);
 
-        ImGui::DockBuilderGetNode(dockIdUp)->LocalFlags |= ImGuiDockNodeFlags_NoTabBar; // Lock the performance gui in place
-        ImGui::DockBuilderDockWindow(PerformanceGraphGui::GuiName.c_str(), dockIdUp);
-
-        ImGui::DockBuilderDockWindow(StatsGui::GuiName.c_str(), dockIdDown);
+        DockDrawer<PerformanceGraphGui>(dockIdUp, ImGuiDockNodeFlags_NoTabBar);
+        DockDrawer<StatsGui>(dockIdDown, ImGuiDockNodeFlags_NoTabBar);
 
         ImGui::DockBuilderFinish(dockIdMain); // Finish the docking setup
     }
+}
+
+template <typename TDrawer>
+void GuiDrawer::DockDrawer(ImGuiID dockId, ImGuiDockNodeFlags dockFlags)
+{
+	ImGui::DockBuilderGetNode(dockId)->LocalFlags |= dockFlags; // Flags "ImGuiDockNodeFlags_NoTabBar" locks the GUI in place and undock-able
+	ImGui::DockBuilderDockWindow(TDrawer::GuiName.c_str(), dockId);
+}
+
+template <typename TDrawer>
+void GuiDrawer::AddDockedDrawer(ImGuiID dockId)
+{
+	drawers.push_back(std::make_shared<TDrawer>());
+    ImGui::DockBuilderDockWindow(TDrawer::GuiName.c_str(), dockId);
+}
+
+template <typename TDrawer>
+void GuiDrawer::AddDrawer()
+{
+	drawers.push_back(std::make_shared<TDrawer>());
+}
+
+template <typename TDrawer>
+void GuiDrawer::AddActiveDrawer()
+{
+    for (const auto& drawer : activeDrawers) 
+    {
+        auto foundDrawer = dynamic_cast<TDrawer*>(drawer.get());
+        if (foundDrawer != nullptr) 
+        {
+            return;
+        }
+    }
+
+    for (const auto& drawer : drawers) 
+    {
+        auto foundDrawer = dynamic_cast<TDrawer*>(drawer.get());
+        if (foundDrawer != nullptr) 
+        {
+            activeDrawers.push_back(drawer);
+            break;
+        }
+    }
+}
+
+template <typename TDrawer>
+void GuiDrawer::RemoveActiveDrawer()
+{
+	for (int i = 0; i < activeDrawers.size(); ++i)
+	{
+		auto foundDrawer = dynamic_cast<TDrawer*>(activeDrawers[i].get());
+        if (foundDrawer != nullptr) 
+        {
+            activeDrawers.erase(activeDrawers.begin() + i);
+        }
+	}
 }

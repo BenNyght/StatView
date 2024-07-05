@@ -9,3 +9,8 @@ void HelloWorldGui::Draw() const
     ImGui::Text("This is some useful text.");
     ImGui::End();
 }
+
+std::string& HelloWorldGui::GetName() const
+{
+	return GuiName;
+}

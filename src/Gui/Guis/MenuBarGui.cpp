@@ -19,3 +19,8 @@ void MenuBarGui::Draw() const
         ImGui::EndMainMenuBar();
     }
 }
+
+std::string& MenuBarGui::GetName() const
+{
+	return GuiName;
+}

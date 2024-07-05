@@ -68,8 +68,6 @@ int Window::Setup()
     ImGui_ImplSDL2_InitForOpenGL(window, gl_context);
     ImGui_ImplOpenGL3_Init(glsl_version);
 
-    guiDrawer = {};
-
     return 0;
 }
 
@@ -88,7 +86,7 @@ int Window::TearDown() const
     return 0;
 }
 
-void Window::Update(bool& done) const
+void Window::Update(bool& done)
 {
     // Poll and handle events (inputs, window resize, etc.)
     SDL_Event event;

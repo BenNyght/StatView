@@ -4,11 +4,11 @@
 
 #include "../IDrawer.h"
 
-class HelloWorldGui : public IDrawer
+class TabGui : public IDrawer
 {
 public:
 	void Draw() const override;
 	std::string& GetName() const override;
 
-	static inline std::string GuiName = "Hello World";
+	static inline std::string GuiName = "Tab";
 };

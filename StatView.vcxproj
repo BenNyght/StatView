@@ -423,21 +423,23 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="D:\dev\StatView\StatView\src\Gui\GuiDrawer.cpp" />
+    <ClCompile Include="src\Gui\Guis\TabGui.cpp" />
     <ClCompile Include="src\Stats\Parsing\VrApiStatistics.cpp" />
     <ClInclude Include="D:\dev\StatView\StatView\src\Gui\GuiDrawer.h" />
     <ClCompile Include="D:\dev\StatView\StatView\src\Gui\Guis\HelloWorldGui.cpp" />
     <ClInclude Include="D:\dev\StatView\StatView\src\Gui\Guis\HelloWorldGui.h" />
     <ClCompile Include="D:\dev\StatView\StatView\src\Gui\Guis\MenuBarGui.cpp" />
     <ClInclude Include="D:\dev\StatView\StatView\src\Gui\Guis\MenuBarGui.h" />
-    <ClCompile Include="D:\dev\StatView\StatView\src\Gui\Guis\PerformanceGraphGui.cpp" />
-    <ClInclude Include="D:\dev\StatView\StatView\src\Gui\Guis\PerformanceGraphGui.h" />
-    <ClCompile Include="D:\dev\StatView\StatView\src\Gui\Guis\StatsGui.cpp" />
-    <ClInclude Include="D:\dev\StatView\StatView\src\Gui\Guis\StatsGui.h" />
+    <ClCompile Include="src\Gui\Guis\GraphTable\PerformanceGraphGui.cpp" />
+    <ClInclude Include="src\Gui\Guis\GraphTable\PerformanceGraphGui.h" />
+    <ClCompile Include="src\Gui\Guis\GraphTable\StatsGui.cpp" />
+    <ClInclude Include="src\Gui\Guis\GraphTable\StatsGui.h" />
     <ClInclude Include="D:\dev\StatView\StatView\src\Gui\IDrawer.h" />
     <ClCompile Include="D:\dev\StatView\StatView\src\StatView.cpp" />
     <ClCompile Include="D:\dev\StatView\StatView\src\Stats\Captured\Statistic.cpp" />
     <ClInclude Include="D:\dev\StatView\StatView\src\Stats\Captured\Statistic.h" />
     <ClCompile Include="src\Stats\Parsing\LogParser.cpp" />
+    <ClInclude Include="src\Gui\Guis\TabGui.h" />
     <ClInclude Include="src\Stats\Parsing\LogParser.h" />
     <ClCompile Include="D:\dev\StatView\StatView\src\Stats\PerformanceStats.cpp" />
     <ClInclude Include="D:\dev\StatView\StatView\src\Stats\PerformanceStats.h" />

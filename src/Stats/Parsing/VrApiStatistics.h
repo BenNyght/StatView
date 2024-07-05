@@ -65,12 +65,14 @@ public:
 	std::vector<Statistic> GetStatistics();
 
 private:
-	VrApiStatistics() {
-        std::cout << "Singleton instance created!" << std::endl;
+	VrApiStatistics()
+	{
+        //std::cout << "Singleton instance created!" << std::endl;
     }
 
     // Private destructor
-    ~VrApiStatistics() {
-        std::cout << "Singleton instance destroyed!" << std::endl;
+    ~VrApiStatistics()
+	{
+        //std::cout << "Singleton instance destroyed!" << std::endl;
     }
 };
