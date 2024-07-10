@@ -20,19 +20,19 @@ void PerformanceGraphGui::Draw() const
 	for (const size_t selection : StatsGui::Selection)
 	{
 		auto statistic = statistics[selection];
-        if (statistic.size == 0)
+        if (statistic->size == 0)
         {
 	        continue;
         }
 
-        if (ImPlot::BeginPlot(statistic.name.c_str())) 
+        const size_t length = statistic->size;
+        if (ImPlot::BeginPlot((statistic->name + std::to_string(length)).c_str())) 
 	    {
-	        const size_t length = statistic.size;
-	        const auto labels = statistic.labels;
+	        const auto labels = statistic->labels;
 
-	        const double range = statistic.max - statistic.min;
-	        const double min = statistic.min;
-	        const double max = statistic.max + (range * 0.15);
+	        const double range = statistic->max - statistic->min;
+	        const double min = statistic->min;
+	        const double max = statistic->max + (range * 0.15);
 
 	        ImPlot::SetupAxes("Index","Value");
 	        ImPlot::SetupAxesLimits(0, length, min, max);
@@ -40,14 +40,14 @@ void PerformanceGraphGui::Draw() const
 	        if (show_fills) 
             {
 	            ImPlot::PushStyleVar(ImPlotStyleVar_FillAlpha, 0.25f);
-	            ImPlot::PlotShaded((statistic.name + "_1").c_str(), labels.data(), statistic.values.data(), length, shade_mode == 0 ? -INFINITY : shade_mode == 1 ? INFINITY : fill_ref, 0);
+	            ImPlot::PlotShaded((statistic->name + "_1").c_str(), labels.data(), statistic->values.data(), length, shade_mode == 0 ? -INFINITY : shade_mode == 1 ? INFINITY : fill_ref, 0);
 	            //ImPlot::PlotShaded("Stock 2", labels, PerformanceStats::frameTime.data(), length, shade_mode == 0 ? -INFINITY : shade_mode == 1 ? INFINITY : fill_ref, flags);
 	            ImPlot::PopStyleVar();
 	        }
 
 	        if (show_lines) 
             {
-	            ImPlot::PlotLine((statistic.name + "_1").c_str(), labels.data(), statistic.values.data(), length);
+	            ImPlot::PlotLine((statistic->name + "_1").c_str(), labels.data(), statistic->values.data(), length);
 	            //ImPlot::PlotLine("Stock 2", labels, PerformanceStats::frameTime.data(), length);
 	        }
 	        ImPlot::EndPlot();

@@ -14,7 +14,7 @@ int main(int, char**)
     }
 
     LogParser parser { };
-	parser.ParseLatest();
+    LogParser::ProcessLatest();
 
  //   const std::string adbCommand = "adb logcat -d -s VrApi > ";
  //   std::string file = "VrApi.log";
@@ -27,6 +27,7 @@ int main(int, char**)
     bool done = false;
     while (!done)
     {
+        LogParser::Process(300);
         window.Update(done);
     }
 

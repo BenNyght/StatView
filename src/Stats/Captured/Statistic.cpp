@@ -17,7 +17,6 @@ void Statistic::AddValue(double value, double label)
     size++;
     values.push_back(value);
     labels.push_back(label);
-    CalculateStatistic();
 }
 
 void Statistic::AddValue(double value)

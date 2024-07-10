@@ -84,7 +84,7 @@ double StatisticUtility::GetMin(const std::vector<double>& samples)
         return 0.0;
     }
 
-    return *std::min_element(samples.begin(), samples.end());
+    return *std::ranges::min_element(samples.begin(), samples.end());
 }
 
 double StatisticUtility::GetMax(const std::vector<double>& samples)
@@ -94,7 +94,7 @@ double StatisticUtility::GetMax(const std::vector<double>& samples)
         return 0.0;
     }
 
-    return *std::max_element(samples.begin(), samples.end());
+    return *std::ranges::max_element(samples);
 }
 
 double StatisticUtility::GetAverage(const std::vector<double>& samples)

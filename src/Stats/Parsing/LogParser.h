@@ -64,12 +64,20 @@
 #include <vector>
 #include <xstring>
 
+#include "VrApiStatistics.h"
+#include "Captured/Statistic.h"
+
 class LogParser
 {
 public:
-	void ParseLatest();
+	static void ProcessLatest();
+	static void Process(int numberOfLinesToProcess);
 
 private:
 	static std::vector<std::string> Split(const std::string& search, const std::string& delimiter);
+	static void ParseVrApi(const std::string& logLine, VrApiStatistics* statistics);
+	static bool Contains(const std::string& search, const std::vector<std::string>& containsList);
 	static bool Contains(const std::string& search, const std::string& contains);
+
+	static std::ifstream parsingLog;
 };

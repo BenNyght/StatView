@@ -35,14 +35,14 @@ void StatsGui::Draw() const
 
 			ImGui::TableNextColumn();
 			auto statistic = statistics[statisticIndex];
-			if (statistic.size == 0)
+			if (statistic->size == 0)
 			{
 				continue;
 			}
 
 			const bool itemIsSelected = Selection.contains(statisticIndex);
 			ImGuiSelectableFlags selectableFlags =  ImGuiSelectableFlags_SpanAllColumns | ImGuiSelectableFlags_AllowOverlap;
-            if (ImGui::Selectable(statistic.name.c_str(), itemIsSelected, selectableFlags))
+            if (ImGui::Selectable(statistic->name.c_str(), itemIsSelected, selectableFlags))
             {
                 if (ImGui::GetIO().KeyCtrl)
                 {
@@ -67,7 +67,7 @@ void StatsGui::Draw() const
 				ImGui::TableNextColumn();
 
 				std::stringstream stream;
-				stream << std::fixed << std::setprecision(2) << statistic.GetIndexValue(column);
+				stream << std::fixed << std::setprecision(2) << statistic->GetIndexValue(column);
 				std::string value = stream.str();
 				ImGui::Text("%s", value.c_str());
 			}

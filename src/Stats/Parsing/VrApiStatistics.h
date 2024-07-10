@@ -9,7 +9,7 @@
 // EarlyFrameCount={EarlyFrameCount},
 // StaleFrameCount={StaleFrameCount},
 // VSnc={Swap Interval},
-// LatencyMode={Extra Latency Mode},
+// ExtraLatencyMode={Extra Latency Mode},
 // FoveationLevel={Foveation Level},
 // CPU{Measured CPU Core}/GPU={CPU Level}/{GPU Level}, - TODO Map Individual CPU and GPU
 // {CPU Frequency}/{GPU Frequency}MHz, - TODO Map Individual CPU and GPU
@@ -42,13 +42,16 @@ public:
 	}
 
 	Statistic Fps { "FPS" };
+	Statistic FpsWithASW { "FPS w/Generated Frames" };
 	Statistic PredictionTime { "Prediction", "ms" };
 	Statistic TearsInSecond { "Tears" };
 	Statistic EarlyFrameCount { "EarlyFrameCount" };
 	Statistic StaleFrameCount { "StaleFrameCount" };
 	Statistic VSyncCount { "Swap Interval" };
-	Statistic LatencyMode { "Extra Latency Mode" };
+	Statistic ExtraLatencyMode { "Extra Latency Mode" };
 	Statistic FoveationLevel { "Foveation Level" };
+	Statistic CpuLevel { "CPU Level (Main Core)" };
+	Statistic GpuLevel { "GPU Level (Main Core)" };
 	Statistic MemoryFrequency { "Memory Frequency", "MHz" };
 	Statistic AvailableMemory { "Available Memory", "MB" };
 	Statistic PowerLevel { "Power Level" };
@@ -61,18 +64,25 @@ public:
 	Statistic GpuPercent { "GPU Utilization" };
 	Statistic CpuPercentAverage { "Average CPU Utilization" };
 	Statistic CpuPercentWorst { "Worst Core CPU Utilization" };
+	Statistic DisplayProcessingUnit { "Display Processing Unit" };
+	Statistic MinimumCompositorFrameLatency { "Minimum Compositor Frame Latency" };
+	Statistic MaximumCompositorFrameLatency { "Maximum Compositor Frame Latency" };
+	Statistic PercentileCompositorFrameLatency { "95th Percentile Compositor Frame Latency" };
+	Statistic LocalDimming { "Local Dimming" };
+	Statistic ScaleFactor { "Scale Factor" };
+	Statistic LowPowerMode { "Low Power Mode" };
 
-	std::vector<Statistic> GetStatistics();
+	std::vector<Statistic*> GetStatistics();
 
 private:
 	VrApiStatistics()
 	{
-        //std::cout << "Singleton instance created!" << std::endl;
+        std::cout << "Singleton instance created!" << std::endl;
     }
 
     // Private destructor
     ~VrApiStatistics()
 	{
-        //std::cout << "Singleton instance destroyed!" << std::endl;
+        std::cout << "Singleton instance destroyed!" << std::endl;
     }
 };
