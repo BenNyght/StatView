@@ -441,8 +441,6 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="src\Stats\Parsing\LogParser.cpp" />
     <ClInclude Include="src\Gui\Guis\TabGui.h" />
     <ClInclude Include="src\Stats\Parsing\LogParser.h" />
-    <ClCompile Include="D:\dev\StatView\StatView\src\Stats\PerformanceStats.cpp" />
-    <ClInclude Include="D:\dev\StatView\StatView\src\Stats\PerformanceStats.h" />
     <ClCompile Include="D:\dev\StatView\StatView\src\Stats\StatisticUtility.cpp" />
     <ClInclude Include="D:\dev\StatView\StatView\src\Stats\StatisticUtility.h" />
     <ClInclude Include="D:\dev\StatView\StatView\src\Utility\Random.h" />

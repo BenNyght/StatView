@@ -4,12 +4,6 @@
 #include "implot.h"
 #include "StatsGui.h"
 #include "Parsing/VrApiStatistics.h"
-#include "Stats/PerformanceStats.h"
-
-PerformanceGraphGui::PerformanceGraphGui()
-{
-    PerformanceStats::GenerateTestData();
-}
 
 void PerformanceGraphGui::Draw() const
 {

@@ -6,8 +6,6 @@
 class PerformanceGraphGui : public IDrawer
 {
 public:
-	PerformanceGraphGui();
-
 	void Draw() const override;
 	std::string& GetName() const override;
 

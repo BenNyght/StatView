@@ -8,7 +8,6 @@
 #include "IDrawer.h"
 #include "imgui.h"
 #include "imgui_internal.h"
-#include "PerformanceStats.h"
 #include "Guis/MenuBarGui.h"
 #include "Guis/TabGui.h"
 #include "Guis/GraphTable/PerformanceGraphGui.h"
@@ -16,8 +15,6 @@
 
 GuiDrawer::GuiDrawer()
 {
-    PerformanceStats::GenerateTestData();
-
     AddDrawer<MenuBarGui>();
     AddDrawer<PerformanceGraphGui>();
     AddDrawer<StatsGui>();
