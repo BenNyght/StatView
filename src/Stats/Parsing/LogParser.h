@@ -66,6 +66,7 @@
 
 #include "VrApiStatistics.h"
 #include "Captured/Statistic.h"
+#include "Progress/ProgressItem.h"
 
 class LogParser
 {
@@ -79,5 +80,11 @@ private:
 	static bool Contains(const std::string& search, const std::vector<std::string>& containsList);
 	static bool Contains(const std::string& search, const std::string& contains);
 
+	static void OpenFile(std::string path);
+	static void CloseFile();
+
+	static std::string parsingPath;
+	static int parsingLine;
 	static std::ifstream parsingLog;
+	static std::shared_ptr<ProgressItem> progressItem;
 };

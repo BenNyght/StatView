@@ -9,6 +9,7 @@
 #include "imgui.h"
 #include "imgui_internal.h"
 #include "Guis/MenuBarGui.h"
+#include "Guis/ProgressGui.h"
 #include "Guis/TabGui.h"
 #include "Guis/GraphTable/PerformanceGraphGui.h"
 #include "Guis/GraphTable/StatsGui.h"
@@ -19,9 +20,11 @@ GuiDrawer::GuiDrawer()
     AddDrawer<PerformanceGraphGui>();
     AddDrawer<StatsGui>();
     AddDrawer<TabGui>();
+    AddDrawer<ProgressGui>();
 
     AddActiveDrawer<PerformanceGraphGui>();
     AddActiveDrawer<StatsGui>();
+	AddActiveDrawer<ProgressGui>();
 }
 
 void GuiDrawer::Draw()
@@ -52,7 +55,7 @@ void GuiDrawer::SetupDockBuilder()
         ImGuiID dockIdUp;
         ImGuiID dockIdDown;
 
-        ImGui::DockBuilderSplitNode(dockIdMain, ImGuiDir_Up, 0.3f, &dockIdDown, &dockIdUp);
+        ImGui::DockBuilderSplitNode(dockIdMain, ImGuiDir_Up, 0.5f, &dockIdDown, &dockIdUp);
 
         DockDrawer<PerformanceGraphGui>(dockIdUp, ImGuiDockNodeFlags_NoTabBar);
         DockDrawer<StatsGui>(dockIdDown, ImGuiDockNodeFlags_NoTabBar);

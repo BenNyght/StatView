@@ -423,8 +423,13 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="D:\dev\StatView\StatView\src\Gui\GuiDrawer.cpp" />
+    <ClCompile Include="src\Gui\Guis\ProgressGui.cpp" />
     <ClCompile Include="src\Gui\Guis\TabGui.cpp" />
+    <ClCompile Include="src\Gui\ImGui\BufferingBar.cpp" />
+    <ClCompile Include="src\Gui\ImGui\LoadingText.cpp" />
+    <ClCompile Include="src\Gui\ImGui\Spinner.cpp" />
     <ClCompile Include="src\Stats\Parsing\VrApiStatistics.cpp" />
+    <ClCompile Include="src\Utility\Progress\ProgressHandler.cpp" />
     <ClInclude Include="D:\dev\StatView\StatView\src\Gui\GuiDrawer.h" />
     <ClCompile Include="D:\dev\StatView\StatView\src\Gui\Guis\HelloWorldGui.cpp" />
     <ClInclude Include="D:\dev\StatView\StatView\src\Gui\Guis\HelloWorldGui.h" />
@@ -439,7 +444,9 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="D:\dev\StatView\StatView\src\Stats\Captured\Statistic.cpp" />
     <ClInclude Include="D:\dev\StatView\StatView\src\Stats\Captured\Statistic.h" />
     <ClCompile Include="src\Stats\Parsing\LogParser.cpp" />
+    <ClInclude Include="src\Gui\Guis\ProgressGui.h" />
     <ClInclude Include="src\Gui\Guis\TabGui.h" />
+    <ClInclude Include="src\Gui\ImGui\ImGuiExtensions.h" />
     <ClInclude Include="src\Stats\Parsing\LogParser.h" />
     <ClCompile Include="D:\dev\StatView\StatView\src\Stats\StatisticUtility.cpp" />
     <ClInclude Include="D:\dev\StatView\StatView\src\Stats\StatisticUtility.h" />
@@ -449,6 +456,8 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="D:\dev\StatView\StatView\include\imgui_impl_opengl3.cpp" />
     <ClCompile Include="D:\dev\StatView\StatView\include\imgui_impl_sdl2.cpp" />
     <ClInclude Include="src\Stats\Parsing\VrApiStatistics.h" />
+    <ClInclude Include="src\Utility\Progress\ProgressHandler.h" />
+    <ClInclude Include="src\Utility\Progress\ProgressItem.h" />
     <Natvis Include="D:\dev\StatView\StatView\vcpkg\installed\x64-windows\share\nlohmann_json\nlohmann_json.natvis">
     </Natvis>
   </ItemGroup>

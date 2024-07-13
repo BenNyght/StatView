@@ -1,5 +1,7 @@
 #include "PerformanceGraphGui.h"
 
+#include <format>
+
 #include "imgui.h"
 #include "implot.h"
 #include "StatsGui.h"
@@ -26,7 +28,8 @@ void PerformanceGraphGui::Draw() const
         }
 
         const size_t length = statistic->size;
-        if (ImPlot::BeginPlot((statistic->name + std::to_string(length)).c_str())) 
+        std::string title = std::format("{} (Count: {})", statistic->name, length);
+        if (ImPlot::BeginPlot(title.c_str())) 
 	    {
 	        const auto labels = statistic->labels;
 
