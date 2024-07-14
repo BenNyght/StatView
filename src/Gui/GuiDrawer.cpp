@@ -5,36 +5,48 @@
 #include <vector>
 #include <memory>
 
-#include "IDrawer.h"
+#include "Drawer.h"
 #include "imgui.h"
 #include "imgui_internal.h"
+#include "Guis/ImGuiDemoGui.h"
 #include "Guis/MenuBarGui.h"
 #include "Guis/ProgressGui.h"
 #include "Guis/TabGui.h"
 #include "Guis/GraphTable/PerformanceGraphGui.h"
 #include "Guis/GraphTable/StatsGui.h"
 
-GuiDrawer::GuiDrawer()
+void GuiDrawer::Draw()
 {
-    AddDrawer<MenuBarGui>();
+    SetupGuis();
+    SetupDockBuilder();
+
+    for (int i = 0; i < activeDrawers.size(); ++i)
+    {
+	    activeDrawers[i]->Draw();
+    }
+}
+
+void GuiDrawer::SetupGuis()
+{
+    static bool guisSetup = false;
+    if (guisSetup)
+    {
+	    return;
+    }
+
+    guisSetup = true;
+
+	AddDrawer<MenuBarGui>();
     AddDrawer<PerformanceGraphGui>();
     AddDrawer<StatsGui>();
     AddDrawer<TabGui>();
     AddDrawer<ProgressGui>();
+    AddDrawer<ImGuiDemoGui>();
 
+    AddActiveDrawer<MenuBarGui>();
     AddActiveDrawer<PerformanceGraphGui>();
     AddActiveDrawer<StatsGui>();
 	AddActiveDrawer<ProgressGui>();
-}
-
-void GuiDrawer::Draw()
-{
-    SetupDockBuilder();
-
-    for (const auto& drawer : activeDrawers) 
-    {
-        drawer->Draw();
-    }
 }
 
 void GuiDrawer::SetupDockBuilder()
@@ -42,26 +54,33 @@ void GuiDrawer::SetupDockBuilder()
     ImGuiID viewDockSpaceId = ImGui::DockSpaceOverViewport(0, ImGui::GetMainViewport(), ImGuiDockNodeFlags_None);
 
     static bool dockSpaceSetup = false;
-    if (!dockSpaceSetup) 
+    if (dockSpaceSetup) 
     {
-        dockSpaceSetup = true;
-
-        ImGui::DockBuilderRemoveNode(viewDockSpaceId);
-        ImGui::DockBuilderAddNode(viewDockSpaceId, ImGuiDockNodeFlags_DockSpace);
-        ImGui::DockBuilderSetNodeSize(viewDockSpaceId, ImGui::GetMainViewport()->Size);
-
-        ImGuiID dockIdMain = viewDockSpaceId;
-
-        ImGuiID dockIdUp;
-        ImGuiID dockIdDown;
-
-        ImGui::DockBuilderSplitNode(dockIdMain, ImGuiDir_Up, 0.5f, &dockIdDown, &dockIdUp);
-
-        DockDrawer<PerformanceGraphGui>(dockIdUp, ImGuiDockNodeFlags_NoTabBar);
-        DockDrawer<StatsGui>(dockIdDown, ImGuiDockNodeFlags_NoTabBar);
-
-        ImGui::DockBuilderFinish(dockIdMain); // Finish the docking setup
+        return;
     }
+
+    dockSpaceSetup = true;
+
+    ImGui::DockBuilderRemoveNode(viewDockSpaceId);
+    ImGui::DockBuilderAddNode(viewDockSpaceId, ImGuiDockNodeFlags_DockSpace);
+    ImGui::DockBuilderSetNodeSize(viewDockSpaceId, ImGui::GetMainViewport()->Size);
+
+    ImGuiID dockIdMain = viewDockSpaceId;
+
+    ImGuiID dockIdUp;
+    ImGuiID dockIdDown;
+
+    ImGui::DockBuilderSplitNode(dockIdMain, ImGuiDir_Up, 0.5f, &dockIdDown, &dockIdUp);
+
+    DockDrawer<PerformanceGraphGui>(dockIdUp, ImGuiDockNodeFlags_NoTabBar);
+    DockDrawer<StatsGui>(dockIdDown, ImGuiDockNodeFlags_NoTabBar);
+
+    ImGui::DockBuilderFinish(dockIdMain); // Finish the docking setup
+}
+
+std::shared_ptr<GuiDrawer> GuiDrawer::GuiDrawerInstance()
+{
+	return shared_from_this();
 }
 
 template <typename TDrawer>
@@ -74,48 +93,16 @@ void GuiDrawer::DockDrawer(ImGuiID dockId, ImGuiDockNodeFlags dockFlags)
 template <typename TDrawer>
 void GuiDrawer::AddDockedDrawer(ImGuiID dockId)
 {
-	drawers.push_back(std::make_shared<TDrawer>());
+    std::shared_ptr<TDrawer> drawer = std::make_shared<TDrawer>();
+    drawer->guiDrawer = GuiDrawerInstance();
+	drawers.push_back(drawer);
     ImGui::DockBuilderDockWindow(TDrawer::GuiName.c_str(), dockId);
 }
 
 template <typename TDrawer>
 void GuiDrawer::AddDrawer()
 {
-	drawers.push_back(std::make_shared<TDrawer>());
-}
-
-template <typename TDrawer>
-void GuiDrawer::AddActiveDrawer()
-{
-    for (const auto& drawer : activeDrawers) 
-    {
-        auto foundDrawer = dynamic_cast<TDrawer*>(drawer.get());
-        if (foundDrawer != nullptr) 
-        {
-            return;
-        }
-    }
-
-    for (const auto& drawer : drawers) 
-    {
-        auto foundDrawer = dynamic_cast<TDrawer*>(drawer.get());
-        if (foundDrawer != nullptr) 
-        {
-            activeDrawers.push_back(drawer);
-            break;
-        }
-    }
-}
-
-template <typename TDrawer>
-void GuiDrawer::RemoveActiveDrawer()
-{
-	for (int i = 0; i < activeDrawers.size(); ++i)
-	{
-		auto foundDrawer = dynamic_cast<TDrawer*>(activeDrawers[i].get());
-        if (foundDrawer != nullptr) 
-        {
-            activeDrawers.erase(activeDrawers.begin() + i);
-        }
-	}
+    std::shared_ptr<TDrawer> drawer = std::make_shared<TDrawer>();
+    drawer->guiDrawer = GuiDrawerInstance();
+	drawers.push_back(drawer);
 }

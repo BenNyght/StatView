@@ -10,8 +10,6 @@
 
 void StatsGui::Draw() const
 {
-	ImGui::ShowDemoWindow();
-
 	ImGui::Begin(GuiName.c_str());
 
     static ImGuiTableFlags flags = ImGuiTableFlags_SizingStretchSame | ImGuiTableFlags_Resizable | ImGuiTableFlags_BordersOuter | ImGuiTableFlags_BordersV | ImGuiTableFlags_ContextMenuInBody;

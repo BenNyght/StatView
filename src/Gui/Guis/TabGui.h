@@ -2,9 +2,9 @@
 
 #include <string>
 
-#include "../IDrawer.h"
+#include "../Drawer.h"
 
-class TabGui : public IDrawer
+class TabGui : public Drawer
 {
 public:
 	void Draw() const override;

@@ -423,6 +423,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="D:\dev\StatView\StatView\src\Gui\GuiDrawer.cpp" />
+    <ClCompile Include="src\Gui\Guis\ImGuiDemoGui.cpp" />
     <ClCompile Include="src\Gui\Guis\ProgressGui.cpp" />
     <ClCompile Include="src\Gui\Guis\TabGui.cpp" />
     <ClCompile Include="src\Gui\ImGui\BufferingBar.cpp" />
@@ -439,11 +440,12 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="src\Gui\Guis\GraphTable\PerformanceGraphGui.h" />
     <ClCompile Include="src\Gui\Guis\GraphTable\StatsGui.cpp" />
     <ClInclude Include="src\Gui\Guis\GraphTable\StatsGui.h" />
-    <ClInclude Include="D:\dev\StatView\StatView\src\Gui\IDrawer.h" />
+    <ClInclude Include="src\Gui\Drawer.h" />
     <ClCompile Include="D:\dev\StatView\StatView\src\StatView.cpp" />
     <ClCompile Include="D:\dev\StatView\StatView\src\Stats\Captured\Statistic.cpp" />
     <ClInclude Include="D:\dev\StatView\StatView\src\Stats\Captured\Statistic.h" />
     <ClCompile Include="src\Stats\Parsing\LogParser.cpp" />
+    <ClInclude Include="src\Gui\Guis\ImGuiDemoGui.h" />
     <ClInclude Include="src\Gui\Guis\ProgressGui.h" />
     <ClInclude Include="src\Gui\Guis\TabGui.h" />
     <ClInclude Include="src\Gui\ImGui\ImGuiExtensions.h" />

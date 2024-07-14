@@ -3,9 +3,9 @@
 #include <imgui.h>
 #include <string>
 
-#include "Gui/IDrawer.h"
+#include "Gui/Drawer.h"
 
-class StatsGui : public IDrawer
+class StatsGui : public Drawer
 {
 public:
 	void Draw() const override;

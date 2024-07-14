@@ -1,9 +1,9 @@
 #pragma once
 
 #include <string>
-#include "Gui/IDrawer.h"
+#include "Gui/Drawer.h"
 
-class PerformanceGraphGui : public IDrawer
+class PerformanceGraphGui : public Drawer
 {
 public:
 	void Draw() const override;

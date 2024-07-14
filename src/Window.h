@@ -13,7 +13,7 @@ public:
 	void Update(bool&);
 
 private:
-	GuiDrawer guiDrawer;
+	std::shared_ptr<GuiDrawer> guiDrawer = std::make_shared<GuiDrawer>();
 	SDL_Window* window;
 	SDL_GLContext gl_context;
 };

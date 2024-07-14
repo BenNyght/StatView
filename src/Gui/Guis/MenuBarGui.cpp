@@ -2,6 +2,8 @@
 #include "MenuBarGui.h"
 
 #include "imgui.h"
+#include "ImGuiDemoGui.h"
+#include "Gui/GuiDrawer.h"
 
 void MenuBarGui::Draw() const
 {
@@ -12,6 +14,11 @@ void MenuBarGui::Draw() const
             if (ImGui::MenuItem("Open New Window")) 
             {
                 // Handle opening a new window (set a flag or call a function to open a window)
+            }
+
+            if (ImGui::MenuItem("ImGui Demo Window")) 
+            {
+                guiDrawer->ToggleActiveDrawer<ImGuiDemoGui>();
             }
             ImGui::EndMenu();
         }
