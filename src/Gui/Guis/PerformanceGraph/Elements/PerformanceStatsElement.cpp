@@ -1,5 +1,5 @@
 
-#include "StatsGui.h"
+#include "PerformanceStatsElement.h"
 
 #include <format>
 #include <iomanip>
@@ -8,10 +8,13 @@
 #include "imgui.h"
 #include "Parsing/VrApiStatistics.h"
 
-void StatsGui::Draw() const
+PerformanceStatsElement::PerformanceStatsElement()
 {
-	ImGui::Begin(GuiName.c_str());
 
+}
+
+void PerformanceStatsElement::Draw() const
+{
     static ImGuiTableFlags flags = ImGuiTableFlags_SizingStretchSame | ImGuiTableFlags_Resizable | ImGuiTableFlags_BordersOuter | ImGuiTableFlags_BordersV | ImGuiTableFlags_ContextMenuInBody;
 
 	auto statistics = VrApiStatistics::GetInstance().GetStatistics();
@@ -38,7 +41,7 @@ void StatsGui::Draw() const
 				continue;
 			}
 
-			const bool itemIsSelected = Selection.contains(statisticIndex);
+			const bool itemIsSelected = selection.contains(statisticIndex);
 			ImGuiSelectableFlags selectableFlags =  ImGuiSelectableFlags_SpanAllColumns | ImGuiSelectableFlags_AllowOverlap;
             if (ImGui::Selectable(statistic->name.c_str(), itemIsSelected, selectableFlags))
             {
@@ -46,17 +49,17 @@ void StatsGui::Draw() const
                 {
                     if (itemIsSelected)
                     {
-	                    Selection.find_erase_unsorted(statisticIndex);
+	                    selection.find_erase_unsorted(statisticIndex);
                     }
                     else
                     {
-	                    Selection.push_back(statisticIndex);
+	                    selection.push_back(statisticIndex);
                     }
                 }
                 else
                 {
-                    Selection.clear();
-                    Selection.push_back(statisticIndex);
+                    selection.clear();
+                    selection.push_back(statisticIndex);
                 }
             }
 
@@ -73,11 +76,4 @@ void StatsGui::Draw() const
 
 		ImGui::EndTable();
 	}
-
-    ImGui::End();
-}
-
-std::string& StatsGui::GetName() const
-{
-	return GuiName;
 }
