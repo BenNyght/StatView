@@ -6,11 +6,12 @@
 #include <vector>
 
 #include "Drawer.h"
+#include "Update/Implementations/IDraw.h"
 
-class GuiDrawer : public std::enable_shared_from_this<GuiDrawer>
+class GuiDrawer : public std::enable_shared_from_this<GuiDrawer>, IDraw
 {
 public:
-	void Draw();
+	void Draw() override;
 
 	static inline std::string GuiName = "Main Window";
 

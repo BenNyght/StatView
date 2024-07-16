@@ -60,31 +60,27 @@
 
 #pragma once
 
-#include <vector>
-#include <vector>
+#include <fstream>
 #include <xstring>
 
 #include "VrApiStatistics.h"
-#include "Captured/Statistic.h"
 #include "Progress/ProgressItem.h"
+#include "Update/Implementations/IUpdate.h"
 
-class LogParser
+class LogParser : IUpdate
 {
 public:
-	static void ProcessLatest();
-	static void Process(int numberOfLinesToProcess);
+	void ProcessLatest();
+	void Update() override;
 
 private:
-	static std::vector<std::string> Split(const std::string& search, const std::string& delimiter);
 	static void ParseVrApi(const std::string& logLine, VrApiStatistics* statistics);
-	static bool Contains(const std::string& search, const std::vector<std::string>& containsList);
-	static bool Contains(const std::string& search, const std::string& contains);
 
-	static void OpenFile(std::string path);
-	static void CloseFile();
+	void OpenFile(std::string path);
+	void CloseFile();
 
-	static std::string parsingPath;
-	static int parsingLine;
-	static std::ifstream parsingLog;
-	static std::shared_ptr<ProgressItem> progressItem;
+	std::string parsingPath;
+	int parsingLine = 0;
+	std::ifstream parsingLog;
+	std::shared_ptr<ProgressItem> progressItem = std::make_shared<ProgressItem>(ProgressItem { "Parsing Log", "Parsing Log -> Line 0" });;
 };

@@ -105,7 +105,7 @@ void Window::Update(bool& done)
     ImGui::NewFrame();
 
     // Render Guis
-    guiDrawer->Draw();
+    UpdateHandler::Update();
 
     // Rendering
     ImGui::Render();

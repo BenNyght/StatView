@@ -10,13 +10,9 @@
 #include "Captured/Statistic.h"
 #include "VrApiStatistics.h"
 #include "Progress/ProgressHandler.h"
+#include "Utility/StringUtility.h"
 
 #define VR_API_KEY "VrApi"
-
-std::string LogParser::parsingPath;
-int LogParser::parsingLine = 0;
-std::ifstream LogParser::parsingLog;
-std::shared_ptr<ProgressItem> LogParser::progressItem = std::make_shared<ProgressItem>(ProgressItem { "Parsing Log", "Parsing Log -> Line 0" });
 
 void LogParser::ProcessLatest()
 {
@@ -29,11 +25,12 @@ void LogParser::ProcessLatest()
 	ProgressHandler::AddProgressItem(progressItem);
 }
 
-void LogParser::Process(const int numberOfLinesToProcess)
+void LogParser::Update()
 {
+	constexpr int processCount = 300;
 	// 06-14 22:00:33.011  2072 10406 I VrApi   : FPS=23/90,Prd=0ms,Tear=0,Early=0,Stale=1,Stale2/5/10/max=0/0/0/0,VSnc=1,Lat=-1,Fov=0,CPU4/GPU=2/4,2419/305MHz,OC=FF,TA=0/70/0,SP=N/F/N,Mem=2092MHz,Free=2901MB,PLS=0,Temp=29.2C/0.0C,TW=2.62ms,App=8.13ms,GD=0.00ms,CPU&GPU=0.00ms,LCnt=1(DR0,LM0),GPU%=0.33,CPU%=0.98(W1.00),DSF=1.00,CFL=-1000.00/-1000.00,ICFLp95=19.00,LD=0,SF=0.00,LP=0,DVFS=0
 
-	parsingLine += numberOfLinesToProcess;
+	parsingLine += processCount;
 	const std::string progress = std::to_string(parsingLine);
 	const std::string displayText = "Parsing Log -> Line ";
 	progressItem->DisplayText = displayText + progress;
@@ -41,7 +38,7 @@ void LogParser::Process(const int numberOfLinesToProcess)
 	VrApiStatistics* statistics = &VrApiStatistics::GetInstance();
 	std::string logLine;
 	bool requiresCalculation = false;
-	for (int i = 0; i < numberOfLinesToProcess; ++i)
+	for (int i = 0; i < processCount; ++i)
 	{
 		if (getline (parsingLog, logLine))
 		{
@@ -67,6 +64,32 @@ void LogParser::Process(const int numberOfLinesToProcess)
 			CloseFile();
 		}
 	}
+}
+
+void LogParser::OpenFile(std::string path)
+{
+	CloseFile();
+
+	if (path.empty())
+	{
+		return;
+	}
+
+	parsingPath = std::move(path);
+	parsingLog.open(parsingPath.c_str());
+	parsingLine = 0;
+	std::cout << "LogParser" << "-> opening " << parsingPath << std::endl;
+}
+
+void LogParser::CloseFile()
+{
+	if (parsingPath.empty())
+	{
+		return;
+	}
+
+	parsingLog.close();
+	std::cout << "LogParser" << "-> closing " << parsingPath << std::endl;
 }
 
 void LogParser::ParseVrApi(const std::string& logLine, VrApiStatistics* statistics)
@@ -243,72 +266,4 @@ void LogParser::ParseVrApi(const std::string& logLine, VrApiStatistics* statisti
 			statistics->GpuLevel.AddValue(GPULevel);
 		}
 	}
-}
-
-std::vector<std::string> LogParser::Split(const std::string& search, const std::string& delimiter)
-{
-    size_t startPosition = 0;
-	size_t endPosition;
-    const size_t delimiterLength = delimiter.length();
-
-    std::vector<std::string> result;
-
-    while ((endPosition = search.find(delimiter, startPosition)) != std::string::npos) 
-	{
-        std::string token = search.substr (startPosition, endPosition - startPosition);
-        startPosition = endPosition + delimiterLength;
-        result.push_back (token);
-    }
-
-    result.push_back (search.substr (startPosition));
-    return result;
-}
-
-bool LogParser::Contains(const std::string& search, const std::vector<std::string>& containsList)
-{
-	for (const auto& containItem : containsList)
-	{
-		if (search.find(containItem) != std::string::npos) 
-		{
-		    return true;
-		}
-	}
-
-	return false;
-}
-
-bool LogParser::Contains(const std::string& search, const std::string& contains)
-{
-	if (search.find(contains) != std::string::npos) 
-	{
-	    return true;
-	}
-
-	return false;
-}
-
-void LogParser::OpenFile(std::string path)
-{
-	CloseFile();
-
-	if (path.empty())
-	{
-		return;
-	}
-
-	parsingPath = std::move(path);
-	parsingLog.open(parsingPath.c_str());
-	parsingLine = 0;
-	std::cout << "LogParser" << "-> opening " << parsingPath << std::endl;
-}
-
-void LogParser::CloseFile()
-{
-	if (parsingPath.empty())
-	{
-		return;
-	}
-
-	parsingLog.close();
-	std::cout << "LogParser" << "-> closing " << parsingPath << std::endl;
 }

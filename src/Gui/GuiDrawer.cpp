@@ -12,17 +12,16 @@
 #include "Guis/MenuBarGui.h"
 #include "Guis/ProgressGui.h"
 #include "Guis/TabGui.h"
-#include "Guis/GraphTable/PerformanceGraphGui.h"
-#include "Guis/GraphTable/StatsGui.h"
+#include "Guis/PerformanceGraph/PerformanceGraphGui.h"
 
 void GuiDrawer::Draw()
 {
     SetupGuis();
     SetupDockBuilder();
 
-    for (int i = 0; i < activeDrawers.size(); ++i)
+    for (const auto& activeDrawer : activeDrawers)
     {
-	    activeDrawers[i]->Draw();
+	    activeDrawer->Draw();
     }
 }
 
@@ -38,14 +37,12 @@ void GuiDrawer::SetupGuis()
 
 	AddDrawer<MenuBarGui>();
     AddDrawer<PerformanceGraphGui>();
-    AddDrawer<StatsGui>();
     AddDrawer<TabGui>();
     AddDrawer<ProgressGui>();
     AddDrawer<ImGuiDemoGui>();
 
     AddActiveDrawer<MenuBarGui>();
     AddActiveDrawer<PerformanceGraphGui>();
-    AddActiveDrawer<StatsGui>();
 	AddActiveDrawer<ProgressGui>();
 }
 
@@ -67,13 +64,13 @@ void GuiDrawer::SetupDockBuilder()
 
     ImGuiID dockIdMain = viewDockSpaceId;
 
-    ImGuiID dockIdUp;
-    ImGuiID dockIdDown;
+    //ImGuiID dockIdUp;
+    //ImGuiID dockIdDown;
 
-    ImGui::DockBuilderSplitNode(dockIdMain, ImGuiDir_Up, 0.5f, &dockIdDown, &dockIdUp);
+    //ImGui::DockBuilderSplitNode(dockIdMain, ImGuiDir_Up, 0.5f, &dockIdDown, &dockIdUp);
 
-    DockDrawer<PerformanceGraphGui>(dockIdUp, ImGuiDockNodeFlags_NoTabBar);
-    DockDrawer<StatsGui>(dockIdDown, ImGuiDockNodeFlags_NoTabBar);
+    DockDrawer<PerformanceGraphGui>(dockIdMain, ImGuiDockNodeFlags_NoTabBar);
+    //DockDrawer<StatsElement>(dockIdDown, ImGuiDockNodeFlags_NoTabBar);
 
     ImGui::DockBuilderFinish(dockIdMain); // Finish the docking setup
 }
