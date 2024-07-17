@@ -87,7 +87,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>D:\dev\StatView\StatView\include;D:\dev\StatView\StatView\src;D:\dev\StatView\StatView\src\Guis;D:\dev\StatView\StatView\src\Stats;D:\dev\StatView\StatView\src\Utility;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\dev\StatView\StatView\include;D:\dev\StatView\StatView\src;D:\dev\StatView\StatView\src\Gui;D:\dev\StatView\StatView\src\Gui\Guis;D:\dev\StatView\StatView\src\Gui\Guis\PerformanceGui;D:\dev\StatView\StatView\src\Gui\ImGui;D:\dev\StatView\StatView\src\Stats;D:\dev\StatView\StatView\src\Stats\Captured;D:\dev\StatView\StatView\src\Stats\Parsing;D:\dev\StatView\StatView\src\Utility;D:\dev\StatView\StatView\src\Utility\File;D:\dev\StatView\StatView\src\Utility\Progress;D:\dev\StatView\StatView\src\Utility\Update;D:\dev\StatView\StatView\src\Utility\Update\Implementations;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>%(AdditionalOptions) /external:I "D:/dev/StatView/StatView/vcpkg/installed/x64-windows/include" /external:I "D:/dev/StatView/StatView/vcpkg/installed/x64-windows/include/SDL2"</AdditionalOptions>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -107,10 +107,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;_WINDOWS;CMAKE_INTDIR=\"Debug\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>D:\dev\StatView\StatView\include;D:\dev\StatView\StatView\src;D:\dev\StatView\StatView\src\Guis;D:\dev\StatView\StatView\src\Stats;D:\dev\StatView\StatView\src\Utility;D:\dev\StatView\StatView\vcpkg\installed\x64-windows\include;D:\dev\StatView\StatView\vcpkg\installed\x64-windows\include\SDL2;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\dev\StatView\StatView\include;D:\dev\StatView\StatView\src;D:\dev\StatView\StatView\src\Gui;D:\dev\StatView\StatView\src\Gui\Guis;D:\dev\StatView\StatView\src\Gui\Guis\PerformanceGui;D:\dev\StatView\StatView\src\Gui\ImGui;D:\dev\StatView\StatView\src\Stats;D:\dev\StatView\StatView\src\Stats\Captured;D:\dev\StatView\StatView\src\Stats\Parsing;D:\dev\StatView\StatView\src\Utility;D:\dev\StatView\StatView\src\Utility\File;D:\dev\StatView\StatView\src\Utility\Progress;D:\dev\StatView\StatView\src\Utility\Update;D:\dev\StatView\StatView\src\Utility\Update\Implementations;D:\dev\StatView\StatView\vcpkg\installed\x64-windows\include;D:\dev\StatView\StatView\vcpkg\installed\x64-windows\include\SDL2;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>D:\dev\StatView\StatView\include;D:\dev\StatView\StatView\src;D:\dev\StatView\StatView\src\Guis;D:\dev\StatView\StatView\src\Stats;D:\dev\StatView\StatView\src\Utility;D:\dev\StatView\StatView\vcpkg\installed\x64-windows\include;D:\dev\StatView\StatView\vcpkg\installed\x64-windows\include\SDL2;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\dev\StatView\StatView\include;D:\dev\StatView\StatView\src;D:\dev\StatView\StatView\src\Gui;D:\dev\StatView\StatView\src\Gui\Guis;D:\dev\StatView\StatView\src\Gui\Guis\PerformanceGui;D:\dev\StatView\StatView\src\Gui\ImGui;D:\dev\StatView\StatView\src\Stats;D:\dev\StatView\StatView\src\Stats\Captured;D:\dev\StatView\StatView\src\Stats\Parsing;D:\dev\StatView\StatView\src\Utility;D:\dev\StatView\StatView\src\Utility\File;D:\dev\StatView\StatView\src\Utility\Progress;D:\dev\StatView\StatView\src\Utility\Update;D:\dev\StatView\StatView\src\Utility\Update\Implementations;D:\dev\StatView\StatView\vcpkg\installed\x64-windows\include;D:\dev\StatView\StatView\vcpkg\installed\x64-windows\include\SDL2;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -118,8 +118,7 @@
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <PostBuildEvent>
-      <Message>
-      </Message>
+      <Message>	</Message>
       <Command>setlocal
 C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noprofile -executionpolicy Bypass -file D:/dev/StatView/StatView/vcpkg/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary D:/dev/StatView/StatView/out/bin/StatView.exe -installedDir D:/dev/StatView/StatView/vcpkg/installed/x64-windows/debug/bin -OutVariable out
 if %errorlevel% neq 0 goto :cmEnd
@@ -157,7 +156,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>D:\dev\StatView\StatView\include;D:\dev\StatView\StatView\src;D:\dev\StatView\StatView\src\Guis;D:\dev\StatView\StatView\src\Stats;D:\dev\StatView\StatView\src\Utility;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\dev\StatView\StatView\include;D:\dev\StatView\StatView\src;D:\dev\StatView\StatView\src\Gui;D:\dev\StatView\StatView\src\Gui\Guis;D:\dev\StatView\StatView\src\Gui\Guis\PerformanceGui;D:\dev\StatView\StatView\src\Gui\ImGui;D:\dev\StatView\StatView\src\Stats;D:\dev\StatView\StatView\src\Stats\Captured;D:\dev\StatView\StatView\src\Stats\Parsing;D:\dev\StatView\StatView\src\Utility;D:\dev\StatView\StatView\src\Utility\File;D:\dev\StatView\StatView\src\Utility\Progress;D:\dev\StatView\StatView\src\Utility\Update;D:\dev\StatView\StatView\src\Utility\Update\Implementations;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>%(AdditionalOptions) /external:I "D:/dev/StatView/StatView/vcpkg/installed/x64-windows/include" /external:I "D:/dev/StatView/StatView/vcpkg/installed/x64-windows/include/SDL2"</AdditionalOptions>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <ExceptionHandling>Sync</ExceptionHandling>
@@ -177,10 +176,10 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"Release\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>D:\dev\StatView\StatView\include;D:\dev\StatView\StatView\src;D:\dev\StatView\StatView\src\Guis;D:\dev\StatView\StatView\src\Stats;D:\dev\StatView\StatView\src\Utility;D:\dev\StatView\StatView\vcpkg\installed\x64-windows\include;D:\dev\StatView\StatView\vcpkg\installed\x64-windows\include\SDL2;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\dev\StatView\StatView\include;D:\dev\StatView\StatView\src;D:\dev\StatView\StatView\src\Gui;D:\dev\StatView\StatView\src\Gui\Guis;D:\dev\StatView\StatView\src\Gui\Guis\PerformanceGui;D:\dev\StatView\StatView\src\Gui\ImGui;D:\dev\StatView\StatView\src\Stats;D:\dev\StatView\StatView\src\Stats\Captured;D:\dev\StatView\StatView\src\Stats\Parsing;D:\dev\StatView\StatView\src\Utility;D:\dev\StatView\StatView\src\Utility\File;D:\dev\StatView\StatView\src\Utility\Progress;D:\dev\StatView\StatView\src\Utility\Update;D:\dev\StatView\StatView\src\Utility\Update\Implementations;D:\dev\StatView\StatView\vcpkg\installed\x64-windows\include;D:\dev\StatView\StatView\vcpkg\installed\x64-windows\include\SDL2;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>D:\dev\StatView\StatView\include;D:\dev\StatView\StatView\src;D:\dev\StatView\StatView\src\Guis;D:\dev\StatView\StatView\src\Stats;D:\dev\StatView\StatView\src\Utility;D:\dev\StatView\StatView\vcpkg\installed\x64-windows\include;D:\dev\StatView\StatView\vcpkg\installed\x64-windows\include\SDL2;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\dev\StatView\StatView\include;D:\dev\StatView\StatView\src;D:\dev\StatView\StatView\src\Gui;D:\dev\StatView\StatView\src\Gui\Guis;D:\dev\StatView\StatView\src\Gui\Guis\PerformanceGui;D:\dev\StatView\StatView\src\Gui\ImGui;D:\dev\StatView\StatView\src\Stats;D:\dev\StatView\StatView\src\Stats\Captured;D:\dev\StatView\StatView\src\Stats\Parsing;D:\dev\StatView\StatView\src\Utility;D:\dev\StatView\StatView\src\Utility\File;D:\dev\StatView\StatView\src\Utility\Progress;D:\dev\StatView\StatView\src\Utility\Update;D:\dev\StatView\StatView\src\Utility\Update\Implementations;D:\dev\StatView\StatView\vcpkg\installed\x64-windows\include;D:\dev\StatView\StatView\vcpkg\installed\x64-windows\include\SDL2;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -188,8 +187,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <PostBuildEvent>
-      <Message>
-      </Message>
+      <Message>	</Message>
       <Command>setlocal
 C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noprofile -executionpolicy Bypass -file D:/dev/StatView/StatView/vcpkg/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary D:/dev/StatView/StatView/out/bin/StatView.exe -installedDir D:/dev/StatView/StatView/vcpkg/installed/x64-windows/bin -OutVariable out
 if %errorlevel% neq 0 goto :cmEnd
@@ -227,7 +225,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>D:\dev\StatView\StatView\include;D:\dev\StatView\StatView\src;D:\dev\StatView\StatView\src\Guis;D:\dev\StatView\StatView\src\Stats;D:\dev\StatView\StatView\src\Utility;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\dev\StatView\StatView\include;D:\dev\StatView\StatView\src;D:\dev\StatView\StatView\src\Gui;D:\dev\StatView\StatView\src\Gui\Guis;D:\dev\StatView\StatView\src\Gui\Guis\PerformanceGui;D:\dev\StatView\StatView\src\Gui\ImGui;D:\dev\StatView\StatView\src\Stats;D:\dev\StatView\StatView\src\Stats\Captured;D:\dev\StatView\StatView\src\Stats\Parsing;D:\dev\StatView\StatView\src\Utility;D:\dev\StatView\StatView\src\Utility\File;D:\dev\StatView\StatView\src\Utility\Progress;D:\dev\StatView\StatView\src\Utility\Update;D:\dev\StatView\StatView\src\Utility\Update\Implementations;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>%(AdditionalOptions) /external:I "D:/dev/StatView/StatView/vcpkg/installed/x64-windows/include" /external:I "D:/dev/StatView/StatView/vcpkg/installed/x64-windows/include/SDL2"</AdditionalOptions>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <ExceptionHandling>Sync</ExceptionHandling>
@@ -247,10 +245,10 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"MinSizeRel\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>D:\dev\StatView\StatView\include;D:\dev\StatView\StatView\src;D:\dev\StatView\StatView\src\Guis;D:\dev\StatView\StatView\src\Stats;D:\dev\StatView\StatView\src\Utility;D:\dev\StatView\StatView\vcpkg\installed\x64-windows\include;D:\dev\StatView\StatView\vcpkg\installed\x64-windows\include\SDL2;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\dev\StatView\StatView\include;D:\dev\StatView\StatView\src;D:\dev\StatView\StatView\src\Gui;D:\dev\StatView\StatView\src\Gui\Guis;D:\dev\StatView\StatView\src\Gui\Guis\PerformanceGui;D:\dev\StatView\StatView\src\Gui\ImGui;D:\dev\StatView\StatView\src\Stats;D:\dev\StatView\StatView\src\Stats\Captured;D:\dev\StatView\StatView\src\Stats\Parsing;D:\dev\StatView\StatView\src\Utility;D:\dev\StatView\StatView\src\Utility\File;D:\dev\StatView\StatView\src\Utility\Progress;D:\dev\StatView\StatView\src\Utility\Update;D:\dev\StatView\StatView\src\Utility\Update\Implementations;D:\dev\StatView\StatView\vcpkg\installed\x64-windows\include;D:\dev\StatView\StatView\vcpkg\installed\x64-windows\include\SDL2;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>D:\dev\StatView\StatView\include;D:\dev\StatView\StatView\src;D:\dev\StatView\StatView\src\Guis;D:\dev\StatView\StatView\src\Stats;D:\dev\StatView\StatView\src\Utility;D:\dev\StatView\StatView\vcpkg\installed\x64-windows\include;D:\dev\StatView\StatView\vcpkg\installed\x64-windows\include\SDL2;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\dev\StatView\StatView\include;D:\dev\StatView\StatView\src;D:\dev\StatView\StatView\src\Gui;D:\dev\StatView\StatView\src\Gui\Guis;D:\dev\StatView\StatView\src\Gui\Guis\PerformanceGui;D:\dev\StatView\StatView\src\Gui\ImGui;D:\dev\StatView\StatView\src\Stats;D:\dev\StatView\StatView\src\Stats\Captured;D:\dev\StatView\StatView\src\Stats\Parsing;D:\dev\StatView\StatView\src\Utility;D:\dev\StatView\StatView\src\Utility\File;D:\dev\StatView\StatView\src\Utility\Progress;D:\dev\StatView\StatView\src\Utility\Update;D:\dev\StatView\StatView\src\Utility\Update\Implementations;D:\dev\StatView\StatView\vcpkg\installed\x64-windows\include;D:\dev\StatView\StatView\vcpkg\installed\x64-windows\include\SDL2;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -258,8 +256,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <PostBuildEvent>
-      <Message>
-      </Message>
+      <Message>	</Message>
       <Command>setlocal
 C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noprofile -executionpolicy Bypass -file D:/dev/StatView/StatView/vcpkg/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary D:/dev/StatView/StatView/out/bin/StatView.exe -installedDir D:/dev/StatView/StatView/vcpkg/installed/x64-windows/bin -OutVariable out
 if %errorlevel% neq 0 goto :cmEnd
@@ -297,7 +294,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>D:\dev\StatView\StatView\include;D:\dev\StatView\StatView\src;D:\dev\StatView\StatView\src\Guis;D:\dev\StatView\StatView\src\Stats;D:\dev\StatView\StatView\src\Utility;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\dev\StatView\StatView\include;D:\dev\StatView\StatView\src;D:\dev\StatView\StatView\src\Gui;D:\dev\StatView\StatView\src\Gui\Guis;D:\dev\StatView\StatView\src\Gui\Guis\PerformanceGui;D:\dev\StatView\StatView\src\Gui\ImGui;D:\dev\StatView\StatView\src\Stats;D:\dev\StatView\StatView\src\Stats\Captured;D:\dev\StatView\StatView\src\Stats\Parsing;D:\dev\StatView\StatView\src\Utility;D:\dev\StatView\StatView\src\Utility\File;D:\dev\StatView\StatView\src\Utility\Progress;D:\dev\StatView\StatView\src\Utility\Update;D:\dev\StatView\StatView\src\Utility\Update\Implementations;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>%(AdditionalOptions) /external:I "D:/dev/StatView/StatView/vcpkg/installed/x64-windows/include" /external:I "D:/dev/StatView/StatView/vcpkg/installed/x64-windows/include/SDL2"</AdditionalOptions>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -316,10 +313,10 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"RelWithDebInfo\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>D:\dev\StatView\StatView\include;D:\dev\StatView\StatView\src;D:\dev\StatView\StatView\src\Guis;D:\dev\StatView\StatView\src\Stats;D:\dev\StatView\StatView\src\Utility;D:\dev\StatView\StatView\vcpkg\installed\x64-windows\include;D:\dev\StatView\StatView\vcpkg\installed\x64-windows\include\SDL2;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\dev\StatView\StatView\include;D:\dev\StatView\StatView\src;D:\dev\StatView\StatView\src\Gui;D:\dev\StatView\StatView\src\Gui\Guis;D:\dev\StatView\StatView\src\Gui\Guis\PerformanceGui;D:\dev\StatView\StatView\src\Gui\ImGui;D:\dev\StatView\StatView\src\Stats;D:\dev\StatView\StatView\src\Stats\Captured;D:\dev\StatView\StatView\src\Stats\Parsing;D:\dev\StatView\StatView\src\Utility;D:\dev\StatView\StatView\src\Utility\File;D:\dev\StatView\StatView\src\Utility\Progress;D:\dev\StatView\StatView\src\Utility\Update;D:\dev\StatView\StatView\src\Utility\Update\Implementations;D:\dev\StatView\StatView\vcpkg\installed\x64-windows\include;D:\dev\StatView\StatView\vcpkg\installed\x64-windows\include\SDL2;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>D:\dev\StatView\StatView\include;D:\dev\StatView\StatView\src;D:\dev\StatView\StatView\src\Guis;D:\dev\StatView\StatView\src\Stats;D:\dev\StatView\StatView\src\Utility;D:\dev\StatView\StatView\vcpkg\installed\x64-windows\include;D:\dev\StatView\StatView\vcpkg\installed\x64-windows\include\SDL2;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\dev\StatView\StatView\include;D:\dev\StatView\StatView\src;D:\dev\StatView\StatView\src\Gui;D:\dev\StatView\StatView\src\Gui\Guis;D:\dev\StatView\StatView\src\Gui\Guis\PerformanceGui;D:\dev\StatView\StatView\src\Gui\ImGui;D:\dev\StatView\StatView\src\Stats;D:\dev\StatView\StatView\src\Stats\Captured;D:\dev\StatView\StatView\src\Stats\Parsing;D:\dev\StatView\StatView\src\Utility;D:\dev\StatView\StatView\src\Utility\File;D:\dev\StatView\StatView\src\Utility\Progress;D:\dev\StatView\StatView\src\Utility\Update;D:\dev\StatView\StatView\src\Utility\Update\Implementations;D:\dev\StatView\StatView\vcpkg\installed\x64-windows\include;D:\dev\StatView\StatView\vcpkg\installed\x64-windows\include\SDL2;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -327,8 +324,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <PostBuildEvent>
-      <Message>
-      </Message>
+      <Message>	</Message>
       <Command>setlocal
 C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noprofile -executionpolicy Bypass -file D:/dev/StatView/StatView/vcpkg/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary D:/dev/StatView/StatView/out/bin/StatView.exe -installedDir D:/dev/StatView/StatView/vcpkg/installed/x64-windows/bin -OutVariable out
 if %errorlevel% neq 0 goto :cmEnd
@@ -422,53 +418,58 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="D:\dev\StatView\StatView\src\Gui\Drawer.h" />
     <ClCompile Include="D:\dev\StatView\StatView\src\Gui\GuiDrawer.cpp" />
-    <ClCompile Include="src\Gui\Guis\ImGuiDemoGui.cpp" />
-    <ClCompile Include="src\Gui\Guis\PerformanceGraph\PerformanceGraphGui.cpp" />
-    <ClCompile Include="src\Gui\Guis\ProgressGui.cpp" />
-    <ClCompile Include="src\Gui\Guis\TabGui.cpp" />
-    <ClCompile Include="src\Gui\ImGui\BufferingBar.cpp" />
-    <ClCompile Include="src\Gui\ImGui\LoadingText.cpp" />
-    <ClCompile Include="src\Gui\ImGui\Spinner.cpp" />
-    <ClCompile Include="src\Stats\Parsing\VrApiStatistics.cpp" />
-    <ClCompile Include="src\Utility\Progress\ProgressHandler.cpp" />
-    <ClCompile Include="src\Utility\Update\UpdateHandler.cpp" />
     <ClInclude Include="D:\dev\StatView\StatView\src\Gui\GuiDrawer.h" />
     <ClCompile Include="D:\dev\StatView\StatView\src\Gui\Guis\HelloWorldGui.cpp" />
     <ClInclude Include="D:\dev\StatView\StatView\src\Gui\Guis\HelloWorldGui.h" />
+    <ClCompile Include="D:\dev\StatView\StatView\src\Gui\Guis\ImGuiDemoGui.cpp" />
+    <ClInclude Include="D:\dev\StatView\StatView\src\Gui\Guis\ImGuiDemoGui.h" />
     <ClCompile Include="D:\dev\StatView\StatView\src\Gui\Guis\MenuBarGui.cpp" />
     <ClInclude Include="D:\dev\StatView\StatView\src\Gui\Guis\MenuBarGui.h" />
-    <ClCompile Include="src\Gui\Guis\PerformanceGraph\Elements\PerformanceGraphElement.cpp" />
-    <ClInclude Include="src\Gui\Guis\PerformanceGraph\Elements\PerformanceGraphElement.h" />
-    <ClCompile Include="src\Gui\Guis\PerformanceGraph\Elements\PerformanceStatsElement.cpp" />
-    <ClInclude Include="src\Gui\Guis\PerformanceGraph\Elements\PerformanceStatsElement.h" />
-    <ClInclude Include="src\Gui\Drawer.h" />
+    <ClCompile Include="D:\dev\StatView\StatView\src\Gui\Guis\PerformanceGraph\Elements\PerformanceGraphElement.cpp" />
+    <ClInclude Include="D:\dev\StatView\StatView\src\Gui\Guis\PerformanceGraph\Elements\PerformanceGraphElement.h" />
+    <ClCompile Include="D:\dev\StatView\StatView\src\Gui\Guis\PerformanceGraph\Elements\PerformanceStatsElement.cpp" />
+    <ClInclude Include="D:\dev\StatView\StatView\src\Gui\Guis\PerformanceGraph\Elements\PerformanceStatsElement.h" />
+    <ClCompile Include="D:\dev\StatView\StatView\src\Gui\Guis\PerformanceGraph\Elements\StatisticSelectionElement.cpp" />
+    <ClInclude Include="D:\dev\StatView\StatView\src\Gui\Guis\PerformanceGraph\Elements\StatisticSelectionElement.h" />
+    <ClCompile Include="D:\dev\StatView\StatView\src\Gui\Guis\PerformanceGraph\PerformanceGraphGui.cpp" />
+    <ClInclude Include="D:\dev\StatView\StatView\src\Gui\Guis\PerformanceGraph\PerformanceGraphGui.h" />
+    <ClCompile Include="D:\dev\StatView\StatView\src\Gui\Guis\ProgressGui.cpp" />
+    <ClInclude Include="D:\dev\StatView\StatView\src\Gui\Guis\ProgressGui.h" />
+    <ClCompile Include="D:\dev\StatView\StatView\src\Gui\Guis\TabGui.cpp" />
+    <ClInclude Include="D:\dev\StatView\StatView\src\Gui\Guis\TabGui.h" />
+    <ClCompile Include="D:\dev\StatView\StatView\src\Gui\ImGui\BufferingBar.cpp" />
+    <ClInclude Include="D:\dev\StatView\StatView\src\Gui\ImGui\ImGuiExtensions.h" />
+    <ClCompile Include="D:\dev\StatView\StatView\src\Gui\ImGui\LoadingText.cpp" />
+    <ClCompile Include="D:\dev\StatView\StatView\src\Gui\ImGui\Spinner.cpp" />
     <ClCompile Include="D:\dev\StatView\StatView\src\StatView.cpp" />
     <ClCompile Include="D:\dev\StatView\StatView\src\Stats\Captured\Statistic.cpp" />
     <ClInclude Include="D:\dev\StatView\StatView\src\Stats\Captured\Statistic.h" />
-    <ClCompile Include="src\Stats\Parsing\LogParser.cpp" />
-    <ClInclude Include="src\Gui\Guis\PerformanceGraph\PerformanceGraphGui.h" />
-    <ClInclude Include="src\Gui\Guis\ImGuiDemoGui.h" />
-    <ClInclude Include="src\Gui\Guis\ProgressGui.h" />
-    <ClInclude Include="src\Gui\Guis\TabGui.h" />
-    <ClInclude Include="src\Gui\ImGui\ImGuiExtensions.h" />
-    <ClInclude Include="src\Stats\Parsing\LogParser.h" />
+    <ClCompile Include="D:\dev\StatView\StatView\src\Stats\Parsing\LogParser.cpp" />
+    <ClInclude Include="D:\dev\StatView\StatView\src\Stats\Parsing\LogParser.h" />
+    <ClCompile Include="D:\dev\StatView\StatView\src\Stats\Parsing\VrApiStatistics.cpp" />
+    <ClInclude Include="D:\dev\StatView\StatView\src\Stats\Parsing\VrApiStatistics.h" />
     <ClCompile Include="D:\dev\StatView\StatView\src\Stats\StatisticUtility.cpp" />
     <ClInclude Include="D:\dev\StatView\StatView\src\Stats\StatisticUtility.h" />
-    <ClInclude Include="src\Utility\RandomUtility.h" />
+    <ClCompile Include="D:\dev\StatView\StatView\src\Utility\File\FileUtility.cpp" />
+    <ClInclude Include="D:\dev\StatView\StatView\src\Utility\File\FileUtility.h" />
+    <ClCompile Include="D:\dev\StatView\StatView\src\Utility\Progress\ProgressHandler.cpp" />
+    <ClInclude Include="D:\dev\StatView\StatView\src\Utility\Progress\ProgressHandler.h" />
+    <ClInclude Include="D:\dev\StatView\StatView\src\Utility\Progress\ProgressItem.h" />
+    <ClInclude Include="D:\dev\StatView\StatView\src\Utility\RandomUtility.h" />
+    <ClInclude Include="D:\dev\StatView\StatView\src\Utility\StringUtility.h" />
+    <ClInclude Include="D:\dev\StatView\StatView\src\Utility\Update\Implementations\IDraw.h" />
+    <ClInclude Include="D:\dev\StatView\StatView\src\Utility\Update\Implementations\IEarlyUpdate.h" />
+    <ClInclude Include="D:\dev\StatView\StatView\src\Utility\Update\Implementations\ILateUpdate.h" />
+    <ClInclude Include="D:\dev\StatView\StatView\src\Utility\Update\Implementations\IUpdate.h" />
+    <ClCompile Include="D:\dev\StatView\StatView\src\Utility\Update\UpdateHandler.cpp" />
+    <ClInclude Include="D:\dev\StatView\StatView\src\Utility\Update\UpdateHandler.h" />
     <ClCompile Include="D:\dev\StatView\StatView\src\Window.cpp" />
     <ClInclude Include="D:\dev\StatView\StatView\src\Window.h" />
     <ClCompile Include="D:\dev\StatView\StatView\include\imgui_impl_opengl3.cpp" />
     <ClCompile Include="D:\dev\StatView\StatView\include\imgui_impl_sdl2.cpp" />
-    <ClInclude Include="src\Stats\Parsing\VrApiStatistics.h" />
-    <ClInclude Include="src\Utility\StringUtility.h" />
-    <ClInclude Include="src\Utility\Update\Implementations\IDraw.h" />
-    <ClInclude Include="src\Utility\Update\Implementations\IEarlyUpdate.h" />
-    <ClInclude Include="src\Utility\Update\Implementations\ILateUpdate.h" />
-    <ClInclude Include="src\Utility\Update\Implementations\IUpdate.h" />
-    <ClInclude Include="src\Utility\Update\UpdateHandler.h" />
-    <ClInclude Include="src\Utility\Progress\ProgressHandler.h" />
-    <ClInclude Include="src\Utility\Progress\ProgressItem.h" />
+    <ClCompile Include="D:\dev\StatView\StatView\include\tinyfiledialogs.c" />
     <Natvis Include="D:\dev\StatView\StatView\vcpkg\installed\x64-windows\share\nlohmann_json\nlohmann_json.natvis">
     </Natvis>
   </ItemGroup>

@@ -59,14 +59,14 @@ void PerformanceGraphElement::DrawGraph(Statistic* statistic)
         if (showFills) 
         {
             ImPlot::PushStyleVar(ImPlotStyleVar_FillAlpha, 0.25f);
-            ImPlot::PlotShaded((statistic->name + "_1").c_str(), labels.data(), statistic->values.data(), length, shadeMode == 0 ? -INFINITY : shadeMode == 1 ? INFINITY : fillRef, 0);
+            ImPlot::PlotShaded((statistic->name).c_str(), labels.data(), statistic->values.data(), length, shadeMode == 0 ? -INFINITY : shadeMode == 1 ? INFINITY : fillRef, 0);
             //ImPlot::PlotShaded("Stock 2", labels, PerformanceStats::frameTime.data(), length, shade_mode == 0 ? -INFINITY : shade_mode == 1 ? INFINITY : fill_ref, flags);
             ImPlot::PopStyleVar();
         }
 
         if (showLines) 
         {
-            ImPlot::PlotLine((statistic->name + "_1").c_str(), labels.data(), statistic->values.data(), length);
+            ImPlot::PlotLine((statistic->name).c_str(), labels.data(), statistic->values.data(), length);
             //ImPlot::PlotLine("Stock 2", labels, PerformanceStats::frameTime.data(), length);
         }
         ImPlot::EndPlot();

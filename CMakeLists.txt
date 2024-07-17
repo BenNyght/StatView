@@ -28,9 +28,9 @@ endif()
 
 project("StatView")
 
-# Automatically file all source files in the src folder and its subfolders
+# Automatically file all source files in the src folder and its subfolders.
 file(GLOB_RECURSE SOURCES "src/*.cpp" "src/*.h")
-file(GLOB_RECURSE GUI_SOURCES "include/imgui_impl_sdl2.cpp" "include/imgui_impl_opengl3.cpp")
+file(GLOB_RECURSE GUI_SOURCES "include/imgui_impl_sdl2.cpp" "include/imgui_impl_opengl3.cpp" "include/tinyfiledialogs.c")
 
 # Add source to this project's executable.
 add_executable(StatView ${SOURCES} ${GUI_SOURCES})
@@ -55,9 +55,18 @@ target_include_directories(StatView PRIVATE
   ${GLM_INCLUDE_DIRS}
   "include"
   "src"
-  "src/Guis"
+  "src/Gui"
+  "src/Gui/Guis"
+  "src/Gui/Guis/PerformanceGui"
+  "src/Gui/ImGui"
   "src/Stats"
+  "src/Stats/Captured"
+  "src/Stats/Parsing"
   "src/Utility"
+  "src/Utility/File"
+  "src/Utility/Progress"
+  "src/Utility/Update"
+  "src/Utility/Update/Implementations"
 )
 
 # Link libraries to the executable

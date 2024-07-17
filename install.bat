@@ -8,6 +8,8 @@ IF NOT EXIST "%vcpkg_dir%" (
 )
 
 REM vcpkg\vcpkg.exe remove imgui --recurse
+REM vcpkg\vcpkg.exe remove nativefiledialog --recurse
+REM vcpkg\vcpkg.exe remove nativefiledialog-extended --recurse
 
 vcpkg\vcpkg.exe install glew:x64-windows
 vcpkg\vcpkg.exe install sdl2:x64-windows
