@@ -70,14 +70,23 @@
 class LogParser : IUpdate
 {
 public:
+	LogParser();
+	~LogParser();
+
 	void ProcessLatest();
+	void ProcessPath(std::string path);
+
+	std::shared_ptr<VrApiStatistics> GetVrApiStatistics();
+
 	void Update() override;
 
 private:
-	static void ParseVrApi(const std::string& logLine, VrApiStatistics* statistics);
+	static void ParseVrApi(const std::string& logLine, std::shared_ptr<VrApiStatistics> statistics);
 
 	void OpenFile(std::string path);
 	void CloseFile();
+
+	std::shared_ptr<VrApiStatistics> statistics = std::make_shared<VrApiStatistics>();
 
 	std::string parsingPath;
 	int parsingLine = 0;

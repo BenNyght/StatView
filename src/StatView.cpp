@@ -21,9 +21,6 @@ int main(int, char**)
 //  system(("echo " + fullCommand).c_str());
 //  system(fullCommand.c_str());
 
-    auto parser = std::make_shared<LogParser>();
-    parser->ProcessLatest();
-
     auto drawer = std::make_shared<GuiDrawer>();
 
     // Main loop

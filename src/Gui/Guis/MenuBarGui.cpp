@@ -1,24 +1,40 @@
 
 #include "MenuBarGui.h"
 
+#include "FileUtility.h"
 #include "imgui.h"
 #include "ImGuiDemoGui.h"
+#include "LogParser.h"
 #include "Gui/GuiDrawer.h"
+#include "PerformanceGraph/PerformanceGraphGui.h"
 
 void MenuBarGui::Draw() const
 {
 	if (ImGui::BeginMainMenuBar()) 
     {
-        if (ImGui::BeginMenu("Windows")) 
+        if (ImGui::BeginMenu("File")) 
         {
-            if (ImGui::MenuItem("Open New Window")) 
+            if (ImGui::MenuItem("Open/Parse VrApi Statistics")) 
             {
-                // Handle opening a new window (set a flag or call a function to open a window)
+                guiDrawer->AddDrawer<PerformanceGraphGui>();
             }
 
-            if (ImGui::MenuItem("ImGui Demo Window")) 
+            ImGui::EndMenu();
+        }
+
+        if (ImGui::BeginMenu("Debug")) 
+        {
+            if (ImGui::MenuItem("Debug/ImGui Demo Window")) 
             {
-                guiDrawer->ToggleActiveDrawer<ImGuiDemoGui>();
+                auto drawer = guiDrawer->GetDrawer<ImGuiDemoGui>();
+                if (drawer == nullptr)
+                {
+	                guiDrawer->AddDrawer<ImGuiDemoGui>();
+                }
+                else
+                {
+	                guiDrawer->ToggleDrawer<ImGuiDemoGui>();
+                }
             }
             ImGui::EndMenu();
         }

@@ -13,17 +13,17 @@ public:
 	std::string name;
     std::string suffix;
 
-    double min;
-    double max;
-    double average;
-    double median;
-    double standardDeviation;
-    double p95;
-    double p995;
+    double min = 0;
+    double max = 0;
+    double average = 0;
+    double median = 0;
+    double standardDeviation = 0;
+    double p95 = 0;
+    double p995 = 0;
 
     size_t size;
-    std::vector<double> values;
-    std::vector<double> labels;
+    std::vector<double> values {};
+    std::vector<double> labels {};
 
     void CalculateStatistic();
     void AddValue(double value);

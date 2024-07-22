@@ -7,6 +7,9 @@
 class ImGuiDemoGui : public Drawer
 {
 public:
+	ImGuiDemoGui();
+	~ImGuiDemoGui();
+
 	void Draw() const override;
 	std::string& GetName() const override;
 

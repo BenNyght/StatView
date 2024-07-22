@@ -7,31 +7,38 @@
 #include "PerformanceStatsElement.h"
 #include "Parsing/VrApiStatistics.h"
 
-PerformanceGraphElement::PerformanceGraphElement(std::shared_ptr<PerformanceStatsElement> performanceStatsElement)
-	: performanceStatsElement(performanceStatsElement)
+PerformanceGraphElement::PerformanceGraphElement(std::shared_ptr<PerformanceStatsElement> performanceStatsElement, std::shared_ptr<VrApiStatistics> statistics)
+	: performanceStatsElement(performanceStatsElement), statistics(statistics)
 {}
 
 void PerformanceGraphElement::Draw()
 {
-    if (performanceStatsElement->selection.empty())
-    {
-        static Statistic blankStatistic { "" };
-        if (blankStatistic.size == 0)
-        {
-	        blankStatistic.AddValue(0);
-        }
+    auto allStatistics = statistics->GetStatistics();
+	for (const size_t selection : performanceStatsElement->selection)
+	{
+		auto statistic = allStatistics[selection];
+        DrawGraph(statistic);
+	}
 
-	    DrawGraph(&blankStatistic);
-    }
-    else
-    {
-	    auto statistics = VrApiStatistics::GetInstance().GetStatistics();
-		for (const size_t selection : performanceStatsElement->selection)
-		{
-			auto statistic = statistics[selection];
-	        DrawGraph(statistic);
-		}
-    }
+  //  if (performanceStatsElement->selection.empty())
+  //  {
+  //      static Statistic blankStatistic { "" };
+  //      if (blankStatistic.size == 0)
+  //      {
+	 //       blankStatistic.AddValue(0);
+  //      }
+
+	 //   DrawGraph(&blankStatistic);
+  //  }
+  //  else
+  //  {
+	 //   auto allStatistics = statistics->GetStatistics();
+		//for (const size_t selection : performanceStatsElement->selection)
+		//{
+		//	auto statistic = allStatistics[selection];
+	 //       DrawGraph(statistic);
+		//}
+  //  }
 }
 
 void PerformanceGraphElement::DrawGraph(Statistic* statistic)

@@ -8,7 +8,7 @@
 #include "imgui.h"
 #include "Parsing/VrApiStatistics.h"
 
-PerformanceStatsElement::PerformanceStatsElement()
+PerformanceStatsElement::PerformanceStatsElement(std::shared_ptr<VrApiStatistics> statistics) : statistics(statistics)
 {
 
 }
@@ -17,7 +17,7 @@ void PerformanceStatsElement::Draw() const
 {
     static ImGuiTableFlags flags = ImGuiTableFlags_SizingStretchSame | ImGuiTableFlags_Resizable | ImGuiTableFlags_BordersOuter | ImGuiTableFlags_BordersV | ImGuiTableFlags_ContextMenuInBody;
 
-	auto statistics = VrApiStatistics::GetInstance().GetStatistics();
+    const auto allStatistics = statistics->GetStatistics();
 
 	if (ImGui::BeginTable("Stat Table", 9, flags))
 	{
@@ -30,13 +30,13 @@ void PerformanceStatsElement::Draw() const
 		
 		ImGui::TableHeadersRow();
 
-		for (size_t statisticIndex = 0; statisticIndex < statistics.size(); ++statisticIndex)
+		for (size_t statisticIndex = 0; statisticIndex < allStatistics.size(); ++statisticIndex)
 		{
 			ImGui::TableNextRow();
 
 			ImGui::TableNextColumn();
-			auto statistic = statistics[statisticIndex];
-			if (statistic->size == 0)
+			auto statistic = allStatistics[statisticIndex];
+			if (statistic == nullptr || statistic->size == 0)
 			{
 				continue;
 			}

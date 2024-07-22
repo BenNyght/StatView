@@ -14,15 +14,36 @@
 
 #define VR_API_KEY "VrApi"
 
+LogParser::LogParser()
+{
+	std::cout << "Log Parsed Constructed" << std::endl;
+}
+
+LogParser::~LogParser()
+{
+	std::cout << "Log Parsed Deconstructed" << std::endl;
+}
+
 void LogParser::ProcessLatest()
+{
+	ProcessPath("resources/VrApi_TestFile.log");
+}
+
+void LogParser::ProcessPath(std::string path)
 {
 	if (parsingLog.is_open())
 	{
 		parsingLog.close();
 	}
 
+	//OpenFile(path);
 	OpenFile("resources/VrApi_TestFile.log");
 	ProgressHandler::AddProgressItem(progressItem);
+}
+
+std::shared_ptr<VrApiStatistics> LogParser::GetVrApiStatistics()
+{
+	return statistics;
 }
 
 void LogParser::Update()
@@ -35,7 +56,6 @@ void LogParser::Update()
 	const std::string displayText = "Parsing Log -> Line ";
 	progressItem->DisplayText = displayText + progress;
 
-	VrApiStatistics* statistics = &VrApiStatistics::GetInstance();
 	std::string logLine;
 	bool requiresCalculation = false;
 	for (int i = 0; i < processCount; ++i)
@@ -55,10 +75,7 @@ void LogParser::Update()
 		}
 		else if (requiresCalculation)
 		{
-			for (const auto& statistic : statistics->GetStatistics())
-			{
-				statistic->CalculateStatistic();
-			}
+			statistics->CalculateStatistics();
 			requiresCalculation = false;
 			ProgressHandler::RemoveProgressItem(progressItem);
 			CloseFile();
@@ -92,7 +109,7 @@ void LogParser::CloseFile()
 	std::cout << "LogParser" << "-> closing " << parsingPath << std::endl;
 }
 
-void LogParser::ParseVrApi(const std::string& logLine, VrApiStatistics* statistics)
+void LogParser::ParseVrApi(const std::string& logLine, std::shared_ptr<VrApiStatistics> statistics)
 {
 	// Remove info before FPS
 	size_t position = logLine.find("FPS");

@@ -13,5 +13,7 @@ public:
 
     virtual ~Drawer() {}
 
+    bool enabled = true;
+    int instanceId = 0;
     std::shared_ptr<GuiDrawer> guiDrawer;
 };

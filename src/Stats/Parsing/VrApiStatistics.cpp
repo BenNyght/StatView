@@ -1,6 +1,14 @@
 
 #include "VrApiStatistics.h"
 
+void VrApiStatistics::CalculateStatistics()
+{
+	for (const auto& statistic : GetStatistics())
+	{
+		statistic->CalculateStatistic();
+	}
+}
+
 std::vector<Statistic*> VrApiStatistics::GetStatistics()
 {
 	std::vector<Statistic*> statistics {};
