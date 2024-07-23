@@ -33,7 +33,7 @@ int Window::Setup()
 	    fprintf(stderr, "Failed to create OpenGL context: %s\n", SDL_GetError());
 	    return -1;
 	}
-
+    
     ImPlot::CreateContext();
     SDL_GL_MakeCurrent(window, gl_context);
     SDL_GL_SetSwapInterval(1); // Enable vsync
@@ -44,6 +44,10 @@ int Window::Setup()
         fprintf(stderr, "Failed to initialize OpenGL loader!\n");
         return -1;
     }
+
+    // Clear ImGuis previous layout
+    const char* layoutFileName = "imgui.ini";
+    auto result = remove(layoutFileName);
 
     // Setup Dear ImGui context
     IMGUI_CHECKVERSION();
