@@ -422,6 +422,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Gui\Guis\HomePageGui.cpp" />
     <ClInclude Include="D:\dev\StatView\StatView\src\Gui\Drawer.h" />
     <ClCompile Include="D:\dev\StatView\StatView\src\Gui\GuiDrawer.cpp" />
     <ClInclude Include="D:\dev\StatView\StatView\src\Gui\GuiDrawer.h" />
@@ -435,8 +436,6 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="D:\dev\StatView\StatView\src\Gui\Guis\PerformanceGraph\Elements\PerformanceGraphElement.h" />
     <ClCompile Include="D:\dev\StatView\StatView\src\Gui\Guis\PerformanceGraph\Elements\PerformanceStatsElement.cpp" />
     <ClInclude Include="D:\dev\StatView\StatView\src\Gui\Guis\PerformanceGraph\Elements\PerformanceStatsElement.h" />
-    <ClCompile Include="D:\dev\StatView\StatView\src\Gui\Guis\PerformanceGraph\Elements\StatisticSelectionElement.cpp" />
-    <ClInclude Include="D:\dev\StatView\StatView\src\Gui\Guis\PerformanceGraph\Elements\StatisticSelectionElement.h" />
     <ClCompile Include="D:\dev\StatView\StatView\src\Gui\Guis\PerformanceGraph\PerformanceGraphGui.cpp" />
     <ClInclude Include="D:\dev\StatView\StatView\src\Gui\Guis\PerformanceGraph\PerformanceGraphGui.h" />
     <ClCompile Include="D:\dev\StatView\StatView\src\Gui\Guis\ProgressGui.cpp" />
@@ -472,6 +471,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="D:\dev\StatView\StatView\include\imgui_impl_opengl3.cpp" />
     <ClCompile Include="D:\dev\StatView\StatView\include\imgui_impl_sdl2.cpp" />
     <ClCompile Include="D:\dev\StatView\StatView\include\tinyfiledialogs.c" />
+    <ClInclude Include="src\Gui\Guis\HomePageGui.h" />
     <Natvis Include="D:\dev\StatView\StatView\vcpkg\installed\x64-windows\share\nlohmann_json\nlohmann_json.natvis">
     </Natvis>
   </ItemGroup>

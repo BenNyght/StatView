@@ -26,7 +26,7 @@ LogParser::~LogParser()
 
 void LogParser::ProcessLatest()
 {
-	ProcessPath("resources/VrApi_TestFile.log");
+	ProcessPath(latestFilePath);
 }
 
 void LogParser::ProcessPath(std::string path)
@@ -36,8 +36,17 @@ void LogParser::ProcessPath(std::string path)
 		parsingLog.close();
 	}
 
-	//OpenFile(path);
-	OpenFile("resources/VrApi_TestFile.log");
+	if (std::filesystem::exists(path) == false)
+	{
+		return;
+	}
+
+	if (Contains(path, latestFileName) == false)
+	{
+		std::filesystem::copy(path, latestFilePath, std::filesystem::copy_options::overwrite_existing);
+	}
+
+	OpenFile(path);
 	ProgressHandler::AddProgressItem(progressItem);
 }
 

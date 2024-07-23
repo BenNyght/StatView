@@ -6,6 +6,7 @@
 #include <memory>
 
 #include "Drawer.h"
+#include "HomePageGui.h"
 #include "imgui.h"
 #include "imgui_internal.h"
 #include "Guis/MenuBarGui.h"
@@ -40,6 +41,8 @@ void GuiDrawer::SetupGuis()
 
 	AddDrawer<MenuBarGui>();
     AddDrawer<ProgressGui>();
+    AddDrawer<HomePageGui>();
+    AddDrawer<PerformanceGraphGui>();
 }
 
 void GuiDrawer::SetupDockBuilder()
@@ -60,13 +63,14 @@ void GuiDrawer::SetupDockBuilder()
 
     ImGuiID dockIdMain = viewDockSpaceId;
 
-    //ImGuiID dockIdUp;
-    //ImGuiID dockIdDown;
+    ImGuiID dockIdUp;
+    ImGuiID dockIdDown;
 
-    //ImGui::DockBuilderSplitNode(dockIdMain, ImGuiDir_Up, 0.5f, &dockIdDown, &dockIdUp);
+    ImGui::DockBuilderSplitNode(dockIdMain, ImGuiDir_Up, 0.995f, &dockIdUp, &dockIdDown);
 
-    DockDrawer<PerformanceGraphGui>(dockIdMain, ImGuiDockNodeFlags_NoTabBar);
-    //DockDrawer<StatsElement>(dockIdDown, ImGuiDockNodeFlags_NoTabBar);
+    DockDrawer<HomePageGui>(dockIdUp, ImGuiDockNodeFlags_NoUndocking);
+    DockDrawer(PerformanceGraphGui::GuiName + ": 0", dockIdUp, ImGuiDockNodeFlags_None);
+    DockDrawer<ProgressGui>(dockIdDown, ImGuiDockNodeFlags_NoTabBar | ImGuiDockNodeFlags_NoResizeY | ImGuiDockNodeFlags_NoDockingOverMe | ImGuiDockNodeFlags_NoDockingSplit);
 
     ImGui::DockBuilderFinish(dockIdMain); // Finish the docking setup
 }
@@ -81,4 +85,10 @@ void GuiDrawer::DockDrawer(ImGuiID dockId, ImGuiDockNodeFlags dockFlags)
 {
 	ImGui::DockBuilderGetNode(dockId)->LocalFlags |= dockFlags; // Flags "ImGuiDockNodeFlags_NoTabBar" locks the GUI in place and undock-able
 	ImGui::DockBuilderDockWindow(TDrawer::GuiName.c_str(), dockId);
+}
+
+void GuiDrawer::DockDrawer(std::string guiName, ImGuiID dockId, ImGuiDockNodeFlags dockFlags)
+{
+	ImGui::DockBuilderGetNode(dockId)->LocalFlags |= dockFlags; // Flags "ImGuiDockNodeFlags_NoTabBar" locks the GUI in place and undock-able
+	ImGui::DockBuilderDockWindow(guiName.c_str(), dockId);
 }

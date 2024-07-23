@@ -13,32 +13,25 @@ PerformanceGraphElement::PerformanceGraphElement(std::shared_ptr<PerformanceStat
 
 void PerformanceGraphElement::Draw()
 {
-    auto allStatistics = statistics->GetStatistics();
-	for (const size_t selection : performanceStatsElement->selection)
+	if (performanceStatsElement->selection.empty())
 	{
-		auto statistic = allStatistics[selection];
-        DrawGraph(statistic);
+		static Statistic blankStatistic { "" };
+		if (blankStatistic.size == 0)
+		{
+			blankStatistic.AddValue(0);
+		}
+
+		DrawGraph(&blankStatistic);
 	}
-
-  //  if (performanceStatsElement->selection.empty())
-  //  {
-  //      static Statistic blankStatistic { "" };
-  //      if (blankStatistic.size == 0)
-  //      {
-	 //       blankStatistic.AddValue(0);
-  //      }
-
-	 //   DrawGraph(&blankStatistic);
-  //  }
-  //  else
-  //  {
-	 //   auto allStatistics = statistics->GetStatistics();
-		//for (const size_t selection : performanceStatsElement->selection)
-		//{
-		//	auto statistic = allStatistics[selection];
-	 //       DrawGraph(statistic);
-		//}
-  //  }
+	else
+	{
+		auto allStatistics = statistics->GetStatistics();
+		for (const size_t selection : performanceStatsElement->selection)
+		{
+			auto statistic = allStatistics[selection];
+			DrawGraph(statistic);
+		}
+	}
 }
 
 void PerformanceGraphElement::DrawGraph(Statistic* statistic)

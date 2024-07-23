@@ -49,6 +49,17 @@ public:
 		}
 	}
 
+	void RemoveDrawer(const Drawer* drawer)
+	{
+		for (int i = 0; i < drawers.size(); ++i)
+		{
+	        if (drawers[i].get() == drawer) 
+	        {
+	            drawers.erase(drawers.begin() + i);
+	        }
+		}
+	}
+
 	template <typename TDrawer>
 	void EnableDrawer(const bool enable)
 	{
@@ -102,4 +113,5 @@ private:
 
 	template <typename TDrawer>
 	void DockDrawer(ImGuiID dockId, ImGuiDockNodeFlags dockFlags);
+	void DockDrawer(std::string guiName, ImGuiID dockId, ImGuiDockNodeFlags dockFlags);
 };

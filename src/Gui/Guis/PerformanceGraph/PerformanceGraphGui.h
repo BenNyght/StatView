@@ -4,7 +4,6 @@
 
 #include "VrApiStatistics.h"
 #include "Elements/PerformanceGraphElement.h"
-#include "Elements/StatisticSelectionElement.h"
 #include "Gui/Drawer.h"
 #include "LogParser.h"
 
@@ -26,7 +25,6 @@ private:
 
 	std::shared_ptr<PerformanceGraphElement> performanceGraphElement;
 	std::shared_ptr<PerformanceStatsElement> performanceStatsElement;
-	std::shared_ptr<StatisticSelectionElement> statisticSelectionElement;
 
 	static int instanceCount;
 };
