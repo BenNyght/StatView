@@ -63,7 +63,8 @@
 #include <fstream>
 #include <xstring>
 
-#include "VrApiStatistics.h"
+#include "IParser.h"
+#include "StatisticGroup.h"
 #include "Progress/ProgressItem.h"
 #include "Update/Implementations/IUpdate.h"
 
@@ -76,17 +77,17 @@ public:
 	void ProcessLatest();
 	void ProcessPath(std::string path);
 
-	std::shared_ptr<VrApiStatistics> GetVrApiStatistics();
+	std::shared_ptr<StatisticGroup> GetVrApiStatistics();
 
 	void Update() override;
+	bool IsFileOpen();
 
 private:
-	static void ParseVrApi(const std::string& logLine, std::shared_ptr<VrApiStatistics> statistics);
-
 	void OpenFile(std::string path);
 	void CloseFile();
 
-	std::shared_ptr<VrApiStatistics> statistics = std::make_shared<VrApiStatistics>();
+	std::vector<std::shared_ptr<IParser>> parsers {};
+	std::shared_ptr<StatisticGroup> statistics = std::make_shared<StatisticGroup>("VrApi");
 
 	std::string parsingPath;
 	int parsingLine = 0;

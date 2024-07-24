@@ -21,7 +21,7 @@ public:
     double p95 = 0;
     double p995 = 0;
 
-    size_t size;
+    size_t size = 0;
     std::vector<double> values {};
     std::vector<double> labels {};
 

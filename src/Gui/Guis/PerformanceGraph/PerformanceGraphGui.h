@@ -2,7 +2,7 @@
 
 #include <string>
 
-#include "VrApiStatistics.h"
+#include "StatisticGroup.h"
 #include "Elements/PerformanceGraphElement.h"
 #include "Gui/Drawer.h"
 #include "LogParser.h"
@@ -20,7 +20,7 @@ public:
 
 private:
 	std::shared_ptr<LogParser> parser;
-	std::shared_ptr<VrApiStatistics> statistics;
+	std::shared_ptr<StatisticGroup> statistics;
 
 	std::shared_ptr<PerformanceGraphElement> performanceGraphElement;
 	std::shared_ptr<PerformanceStatsElement> performanceStatsElement;

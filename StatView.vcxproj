@@ -423,6 +423,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Gui\Guis\HomePageGui.cpp" />
+    <ClCompile Include="src\Stats\Parsing\Parsers\LogParserVrApi.cpp" />
     <ClInclude Include="D:\dev\StatView\StatView\src\Gui\Drawer.h" />
     <ClCompile Include="D:\dev\StatView\StatView\src\Gui\GuiDrawer.cpp" />
     <ClInclude Include="D:\dev\StatView\StatView\src\Gui\GuiDrawer.h" />
@@ -449,8 +450,8 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="D:\dev\StatView\StatView\src\Stats\Captured\Statistic.h" />
     <ClCompile Include="D:\dev\StatView\StatView\src\Stats\Parsing\LogParser.cpp" />
     <ClInclude Include="D:\dev\StatView\StatView\src\Stats\Parsing\LogParser.h" />
-    <ClCompile Include="D:\dev\StatView\StatView\src\Stats\Parsing\VrApiStatistics.cpp" />
-    <ClInclude Include="D:\dev\StatView\StatView\src\Stats\Parsing\VrApiStatistics.h" />
+    <ClCompile Include="src\Stats\Captured\StatisticGroup.cpp" />
+    <ClInclude Include="src\Stats\Captured\StatisticGroup.h" />
     <ClCompile Include="D:\dev\StatView\StatView\src\Stats\StatisticUtility.cpp" />
     <ClInclude Include="D:\dev\StatView\StatView\src\Stats\StatisticUtility.h" />
     <ClCompile Include="D:\dev\StatView\StatView\src\Utility\File\FileUtility.cpp" />
@@ -472,6 +473,8 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="D:\dev\StatView\StatView\include\imgui_impl_sdl2.cpp" />
     <ClCompile Include="D:\dev\StatView\StatView\include\tinyfiledialogs.c" />
     <ClInclude Include="src\Gui\Guis\HomePageGui.h" />
+    <ClInclude Include="src\Stats\Parsing\IParser.h" />
+    <ClInclude Include="src\Stats\Parsing\Parsers\LogParserVrApi.h" />
     <Natvis Include="D:\dev\StatView\StatView\vcpkg\installed\x64-windows\share\nlohmann_json\nlohmann_json.natvis">
     </Natvis>
   </ItemGroup>

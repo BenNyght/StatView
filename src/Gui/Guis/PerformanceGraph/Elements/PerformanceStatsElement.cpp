@@ -6,9 +6,9 @@
 #include <sstream>
 
 #include "imgui.h"
-#include "Parsing/VrApiStatistics.h"
+#include "StatisticGroup.h"
 
-PerformanceStatsElement::PerformanceStatsElement(std::shared_ptr<VrApiStatistics> statistics) : statistics(statistics)
+PerformanceStatsElement::PerformanceStatsElement(std::shared_ptr<StatisticGroup> statistics) : statisticGroup(statistics)
 {
 
 }
@@ -17,7 +17,7 @@ void PerformanceStatsElement::Draw() const
 {
     static ImGuiTableFlags flags = ImGuiTableFlags_SizingStretchSame | ImGuiTableFlags_Resizable | ImGuiTableFlags_BordersOuter | ImGuiTableFlags_BordersV | ImGuiTableFlags_ContextMenuInBody;
 
-    const auto allStatistics = statistics->GetStatistics();
+    const auto& allStatistics = statisticGroup->statistics;
 
 	if (ImGui::BeginTable("Stat Table", 9, flags))
 	{
@@ -32,18 +32,18 @@ void PerformanceStatsElement::Draw() const
 
 		for (size_t statisticIndex = 0; statisticIndex < allStatistics.size(); ++statisticIndex)
 		{
-			ImGui::TableNextRow();
-
-			ImGui::TableNextColumn();
-			auto statistic = allStatistics[statisticIndex];
-			if (statistic == nullptr || statistic->size == 0)
+			auto& statistic = allStatistics[statisticIndex];
+			if (statistic.size == 0)
 			{
 				continue;
 			}
 
+			ImGui::TableNextRow();
+			ImGui::TableNextColumn();
+
 			const bool itemIsSelected = selection.contains(statisticIndex);
 			ImGuiSelectableFlags selectableFlags =  ImGuiSelectableFlags_SpanAllColumns | ImGuiSelectableFlags_AllowOverlap;
-            if (ImGui::Selectable(statistic->name.c_str(), itemIsSelected, selectableFlags))
+            if (ImGui::Selectable(statistic.name.c_str(), itemIsSelected, selectableFlags))
             {
                 if (ImGui::GetIO().KeyCtrl)
                 {
@@ -68,7 +68,7 @@ void PerformanceStatsElement::Draw() const
 				ImGui::TableNextColumn();
 
 				std::stringstream stream;
-				stream << std::fixed << std::setprecision(2) << statistic->GetIndexValue(column);
+				stream << std::fixed << std::setprecision(2) << statistic.GetIndexValue(column);
 				std::string value = stream.str();
 				ImGui::Text("%s", value.c_str());
 			}

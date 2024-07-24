@@ -30,6 +30,12 @@ void PerformanceGraphGui::Process(bool latest) const
 		else
 		{
 			std::string path = FileUtility::OpenFilePanel("Select Logcat File", "", { "txt", "logcat", "log" });
+			if (path.empty())
+			{
+				guiDrawer->RemoveDrawer(this);
+				processed = true;
+				return;
+			}
 			parser->ProcessPath(path);
 		}
 

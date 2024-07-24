@@ -5,9 +5,9 @@
 #include "imgui.h"
 #include "implot.h"
 #include "PerformanceStatsElement.h"
-#include "Parsing/VrApiStatistics.h"
+#include "StatisticGroup.h"
 
-PerformanceGraphElement::PerformanceGraphElement(std::shared_ptr<PerformanceStatsElement> performanceStatsElement, std::shared_ptr<VrApiStatistics> statistics)
+PerformanceGraphElement::PerformanceGraphElement(std::shared_ptr<PerformanceStatsElement> performanceStatsElement, std::shared_ptr<StatisticGroup> statistics)
 	: performanceStatsElement(performanceStatsElement), statistics(statistics)
 {}
 
@@ -21,11 +21,11 @@ void PerformanceGraphElement::Draw()
 			blankStatistic.AddValue(0);
 		}
 
-		DrawGraph(&blankStatistic);
+		DrawGraph(blankStatistic);
 	}
 	else
 	{
-		auto allStatistics = statistics->GetStatistics();
+		auto& allStatistics = statistics->statistics;
 		for (const size_t selection : performanceStatsElement->selection)
 		{
 			auto statistic = allStatistics[selection];
@@ -34,7 +34,7 @@ void PerformanceGraphElement::Draw()
 	}
 }
 
-void PerformanceGraphElement::DrawGraph(Statistic* statistic)
+void PerformanceGraphElement::DrawGraph(Statistic& statistic)
 {
     static bool showLines = true;
     static bool showFills = true;
@@ -43,30 +43,36 @@ void PerformanceGraphElement::DrawGraph(Statistic* statistic)
 
     DrawGraphControls(showLines, showFills, fillRef, shadeMode);
 
-    const size_t length = statistic->size;
-    std::string title = std::format("{} (Count: {})", statistic->name, length);
+    const size_t length = statistic.size;
+    std::string title = std::format("{} (Count: {})", statistic.name, length);
     if (ImPlot::BeginPlot(title.c_str())) 
     {
-        const auto labels = statistic->labels;
+        const auto labels = statistic.labels;
 
-        const double range = statistic->max - statistic->min;
-        const double min = statistic->min;
-        const double max = statistic->max + (range * 0.15);
+        const double range = statistic.max - statistic.min;
+        const double min = statistic.min;
+        const double max = statistic.max + (range * 0.15);
 
         ImPlot::SetupAxes("Index","Value");
         ImPlot::SetupAxesLimits(0, length, min, max);
 
+        std::string legendName = statistic.name;
+        if (statistic.suffix.empty() == false)
+        {
+			legendName += "(" + statistic.suffix + ")";
+        }
+
         if (showFills) 
         {
             ImPlot::PushStyleVar(ImPlotStyleVar_FillAlpha, 0.25f);
-            ImPlot::PlotShaded((statistic->name).c_str(), labels.data(), statistic->values.data(), length, shadeMode == 0 ? -INFINITY : shadeMode == 1 ? INFINITY : fillRef, 0);
+            ImPlot::PlotShaded(legendName.c_str(), labels.data(), statistic.values.data(), length, shadeMode == 0 ? -INFINITY : shadeMode == 1 ? INFINITY : fillRef, 0);
             //ImPlot::PlotShaded("Stock 2", labels, PerformanceStats::frameTime.data(), length, shade_mode == 0 ? -INFINITY : shade_mode == 1 ? INFINITY : fill_ref, flags);
             ImPlot::PopStyleVar();
         }
 
         if (showLines) 
         {
-            ImPlot::PlotLine((statistic->name).c_str(), labels.data(), statistic->values.data(), length);
+            ImPlot::PlotLine(legendName.c_str(), labels.data(), statistic.values.data(), length);
             //ImPlot::PlotLine("Stock 2", labels, PerformanceStats::frameTime.data(), length);
         }
         ImPlot::EndPlot();

@@ -3,16 +3,16 @@
 #include <imgui.h>
 #include <memory>
 
-#include "VrApiStatistics.h"
+#include "StatisticGroup.h"
 
 class PerformanceStatsElement
 {
 public:
-	PerformanceStatsElement(std::shared_ptr<VrApiStatistics> statistics);
+	PerformanceStatsElement(std::shared_ptr<StatisticGroup> statistics);
 	void Draw() const;
 
 	mutable ImVector<size_t> selection;
 
 private:
-	std::shared_ptr<VrApiStatistics> statistics;
+	std::shared_ptr<StatisticGroup> statisticGroup;
 };
