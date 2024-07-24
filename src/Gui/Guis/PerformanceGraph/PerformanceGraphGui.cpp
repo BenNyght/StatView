@@ -13,25 +13,33 @@ PerformanceGraphGui::PerformanceGraphGui() : Drawer()
 	++instanceCount;
 
 	parser = std::make_shared<LogParser>();
-	if (instanceId == 0)
-	{
-		parser->ProcessLatest();
-	}
-	else
-	{
-		std::string path = FileUtility::OpenFilePanel("Select Logcat File", "", { "txt", "logcat", "log" });
-		parser->ProcessPath(path);
-	}
 	statistics = parser->GetVrApiStatistics();
 
 	performanceStatsElement = std::make_shared<PerformanceStatsElement>(statistics);
 	performanceGraphElement = std::make_shared<PerformanceGraphElement>(performanceStatsElement, statistics);
 }
 
+void PerformanceGraphGui::Process(bool latest) const
+{
+	if (processed == false)
+	{
+		if (instanceId == 0 || latest)
+		{
+			parser->ProcessLatest();
+		}
+		else
+		{
+			std::string path = FileUtility::OpenFilePanel("Select Logcat File", "", { "txt", "logcat", "log" });
+			parser->ProcessPath(path);
+		}
+
+		processed = true;
+	}
+}
+
 void PerformanceGraphGui::Draw() const
 {
 	const auto instanceAsString = std::to_string(instanceId);
-
 	bool open = true;
 	ImGui::Begin((PerformanceGraphGui::GuiName + ": " + instanceAsString).c_str(), &open);
 

@@ -1,7 +1,6 @@
 
 #include "GuiDrawer.h"
 
-
 #include <vector>
 #include <memory>
 
@@ -42,7 +41,9 @@ void GuiDrawer::SetupGuis()
 	AddDrawer<MenuBarGui>();
     AddDrawer<ProgressGui>();
     AddDrawer<HomePageGui>();
-    AddDrawer<PerformanceGraphGui>();
+
+    auto performanceGraphGui = AddDrawer<PerformanceGraphGui>();
+    performanceGraphGui->Process(true);
 }
 
 void GuiDrawer::SetupDockBuilder()

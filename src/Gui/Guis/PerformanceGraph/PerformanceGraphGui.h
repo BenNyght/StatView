@@ -12,8 +12,7 @@ class PerformanceGraphGui : public Drawer
 public:
 	PerformanceGraphGui();
 
-	void SetStatistics(VrApiStatistics statistics);
-
+	void Process(bool latest) const;
 	void Draw() const override;
 	std::string& GetName() const override;
 
@@ -25,6 +24,8 @@ private:
 
 	std::shared_ptr<PerformanceGraphElement> performanceGraphElement;
 	std::shared_ptr<PerformanceStatsElement> performanceStatsElement;
+
+	mutable bool processed = false;
 
 	static int instanceCount;
 };

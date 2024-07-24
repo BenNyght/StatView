@@ -6,8 +6,6 @@
 #include <vector>
 
 #include "Drawer.h"
-#include "HelloWorldGui.h"
-#include "ImGuiDemoGui.h"
 #include "Update/Implementations/IDraw.h"
 
 class GuiDrawer : public std::enable_shared_from_this<GuiDrawer>, IDraw
@@ -18,14 +16,14 @@ public:
 	static inline std::string GuiName = "Main Window";
 
 	template <typename TDrawer>
-	TDrawer* AddDrawer()
+	std::shared_ptr<TDrawer> AddDrawer()
 	{
 		std::shared_ptr<TDrawer> drawer = std::make_shared<TDrawer>();
 		drawer->guiDrawer = GuiDrawerInstance();
 
 		for (int i = 0; i < drawers.size(); ++i)
 		{
-			auto foundDrawer = dynamic_cast<TDrawer*>(drawers[i].get());
+			auto foundDrawer = std::dynamic_pointer_cast<TDrawer>(drawers[i]);
 	        if (foundDrawer != nullptr && drawers[i]->instanceId == drawer->instanceId) 
 	        {
 	            return foundDrawer;
@@ -33,7 +31,7 @@ public:
 		}
 
 		drawers.push_back(drawer);
-		return drawer.get();
+		return drawer;
 	}
 
 	template <typename TDrawer>
@@ -41,7 +39,7 @@ public:
 	{
 		for (int i = 0; i < drawers.size(); ++i)
 		{
-			auto foundDrawer = dynamic_cast<TDrawer*>(drawers[i].get());
+			auto foundDrawer = std::dynamic_pointer_cast<TDrawer>(drawers[i]);
 	        if (foundDrawer != nullptr) 
 	        {
 	            drawers.erase(drawers.begin() + i);
@@ -65,7 +63,7 @@ public:
 	{
 		for (int i = 0; i < drawers.size(); ++i)
 		{
-			auto foundDrawer = dynamic_cast<TDrawer*>(drawers[i].get());
+			auto foundDrawer = std::dynamic_pointer_cast<TDrawer>(drawers[i]);
 	        if (foundDrawer != nullptr) 
 	        {
 	            drawers[i]->enabled = enable;
@@ -79,7 +77,7 @@ public:
 	{
 		for (int i = 0; i < drawers.size(); ++i)
 		{
-			auto foundDrawer = dynamic_cast<TDrawer*>(drawers[i].get());
+			auto foundDrawer = std::dynamic_pointer_cast<TDrawer>(drawers[i]);
 	        if (foundDrawer != nullptr) 
 	        {
 				bool currentlyEnabled = drawers[i]->enabled;
@@ -90,11 +88,11 @@ public:
 	}
 
 	template <typename TDrawer>
-	TDrawer* GetDrawer() const
+	std::shared_ptr<TDrawer> GetDrawer() const
 	{
 		for (int i = 0; i < drawers.size(); ++i)
 		{
-			auto foundDrawer = dynamic_cast<TDrawer*>(drawers[i].get());
+			auto foundDrawer = std::dynamic_pointer_cast<TDrawer>(drawers[i]);
 	        if (foundDrawer != nullptr) 
 	        {
 				return foundDrawer;

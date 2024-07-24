@@ -14,9 +14,16 @@ void MenuBarGui::Draw() const
     {
         if (ImGui::BeginMenu("File")) 
         {
-            if (ImGui::MenuItem("Open/Parse VrApi Statistics")) 
+            if (ImGui::MenuItem("Open Latest Log File")) 
             {
-                guiDrawer->AddDrawer<PerformanceGraphGui>();
+                std::shared_ptr<PerformanceGraphGui> gui = guiDrawer->AddDrawer<PerformanceGraphGui>();
+                gui->Process(true);
+            }
+
+            if (ImGui::MenuItem("Open Log File")) 
+            {
+                std::shared_ptr<PerformanceGraphGui> gui = guiDrawer->AddDrawer<PerformanceGraphGui>();
+                gui->Process(false);
             }
 
             ImGui::EndMenu();
