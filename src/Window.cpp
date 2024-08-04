@@ -7,7 +7,6 @@
 #include "imgui_impl_opengl3.h"
 #include "imgui_impl_sdl2.h"
 #include "implot.h"
-#include "imgui_internal.h"
 
 int Window::Setup()
 {

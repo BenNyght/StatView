@@ -3,7 +3,6 @@
 #include <SDL.h>
 #include "Window.h"
 #include "Gui/GuiDrawer.h"
-#include "Parsing/LogParser.h"
 
 int main(int, char**)
 {
@@ -13,13 +12,6 @@ int main(int, char**)
     {
 	    return result;
     }
-
-//  const std::string adbCommand = "adb logcat -d -s VrApi > ";
-//  std::string file = "VrApi.log";
-//  std::string fullPath = (std::filesystem::current_path() / file).string();
-//  const std::string fullCommand = adbCommand + fullPath;
-//  system(("echo " + fullCommand).c_str());
-//  system(fullCommand.c_str());
 
     auto drawer = std::make_shared<GuiDrawer>();
 

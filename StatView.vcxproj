@@ -422,8 +422,10 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Gui\Guis\AdbUtilityGui.cpp" />
     <ClCompile Include="src\Gui\Guis\HomePageGui.cpp" />
     <ClCompile Include="src\Stats\Parsing\Parsers\LogParserVrApi.cpp" />
+    <ClCompile Include="src\Utility\Adb\AdbUtility.cpp" />
     <ClInclude Include="D:\dev\StatView\StatView\src\Gui\Drawer.h" />
     <ClCompile Include="D:\dev\StatView\StatView\src\Gui\GuiDrawer.cpp" />
     <ClInclude Include="D:\dev\StatView\StatView\src\Gui\GuiDrawer.h" />
@@ -451,6 +453,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="D:\dev\StatView\StatView\src\Stats\Parsing\LogParser.cpp" />
     <ClInclude Include="D:\dev\StatView\StatView\src\Stats\Parsing\LogParser.h" />
     <ClCompile Include="src\Stats\Captured\StatisticGroup.cpp" />
+    <ClInclude Include="src\Gui\Guis\AdbUtilityGui.h" />
     <ClInclude Include="src\Stats\Captured\StatisticGroup.h" />
     <ClCompile Include="D:\dev\StatView\StatView\src\Stats\StatisticUtility.cpp" />
     <ClInclude Include="D:\dev\StatView\StatView\src\Stats\StatisticUtility.h" />
@@ -475,6 +478,8 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="src\Gui\Guis\HomePageGui.h" />
     <ClInclude Include="src\Stats\Parsing\IParser.h" />
     <ClInclude Include="src\Stats\Parsing\Parsers\LogParserVrApi.h" />
+    <ClInclude Include="src\Utility\Adb\AdbUtility.h" />
+    <ClInclude Include="src\Utility\Adb\DeviceInfo.h" />
     <Natvis Include="D:\dev\StatView\StatView\vcpkg\installed\x64-windows\share\nlohmann_json\nlohmann_json.natvis">
     </Natvis>
   </ItemGroup>

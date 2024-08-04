@@ -1,7 +1,7 @@
 
 #include "MenuBarGui.h"
 
-#include "FileUtility.h"
+#include "AdbUtilityGui.h"
 #include "imgui.h"
 #include "ImGuiDemoGui.h"
 #include "LogParser.h"
@@ -14,13 +14,13 @@ void MenuBarGui::Draw() const
     {
         if (ImGui::BeginMenu("File")) 
         {
-            if (ImGui::MenuItem("Open Latest Log File")) 
+            if (ImGui::MenuItem("Open Latest Log File"))
             {
                 std::shared_ptr<PerformanceGraphGui> gui = guiDrawer->AddDrawer<PerformanceGraphGui>();
                 gui->Process(true);
             }
 
-            if (ImGui::MenuItem("Open Log File")) 
+            if (ImGui::MenuItem("Open Log File"))
             {
                 std::shared_ptr<PerformanceGraphGui> gui = guiDrawer->AddDrawer<PerformanceGraphGui>();
                 gui->Process(false);
@@ -29,9 +29,22 @@ void MenuBarGui::Draw() const
             ImGui::EndMenu();
         }
 
-        if (ImGui::BeginMenu("Debug")) 
+        if (ImGui::BeginMenu("Windows"))
         {
-            if (ImGui::MenuItem("Debug/ImGui Demo Window")) 
+            if (ImGui::MenuItem("Adb Utility"))
+            {
+                auto drawer = guiDrawer->GetDrawer<AdbUtilityGui>();
+                if (drawer == nullptr)
+                {
+	                guiDrawer->AddDrawer<AdbUtilityGui>();
+                }
+                else
+                {
+	                guiDrawer->ToggleDrawer<AdbUtilityGui>();
+                }
+            }
+
+            if (ImGui::MenuItem("ImGui Demo Window"))
             {
                 auto drawer = guiDrawer->GetDrawer<ImGuiDemoGui>();
                 if (drawer == nullptr)
