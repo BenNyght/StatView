@@ -1,7 +1,7 @@
 #pragma once
 
-#include <deque>
 #include <string>
+#include <vector>
 
 #include "../Drawer.h"
 
@@ -21,8 +21,7 @@ private:
 	void ReadLog();
 	void LiveLogcatOutputView();
 	void GetDevicesButton();
+	char GetLogcatPriority(const std::string& logLine);
 
 	std::string targetApplication;
-	int targetLineCount = 250;
-	std::deque<std::string> liveLog;
 };

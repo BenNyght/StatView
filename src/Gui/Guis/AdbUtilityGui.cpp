@@ -5,6 +5,8 @@
 #include <fstream>
 #include <iostream>
 #include <ostream>
+#include <regex>
+#include <sstream>
 
 #include "GuiDrawer.h"
 #include "imgui.h"
@@ -37,92 +39,30 @@ void AdbUtilityGui::Draw()
 	}
 
 	ImGui::InputText("Target App", &targetApplication, ImGuiInputTextFlags_CharsNoBlank);
-	ImGui::InputInt("Max Line Count", &targetLineCount, 10);
-    if (targetLineCount < 1)
-    {
-	    targetLineCount = 1;
-    }
 
 	LiveLogcatButton();
 	ImGui::SameLine();
 	ClearLiveLogcatButton();
 
-	ReadLog();
 	LiveLogcatOutputView();
 
     ImGui::End();
 }
 
-void AdbUtilityGui::ReadLog()
-{
-    const int bufferSize = 4096; // Buffer size for reading file chunks
-    std::ifstream file(AdbUtility::GetLiveLogcatPath(), std::ios::binary);
-
-    if (!file.is_open()) 
-    {
-        std::cerr << "Failed to open the file." << std::endl;
-        return;
-    }
-
-    liveLog.clear();
-    std::string leftover;
-    std::vector<char> buffer(bufferSize);
-
-    file.seekg(0, std::ios::end);
-    std::streampos filePos = file.tellg();
-
-    while (filePos > 0 && liveLog.size() < targetLineCount) 
-    {
-        int readSize = std::min(bufferSize, static_cast<int>(filePos));
-        filePos -= readSize;
-        file.seekg(filePos);
-        file.read(buffer.data(), readSize);
-
-        for (int i = readSize - 1; i >= 0; --i) 
-        {
-            if (buffer[i] == '\n' || buffer[i] == '\r') 
-            {
-                std::string line = leftover;
-                if (i != readSize - 1) 
-                {
-                    line.insert(line.begin(), buffer.begin() + i + 1, buffer.begin() + readSize);
-                }
-
-                if (!line.empty()) 
-                {
-                    liveLog.push_front(line);
-                    leftover.clear();
-                }
-            } 
-            else 
-            {
-                leftover.insert(leftover.begin(), buffer[i]);
-            }
-
-            if (liveLog.size() == targetLineCount) 
-            {
-                break;
-            }
-        }
-    }
-
-    if (!leftover.empty() && liveLog.size() < targetLineCount) 
-    {
-        liveLog.push_front(leftover);
-    }
-
-    std::cout << liveLog.size() << std::endl;
-
-    file.close();
-}
-
 void AdbUtilityGui::LiveLogcatOutputView()
 {
-	ImGui::BeginChild("scrolling", ImVec2(0, 0), false, ImGuiWindowFlags_HorizontalScrollbar);
-    for (const auto& log : liveLog)
+	if (AdbUtility::LiveLogcatExists() == false)
 	{
-        ImGui::TextUnformatted(log.c_str());
-    }
+		std::cout << "Failed to find Logcat file" << std::endl;
+		return;
+	}
+
+	std::ifstream file(AdbUtility::GetLiveLogcatPath());
+    std::string content((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
+    file.close();
+
+	ImGui::BeginChild("scrolling", ImVec2(0, 0), false, ImGuiWindowFlags_HorizontalScrollbar);
+	ImGui::TextUnformatted(content.c_str());
 
     if (ImGui::GetScrollY() >= ImGui::GetScrollMaxY())
 	{
@@ -144,7 +84,6 @@ void AdbUtilityGui::ClearLiveLogcatButton()
 	if (ImGui::Button("Clear"))
 	{
 		AdbUtility::ClearLiveLogcat();
-		liveLog.clear();
 	}
 }
 
@@ -163,6 +102,26 @@ void AdbUtilityGui::GetDevicesButton()
 			std::cout << id << " -> " << status << std::endl;
 		}
 	}
+}
+
+char AdbUtilityGui::GetLogcatPriority(const std::string& logLine)
+{
+    // Define a regex pattern to match the logcat format and capture the priority
+    std::regex logPattern(R"(^\d{2}-\d{2}\s\d{2}:\d{2}:\d{2}\.\d{3}\s+\d+\s+\d+\s+([VDIWEFS]))");
+    std::smatch matches;
+
+    // Use regex to search for the pattern in the log line
+    if (std::regex_search(logLine, matches, logPattern))
+    {
+        // matches[1] contains the priority level
+        if (matches.size() > 1)
+        {
+            return matches[1].str()[0];
+        }
+    }
+
+    // Return a default value if no valid priority is found
+    return '?';
 }
 
 std::string& AdbUtilityGui::GetName() const
