@@ -8,7 +8,7 @@
 #include "Gui/GuiDrawer.h"
 #include "PerformanceGraph/PerformanceGraphGui.h"
 
-void MenuBarGui::Draw() const
+void MenuBarGui::Draw()
 {
 	if (ImGui::BeginMainMenuBar()) 
     {
@@ -40,7 +40,7 @@ void MenuBarGui::Draw() const
                 }
                 else
                 {
-	                guiDrawer->ToggleDrawer<AdbUtilityGui>();
+	                guiDrawer->RemoveDrawer<AdbUtilityGui>();
                 }
             }
 

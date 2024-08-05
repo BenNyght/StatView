@@ -3,7 +3,7 @@
 
 #include "imgui.h"
 
-void HomePageGui::Draw() const
+void HomePageGui::Draw()
 {
 	ImGui::Begin(HomePageGui::GuiName.c_str());
 	ImGui::Text("Oh Hey");

@@ -86,7 +86,7 @@ add_custom_command(
     COMMAND ${CMAKE_COMMAND} -E echo "Copying resources to output directory..."
     COMMAND ${CMAKE_COMMAND} -E copy_directory
         "${CMAKE_SOURCE_DIR}/resources"
-        "${CMAKE_BINARY_DIR}/out/resources"
+        "${CMAKE_BINARY_DIR}/out/bin/resources"
 )
 
 # Print paths

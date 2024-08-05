@@ -5,7 +5,7 @@
 #include "Gui/ImGui/ImGuiExtensions.h"
 #include "Progress/ProgressHandler.h"
 
-void ProgressGui::Draw() const
+void ProgressGui::Draw()
 {
 	ImGui::Begin(ProgressGui::GuiName.c_str(), 0, 
 		ImGuiWindowFlags_NoInputs | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove);

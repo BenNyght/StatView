@@ -3,7 +3,7 @@
 
 #include "imgui.h"
 
-void HelloWorldGui::Draw() const
+void HelloWorldGui::Draw()
 {
 	ImGui::Begin(HelloWorldGui::GuiName.c_str());
     ImGui::Text("This is some useful text.");

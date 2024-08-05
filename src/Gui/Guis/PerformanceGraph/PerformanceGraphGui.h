@@ -12,8 +12,8 @@ class PerformanceGraphGui : public Drawer
 public:
 	PerformanceGraphGui();
 
-	void Process(bool latest) const;
-	void Draw() const override;
+	void Process(bool latest);
+	void Draw() override;
 	std::string& GetName() const override;
 
 	static inline std::string GuiName = "Performance Graph";

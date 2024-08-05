@@ -10,7 +10,7 @@ public:
 	ImGuiDemoGui();
 	~ImGuiDemoGui();
 
-	void Draw() const override;
+	void Draw() override;
 	std::string& GetName() const override;
 
 	static inline std::string GuiName = "ImGui Demo Window";

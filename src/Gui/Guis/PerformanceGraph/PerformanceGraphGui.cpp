@@ -19,7 +19,7 @@ PerformanceGraphGui::PerformanceGraphGui() : Drawer()
 	performanceGraphElement = std::make_shared<PerformanceGraphElement>(performanceStatsElement, statistics);
 }
 
-void PerformanceGraphGui::Process(bool latest) const
+void PerformanceGraphGui::Process(bool latest)
 {
 	if (processed == false)
 	{
@@ -43,7 +43,7 @@ void PerformanceGraphGui::Process(bool latest) const
 	}
 }
 
-void PerformanceGraphGui::Draw() const
+void PerformanceGraphGui::Draw()
 {
 	const auto instanceAsString = std::to_string(instanceId);
 	bool open = true;

@@ -16,7 +16,7 @@ ImGuiDemoGui::~ImGuiDemoGui()
 	std::cout << "ImGuiDemo Deconstructed" << std::endl;
 }
 
-void ImGuiDemoGui::Draw() const
+void ImGuiDemoGui::Draw()
 {
 	ImGui::ShowDemoWindow();
 }

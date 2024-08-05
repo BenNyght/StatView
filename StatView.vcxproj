@@ -118,8 +118,7 @@
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <PostBuildEvent>
-      <Message>
-      </Message>
+      <Message>	</Message>
       <Command>setlocal
 C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noprofile -executionpolicy Bypass -file D:/dev/StatView/StatView/vcpkg/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary D:/dev/StatView/StatView/out/bin/StatView.exe -installedDir D:/dev/StatView/StatView/vcpkg/installed/x64-windows/debug/bin -OutVariable out
 if %errorlevel% neq 0 goto :cmEnd
@@ -132,7 +131,7 @@ if %errorlevel% neq 0 goto :VCEnd
 setlocal
 "C:\Program Files\CMake\bin\cmake.exe" -E echo "Copying resources to output directory..."
 if %errorlevel% neq 0 goto :cmEnd
-"C:\Program Files\CMake\bin\cmake.exe" -E copy_directory D:/dev/StatView/StatView/resources D:/dev/StatView/StatView/out/resources
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_directory D:/dev/StatView/StatView/resources D:/dev/StatView/StatView/out/bin/resources
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -188,8 +187,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <PostBuildEvent>
-      <Message>
-      </Message>
+      <Message>	</Message>
       <Command>setlocal
 C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noprofile -executionpolicy Bypass -file D:/dev/StatView/StatView/vcpkg/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary D:/dev/StatView/StatView/out/bin/StatView.exe -installedDir D:/dev/StatView/StatView/vcpkg/installed/x64-windows/bin -OutVariable out
 if %errorlevel% neq 0 goto :cmEnd
@@ -202,7 +200,7 @@ if %errorlevel% neq 0 goto :VCEnd
 setlocal
 "C:\Program Files\CMake\bin\cmake.exe" -E echo "Copying resources to output directory..."
 if %errorlevel% neq 0 goto :cmEnd
-"C:\Program Files\CMake\bin\cmake.exe" -E copy_directory D:/dev/StatView/StatView/resources D:/dev/StatView/StatView/out/resources
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_directory D:/dev/StatView/StatView/resources D:/dev/StatView/StatView/out/bin/resources
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -258,8 +256,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <PostBuildEvent>
-      <Message>
-      </Message>
+      <Message>	</Message>
       <Command>setlocal
 C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noprofile -executionpolicy Bypass -file D:/dev/StatView/StatView/vcpkg/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary D:/dev/StatView/StatView/out/bin/StatView.exe -installedDir D:/dev/StatView/StatView/vcpkg/installed/x64-windows/bin -OutVariable out
 if %errorlevel% neq 0 goto :cmEnd
@@ -272,7 +269,7 @@ if %errorlevel% neq 0 goto :VCEnd
 setlocal
 "C:\Program Files\CMake\bin\cmake.exe" -E echo "Copying resources to output directory..."
 if %errorlevel% neq 0 goto :cmEnd
-"C:\Program Files\CMake\bin\cmake.exe" -E copy_directory D:/dev/StatView/StatView/resources D:/dev/StatView/StatView/out/resources
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_directory D:/dev/StatView/StatView/resources D:/dev/StatView/StatView/out/bin/resources
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -327,8 +324,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <PostBuildEvent>
-      <Message>
-      </Message>
+      <Message>	</Message>
       <Command>setlocal
 C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noprofile -executionpolicy Bypass -file D:/dev/StatView/StatView/vcpkg/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary D:/dev/StatView/StatView/out/bin/StatView.exe -installedDir D:/dev/StatView/StatView/vcpkg/installed/x64-windows/bin -OutVariable out
 if %errorlevel% neq 0 goto :cmEnd
@@ -341,7 +337,7 @@ if %errorlevel% neq 0 goto :VCEnd
 setlocal
 "C:\Program Files\CMake\bin\cmake.exe" -E echo "Copying resources to output directory..."
 if %errorlevel% neq 0 goto :cmEnd
-"C:\Program Files\CMake\bin\cmake.exe" -E copy_directory D:/dev/StatView/StatView/resources D:/dev/StatView/StatView/out/resources
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_directory D:/dev/StatView/StatView/resources D:/dev/StatView/StatView/out/bin/resources
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -422,15 +418,15 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Gui\Guis\AdbUtilityGui.cpp" />
-    <ClCompile Include="src\Gui\Guis\HomePageGui.cpp" />
-    <ClCompile Include="src\Stats\Parsing\Parsers\LogParserVrApi.cpp" />
-    <ClCompile Include="src\Utility\Adb\AdbUtility.cpp" />
     <ClInclude Include="D:\dev\StatView\StatView\src\Gui\Drawer.h" />
     <ClCompile Include="D:\dev\StatView\StatView\src\Gui\GuiDrawer.cpp" />
     <ClInclude Include="D:\dev\StatView\StatView\src\Gui\GuiDrawer.h" />
+    <ClCompile Include="D:\dev\StatView\StatView\src\Gui\Guis\AdbUtilityGui.cpp" />
+    <ClInclude Include="D:\dev\StatView\StatView\src\Gui\Guis\AdbUtilityGui.h" />
     <ClCompile Include="D:\dev\StatView\StatView\src\Gui\Guis\HelloWorldGui.cpp" />
     <ClInclude Include="D:\dev\StatView\StatView\src\Gui\Guis\HelloWorldGui.h" />
+    <ClCompile Include="D:\dev\StatView\StatView\src\Gui\Guis\HomePageGui.cpp" />
+    <ClInclude Include="D:\dev\StatView\StatView\src\Gui\Guis\HomePageGui.h" />
     <ClCompile Include="D:\dev\StatView\StatView\src\Gui\Guis\ImGuiDemoGui.cpp" />
     <ClInclude Include="D:\dev\StatView\StatView\src\Gui\Guis\ImGuiDemoGui.h" />
     <ClCompile Include="D:\dev\StatView\StatView\src\Gui\Guis\MenuBarGui.cpp" />
@@ -450,15 +446,21 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="D:\dev\StatView\StatView\src\StatView.cpp" />
     <ClCompile Include="D:\dev\StatView\StatView\src\Stats\Captured\Statistic.cpp" />
     <ClInclude Include="D:\dev\StatView\StatView\src\Stats\Captured\Statistic.h" />
+    <ClCompile Include="D:\dev\StatView\StatView\src\Stats\Captured\StatisticGroup.cpp" />
+    <ClInclude Include="D:\dev\StatView\StatView\src\Stats\Captured\StatisticGroup.h" />
+    <ClInclude Include="D:\dev\StatView\StatView\src\Stats\Parsing\IParser.h" />
     <ClCompile Include="D:\dev\StatView\StatView\src\Stats\Parsing\LogParser.cpp" />
     <ClInclude Include="D:\dev\StatView\StatView\src\Stats\Parsing\LogParser.h" />
-    <ClCompile Include="src\Stats\Captured\StatisticGroup.cpp" />
-    <ClInclude Include="src\Gui\Guis\AdbUtilityGui.h" />
-    <ClInclude Include="src\Stats\Captured\StatisticGroup.h" />
+    <ClCompile Include="D:\dev\StatView\StatView\src\Stats\Parsing\Parsers\LogParserVrApi.cpp" />
+    <ClInclude Include="D:\dev\StatView\StatView\src\Stats\Parsing\Parsers\LogParserVrApi.h" />
     <ClCompile Include="D:\dev\StatView\StatView\src\Stats\StatisticUtility.cpp" />
     <ClInclude Include="D:\dev\StatView\StatView\src\Stats\StatisticUtility.h" />
+    <ClCompile Include="D:\dev\StatView\StatView\src\Utility\Adb\AdbUtility.cpp" />
+    <ClInclude Include="D:\dev\StatView\StatView\src\Utility\Adb\AdbUtility.h" />
+    <ClInclude Include="D:\dev\StatView\StatView\src\Utility\Adb\DeviceInfo.h" />
     <ClCompile Include="D:\dev\StatView\StatView\src\Utility\File\FileUtility.cpp" />
     <ClInclude Include="D:\dev\StatView\StatView\src\Utility\File\FileUtility.h" />
+    <ClInclude Include="D:\dev\StatView\StatView\src\Utility\PathUtility.h" />
     <ClCompile Include="D:\dev\StatView\StatView\src\Utility\Progress\ProgressHandler.cpp" />
     <ClInclude Include="D:\dev\StatView\StatView\src\Utility\Progress\ProgressHandler.h" />
     <ClInclude Include="D:\dev\StatView\StatView\src\Utility\Progress\ProgressItem.h" />
@@ -475,11 +477,6 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="D:\dev\StatView\StatView\include\imgui_impl_opengl3.cpp" />
     <ClCompile Include="D:\dev\StatView\StatView\include\imgui_impl_sdl2.cpp" />
     <ClCompile Include="D:\dev\StatView\StatView\include\tinyfiledialogs.c" />
-    <ClInclude Include="src\Gui\Guis\HomePageGui.h" />
-    <ClInclude Include="src\Stats\Parsing\IParser.h" />
-    <ClInclude Include="src\Stats\Parsing\Parsers\LogParserVrApi.h" />
-    <ClInclude Include="src\Utility\Adb\AdbUtility.h" />
-    <ClInclude Include="src\Utility\Adb\DeviceInfo.h" />
     <Natvis Include="D:\dev\StatView\StatView\vcpkg\installed\x64-windows\share\nlohmann_json\nlohmann_json.natvis">
     </Natvis>
   </ItemGroup>

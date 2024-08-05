@@ -3,16 +3,81 @@
 
 #include <cstdio>
 #include <iostream>
-#include <array>
+#include <filesystem>
 #include <fstream>
 #include <sstream>
+#include <thread>
+
+#include "PathUtility.h"
+
+bool AdbUtility::IsAdbSetup()
+{
+    try 
+    {
+        std::string output = RunCommandToFile("adb version");
+
+        // Check the output for the expected ADB version string
+        if (output.find("Android Debug Bridge version") != std::string::npos) 
+        {
+            return true;
+        }
+    }
+	catch (const std::exception& e) 
+    {
+        std::cerr << "Exception caught while checking ADB setup: " << e.what() << std::endl;
+    }
+
+    return false;
+}
+
+void AdbUtility::RestartAdb()
+{
+    RunCommand("adb kill-server");
+    RunCommand("adb start-server");
+}
+
+std::string AdbUtility::GetLiveLogcatPath()
+{
+	std::string resources = GetTempFolderPath();
+	std::string file = "VrApiLogcat.log";
+	return resources + file;
+}
+
+bool AdbUtility::LiveLogcatExists()
+{
+    return std::filesystem::exists(GetLiveLogcatPath());
+}
+
+void AdbUtility::ClearLiveLogcat()
+{
+    RunCommand("adb logcat -c");
+    std::ofstream clearFile(GetLiveLogcatPath(), std::ios::trunc);
+    clearFile.close();
+}
+
+void AdbUtility::LiveLogcat()
+{
+    try
+    {
+		const std::string adbCommand = "adb logcat > ";
+		const std::string fullCommand = adbCommand + GetLiveLogcatPath();
+
+        std::cout << fullCommand << std::endl;
+
+        RunCommandOnThread(fullCommand);
+    }
+	catch (const std::exception& e) 
+    {
+        std::cerr << "Exception caught while checking running logcat: " << e.what() << std::endl;
+    }
+}
 
 std::vector<DeviceInfo> AdbUtility::GetConnectedDevices()
 {
     std::vector<DeviceInfo> devices;
 	try 
     {
-		const std::string output = RunCommand("adb devices");
+		const std::string output = RunCommandToFile("adb devices");
         std::istringstream iss(output);
         std::string line;
         bool headerSkipped = false;
@@ -49,7 +114,19 @@ std::vector<DeviceInfo> AdbUtility::GetConnectedDevices()
     return devices;
 }
 
-std::string AdbUtility::RunCommand(const std::string& command)
+void AdbUtility::RunCommandOnThread(const std::string& command)
+{
+    std::thread adbThread(RunCommand, command);
+	adbThread.detach();
+}
+
+void AdbUtility::RunCommand(const std::string& command)
+{
+    std::cout << command << std::endl;
+	system(command.c_str());
+}
+
+std::string AdbUtility::RunCommandToFile(const std::string& command)
 {
     const std::string tempFileName = "temp_command_output.txt";
     const std::string fullCommand = command + " > " + tempFileName + " 2>&1"; // Redirect stderr to stdout
@@ -61,15 +138,20 @@ std::string AdbUtility::RunCommand(const std::string& command)
         std::cerr << "Command failed with status " << systemResult << ". Command: " << command << std::endl;
     }
 
-    // Open the temporary file to read the output
+    // Read the output from the temporary file and clean it up
+    return ReadAndCleanupTempFile(tempFileName);
+}
+
+std::string AdbUtility::ReadAndCleanupTempFile(const std::string& tempFileName)
+{
     std::ifstream inputFile(tempFileName);
     if (!inputFile.is_open()) 
     {
         throw std::runtime_error("Failed to open the temporary file.");
     }
 
-    // Read the output from the file
-    std::string output, line;
+    std::string output;
+	std::string line;
     while (getline(inputFile, line)) 
     {
         output += line + "\n";
@@ -77,9 +159,9 @@ std::string AdbUtility::RunCommand(const std::string& command)
 
     inputFile.close();
     int removeResult = std::remove(tempFileName.c_str()); // Clean up the temporary file
-    if (systemResult != 0) 
+    if (removeResult != 0) 
     {
-        std::cerr << "Failed to remove temp output file with status " << systemResult << ". Command: " << command << std::endl;
+        std::cerr << "Failed to remove temp output file. Temp file: " << tempFileName << std::endl;
     }
 
     return output;

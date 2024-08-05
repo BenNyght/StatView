@@ -7,7 +7,7 @@
 class MenuBarGui : public Drawer
 {
 public:
-	void Draw() const override;
+	void Draw() override;
 	std::string& GetName() const override;
 
 	static inline std::string GuiName = "Menu Bar";
