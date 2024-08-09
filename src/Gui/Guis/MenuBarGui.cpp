@@ -1,10 +1,10 @@
 
 #include "MenuBarGui.h"
 
-#include "AdbUtilityGui.h"
 #include "imgui.h"
 #include "ImGuiDemoGui.h"
 #include "LogParser.h"
+#include "Adb/AdbCaptureGui.h"
 #include "Gui/GuiDrawer.h"
 #include "PerformanceGraph/PerformanceGraphGui.h"
 
@@ -31,16 +31,16 @@ void MenuBarGui::Draw()
 
         if (ImGui::BeginMenu("Windows"))
         {
-            if (ImGui::MenuItem("Adb Utility"))
+            if (ImGui::MenuItem("Adb Performance Capture"))
             {
-                auto drawer = guiDrawer->GetDrawer<AdbUtilityGui>();
+                auto drawer = guiDrawer->GetDrawer<AdbCaptureGui>();
                 if (drawer == nullptr)
                 {
-	                guiDrawer->AddDrawer<AdbUtilityGui>();
+	                guiDrawer->AddDrawer<AdbCaptureGui>();
                 }
                 else
                 {
-	                guiDrawer->RemoveDrawer<AdbUtilityGui>();
+	                guiDrawer->RemoveDrawer<AdbCaptureGui>();
                 }
             }
 

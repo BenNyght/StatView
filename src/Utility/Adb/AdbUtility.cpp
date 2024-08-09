@@ -5,113 +5,33 @@
 #include <iostream>
 #include <filesystem>
 #include <fstream>
-#include <sstream>
 #include <thread>
 
-#include "PathUtility.h"
+#include "AdbValidation.h"
 
-bool AdbUtility::IsAdbSetup()
+void AdbUtility::StartAdb()
 {
-    try 
+    if (AdbValidation::IsAdbInstalled())
     {
-        std::string output = RunCommandToFile("adb version");
-
-        // Check the output for the expected ADB version string
-        if (output.find("Android Debug Bridge version") != std::string::npos) 
-        {
-            return true;
-        }
+	    RunCommand("adb start-server");
     }
-	catch (const std::exception& e) 
-    {
-        std::cerr << "Exception caught while checking ADB setup: " << e.what() << std::endl;
-    }
-
-    return false;
 }
 
 void AdbUtility::RestartAdb()
 {
-    RunCommand("adb kill-server");
-    RunCommand("adb start-server");
-}
-
-std::string AdbUtility::GetLiveLogcatPath()
-{
-	std::string resources = GetTempFolderPath();
-	std::string file = "VrApiLogcat.log";
-	return resources + file;
-}
-
-bool AdbUtility::LiveLogcatExists()
-{
-    return std::filesystem::exists(GetLiveLogcatPath());
-}
-
-void AdbUtility::ClearLiveLogcat()
-{
-    RunCommand("adb logcat -c");
-    std::ofstream clearFile(GetLiveLogcatPath(), std::ios::trunc);
-    clearFile.close();
-}
-
-void AdbUtility::LiveLogcat()
-{
-    try
+    if (AdbValidation::IsAdbInstalled())
     {
-		const std::string adbCommand = "adb logcat > ";
-		const std::string fullCommand = adbCommand + GetLiveLogcatPath();
-
-        std::cout << fullCommand << std::endl;
-
-        RunCommandOnThread(fullCommand);
-    }
-	catch (const std::exception& e) 
-    {
-        std::cerr << "Exception caught while checking running logcat: " << e.what() << std::endl;
+	    RunCommand("adb kill-server");
+		RunCommand("adb start-server");
     }
 }
 
-std::vector<DeviceInfo> AdbUtility::GetConnectedDevices()
+void AdbUtility::KillAdb()
 {
-    std::vector<DeviceInfo> devices;
-	try 
+    if (AdbValidation::IsAdbInstalled())
     {
-		const std::string output = RunCommandToFile("adb devices");
-        std::istringstream iss(output);
-        std::string line;
-        bool headerSkipped = false;
-
-        // Read the output line by line and process each device
-        while (std::getline(iss, line))
-        {
-            if (!headerSkipped)
-            {
-                headerSkipped = true;
-                continue;
-            }
-
-            if (line.empty())
-            {
-                continue;
-            }
-
-            std::size_t tabPosition = line.find('\t');
-            if (tabPosition != std::string::npos) 
-            {
-                DeviceInfo device;
-                device.id = line.substr(0, tabPosition);
-                device.status = line.substr(tabPosition + 1);
-                devices.push_back(device);
-            }
-        }
+	    RunCommand("adb kill-server");
     }
-	catch (const std::exception& e) 
-    {
-        std::cerr << "Error retrieving connected devices: " << e.what() << std::endl;
-    }
-
-    return devices;
 }
 
 void AdbUtility::RunCommandOnThread(const std::string& command)

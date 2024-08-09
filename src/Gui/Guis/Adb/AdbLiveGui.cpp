@@ -1,32 +1,32 @@
 
-#include "AdbUtilityGui.h"
+#include "AdbLiveGui.h"
 
-#include <deque>
 #include <fstream>
 #include <iostream>
 #include <ostream>
 #include <regex>
-#include <sstream>
 
 #include "GuiDrawer.h"
 #include "imgui.h"
 #include "Adb/AdbUtility.h"
 #include "imgui_stdlib.h"
+#include "Adb/AdbLive.h"
+#include "Adb/AdbValidation.h"
 
-AdbUtilityGui::~AdbUtilityGui()
+AdbLiveGui::~AdbLiveGui()
 {
 	AdbUtility::RestartAdb();
 }
 
-void AdbUtilityGui::Draw()
+void AdbLiveGui::Draw()
 {
 	bool open = true;
-	ImGui::Begin(AdbUtilityGui::GuiName.c_str(), &open, ImGuiWindowFlags_NoCollapse);
+	ImGui::Begin(AdbLiveGui::GuiName.c_str(), &open, ImGuiWindowFlags_NoCollapse);
 
 	if (open == false)
 	{
 		ImGui::End();
-		guiDrawer->RemoveDrawer<AdbUtilityGui>();
+		guiDrawer->RemoveDrawer<AdbLiveGui>();
 		return;
 	}
 
@@ -49,15 +49,15 @@ void AdbUtilityGui::Draw()
     ImGui::End();
 }
 
-void AdbUtilityGui::LiveLogcatOutputView()
+void AdbLiveGui::LiveLogcatOutputView()
 {
-	if (AdbUtility::LiveLogcatExists() == false)
+	if (AdbLive::LiveLogcatExists() == false)
 	{
 		std::cout << "Failed to find Logcat file" << std::endl;
 		return;
 	}
 
-	std::ifstream file(AdbUtility::GetLiveLogcatPath());
+	std::ifstream file(AdbLive::GetLiveLogcatPath());
     std::string content((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
     file.close();
 
@@ -71,32 +71,32 @@ void AdbUtilityGui::LiveLogcatOutputView()
     ImGui::EndChild();
 }
 
-void AdbUtilityGui::LiveLogcatButton()
+void AdbLiveGui::LiveLogcatButton()
 {
 	if (ImGui::Button("Live Logcat"))
 	{
-		AdbUtility::LiveLogcat();
+		AdbLive::LiveLogcat();
 	}
 }
 
-void AdbUtilityGui::ClearLiveLogcatButton()
+void AdbLiveGui::ClearLiveLogcatButton()
 {
 	if (ImGui::Button("Clear"))
 	{
-		AdbUtility::ClearLiveLogcat();
+		AdbLive::ClearLiveLogcat();
 	}
 }
 
-void AdbUtilityGui::GetDevicesButton()
+void AdbLiveGui::GetDevicesButton()
 {
 	if (ImGui::Button("Get Devices"))
 	{
-		if (AdbUtility::IsAdbSetup() == false)
+		if (AdbValidation::IsAdbInstalled() == false)
 		{
 			return;
 		}
 
-		auto devices = AdbUtility::GetConnectedDevices();
+		auto devices = AdbValidation::GetConnectedDevices();
 		for (auto [id, status] : devices)
 		{
 			std::cout << id << " -> " << status << std::endl;
@@ -104,27 +104,7 @@ void AdbUtilityGui::GetDevicesButton()
 	}
 }
 
-char AdbUtilityGui::GetLogcatPriority(const std::string& logLine)
-{
-    // Define a regex pattern to match the logcat format and capture the priority
-    std::regex logPattern(R"(^\d{2}-\d{2}\s\d{2}:\d{2}:\d{2}\.\d{3}\s+\d+\s+\d+\s+([VDIWEFS]))");
-    std::smatch matches;
-
-    // Use regex to search for the pattern in the log line
-    if (std::regex_search(logLine, matches, logPattern))
-    {
-        // matches[1] contains the priority level
-        if (matches.size() > 1)
-        {
-            return matches[1].str()[0];
-        }
-    }
-
-    // Return a default value if no valid priority is found
-    return '?';
-}
-
-std::string& AdbUtilityGui::GetName() const
+std::string& AdbLiveGui::GetName() const
 {
 	return GuiName;
 }

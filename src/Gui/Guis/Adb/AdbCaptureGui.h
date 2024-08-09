@@ -5,21 +5,20 @@
 
 #include "../Drawer.h"
 
-class AdbUtilityGui : public Drawer
+class AdbCaptureGui : public Drawer
 {
 public:
-	~AdbUtilityGui() override;
+	~AdbCaptureGui() override;
 
 	void Draw() override;
-	void LiveLogcatButton();
 	void ClearLiveLogcatButton();
 	std::string& GetName() const override;
 
-	static inline std::string GuiName = "Adb Utility";
+	static inline std::string GuiName = "Adb Performance Capture";
 
 private:
-	void ReadLog();
 	void LiveLogcatOutputView();
+	void CaptureLogcatButton();
 	void GetDevicesButton();
 	char GetLogcatPriority(const std::string& logLine);
 
