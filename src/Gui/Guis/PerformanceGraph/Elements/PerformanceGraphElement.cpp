@@ -13,8 +13,13 @@ PerformanceGraphElement::PerformanceGraphElement(std::shared_ptr<PerformanceStat
 
 void PerformanceGraphElement::Draw()
 {
+    if (performanceStatsElement->selection.empty())
+	{
+		performanceStatsElement->selection.push_back(static_cast<size_t>(0));
+	}
+
     auto& allStatistics = statistics->statistics;
-    if (allStatistics.size() == 0)
+    if (allStatistics.size() == 0 || allStatistics[0].size == 0)
     {
 	    static Statistic blankStatistic { "" };
 		if (blankStatistic.size == 0)
@@ -26,11 +31,6 @@ void PerformanceGraphElement::Draw()
     }
     else
     {
-	    if (performanceStatsElement->selection.empty())
-		{
-			performanceStatsElement->selection.push_back(0);
-		}
-
         for (const size_t selection : performanceStatsElement->selection)
 		{
 			auto statistic = allStatistics[selection];
