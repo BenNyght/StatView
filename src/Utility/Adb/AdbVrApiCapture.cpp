@@ -59,8 +59,3 @@ void AdbVrApiCapture::CaptureVrApi()
         std::cerr << "Exception caught while checking running logcat: " << e.what() << std::endl;
     }
 }
-
-void AdbVrApiCapture::SaveLatestCaptureToLocation()
-{
-	// TODO Save Capture to Location
-}

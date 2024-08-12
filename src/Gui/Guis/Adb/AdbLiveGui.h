@@ -20,7 +20,6 @@ public:
 private:
 	void LiveLogcatOutputView();
 	void GetDevicesButton();
-	char GetLogcatPriority(const std::string& logLine);
 
 	std::string targetApplication;
 };
