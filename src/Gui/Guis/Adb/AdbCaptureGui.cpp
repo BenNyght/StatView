@@ -24,7 +24,7 @@ void AdbCaptureGui::Draw()
 	}
 
 	constexpr float width = 600;
-	constexpr float height = 400;
+	constexpr float height = 200;
 	ImVec2 windowSize = ImGui::GetWindowSize();
 	if (windowSize.x < width || windowSize.y < height)
 	{
