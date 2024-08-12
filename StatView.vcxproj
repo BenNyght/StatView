@@ -489,6 +489,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="src\Utility\Adb\AdbLive.h" />
     <ClInclude Include="src\Utility\Adb\AdbValidation.h" />
     <ClInclude Include="src\Utility\Adb\AdbVrApiCapture.h" />
+    <ClInclude Include="src\Utility\Timer.h" />
     <Natvis Include="D:\dev\StatView\StatView\vcpkg\installed\x64-windows\share\nlohmann_json\nlohmann_json.natvis">
     </Natvis>
   </ItemGroup>

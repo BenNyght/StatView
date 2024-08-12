@@ -93,7 +93,4 @@ private:
 	int parsingLine = 0;
 	std::ifstream parsingLog;
 	std::shared_ptr<ProgressItem> progressItem = std::make_shared<ProgressItem>(ProgressItem { "Parsing Log", "Parsing Log -> Line 0" });;
-
-	const std::string latestFilePath = "resources/latestLogParsed.log";
-	const std::string latestFileName = "latestLogParsed";
 };

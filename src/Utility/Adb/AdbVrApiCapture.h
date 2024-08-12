@@ -4,10 +4,9 @@
 class AdbVrApiCapture
 {
 public:
-	static std::string GetLiveLogcatPath();
+	static std::string GetPathToSaveLatestCapture();
 	static bool VrApiLogcatExists();
 	static void ClearLogcatBuffer();
-	static void CaptureLogcat();
-	static void SaveVrApiCapture();
-	static void SaveVrApiCaptureToLocation();
+	static void CaptureVrApi();
+	static void SaveLatestCaptureToLocation();
 };

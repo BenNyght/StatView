@@ -8,24 +8,27 @@
 #include "AdbUtility.h"
 #include "AdbValidation.h"
 #include "PathUtility.h"
+#include "StringUtility.h"
 
-std::string AdbVrApiCapture::GetLiveLogcatPath()
+std::string AdbVrApiCapture::GetPathToSaveLatestCapture()
 {
-	const std::string resources = GetTempFolderPath();
-	const std::string file = "VrApiLogcat.log";
-	return resources + file;
+	const std::string resources = GetCaptureFolderPath();
+	const std::string fileName = "VrApiLogcat_";
+	const std::string dateTime = GetDateAsString();
+    const std::string fileExtension = ".log";
+	return resources + fileName + dateTime + fileExtension;
 }
 
 bool AdbVrApiCapture::VrApiLogcatExists()
 {
-    return std::filesystem::exists(GetLiveLogcatPath());
+    return std::filesystem::exists(GetPathToSaveLatestCapture());
 }
 
 void AdbVrApiCapture::ClearLogcatBuffer()
 {
     if (VrApiLogcatExists())
     {
-	    std::ofstream clearFile(GetLiveLogcatPath(), std::ios::trunc);
+	    std::ofstream clearFile(GetPathToSaveLatestCapture(), std::ios::trunc);
 		clearFile.close();
     }
 
@@ -35,7 +38,7 @@ void AdbVrApiCapture::ClearLogcatBuffer()
     }
 }
 
-void AdbVrApiCapture::CaptureLogcat()
+void AdbVrApiCapture::CaptureVrApi()
 {
     if (AdbValidation::IsDeviceAvailable() == false)
     {
@@ -45,7 +48,7 @@ void AdbVrApiCapture::CaptureLogcat()
     try
     {
 		const std::string adbCommand = "adb logcat -d -s VrApi > ";
-		const std::string fullCommand = adbCommand + GetLiveLogcatPath();
+		const std::string fullCommand = adbCommand + GetPathToSaveLatestCapture();
 
         std::cout << fullCommand << std::endl;
 
@@ -57,12 +60,7 @@ void AdbVrApiCapture::CaptureLogcat()
     }
 }
 
-void AdbVrApiCapture::SaveVrApiCapture()
-{
-	// TODO Save Capture
-}
-
-void AdbVrApiCapture::SaveVrApiCaptureToLocation()
+void AdbVrApiCapture::SaveLatestCaptureToLocation()
 {
 	// TODO Save Capture to Location
 }

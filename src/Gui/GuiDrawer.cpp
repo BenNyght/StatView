@@ -8,6 +8,7 @@
 #include "HomePageGui.h"
 #include "imgui.h"
 #include "imgui_internal.h"
+#include "Adb/AdbCaptureGui.h"
 #include "Guis/MenuBarGui.h"
 #include "Guis/ProgressGui.h"
 #include "Guis/PerformanceGraph/PerformanceGraphGui.h"
@@ -41,6 +42,7 @@ void GuiDrawer::SetupGuis()
 	AddDrawer<MenuBarGui>();
     AddDrawer<ProgressGui>();
     AddDrawer<HomePageGui>();
+    AddDrawer<AdbCaptureGui>();
 
     auto performanceGraphGui = AddDrawer<PerformanceGraphGui>();
     performanceGraphGui->Process(true);

@@ -1,22 +1,15 @@
 
 #include "AdbCaptureGui.h"
 
-#include <fstream>
 #include <iostream>
 #include <ostream>
 #include <regex>
 
 #include "GuiDrawer.h"
 #include "imgui.h"
-#include "Adb/AdbUtility.h"
-#include "imgui_stdlib.h"
-#include "Adb/AdbLive.h"
+#include "Timer.h"
+#include "Adb/AdbValidation.h"
 #include "Adb/AdbVrApiCapture.h"
-
-AdbCaptureGui::~AdbCaptureGui()
-{
-	AdbUtility::RestartAdb();
-}
 
 void AdbCaptureGui::Draw()
 {
@@ -30,61 +23,100 @@ void AdbCaptureGui::Draw()
 		return;
 	}
 
-	constexpr float width = 400;
-	constexpr float height = 200;
+	constexpr float width = 600;
+	constexpr float height = 400;
 	ImVec2 windowSize = ImGui::GetWindowSize();
 	if (windowSize.x < width || windowSize.y < height)
 	{
 		ImGui::SetWindowSize(ImVec2 { width, height });
 	}
 
-	ImGui::InputText("Target App", &targetApplication, ImGuiInputTextFlags_CharsNoBlank);
+	ImGui::Text("This window allows you to capture a performance log for a chosen duration.");
+	ImGui::Text("Ensure the headset remains connected for the duration of the capture.");
+	ImGui::Text("Once the capture is complete you can save the file and view it in the\nperformance graph viewer.");
 
-	CaptureLogcatButton();
-	ImGui::SameLine();
-	ClearLiveLogcatButton();
+	ImGui::Spacing();
 
-	LiveLogcatOutputView();
+	const char* items[] = { "30 sec", "60 sec", "3 min", "5 min", "10 min", "30 min", "45 min", "60 min" };
+	const std::vector<double> duration = { 30, 60, 180, 300, 600, 1800, 2700, 3600 };
+
+	static int currentItem = 4;
+	static Timer timer {};
+	static bool capturing = false;
+	static bool failedToFindDevice = false;
+
+	if (capturing == false)
+	{
+		if (ImGui::BeginCombo("##combo", items[currentItem]))
+		{
+			for (int i = 0; i < IM_ARRAYSIZE(items); i++)
+		    {
+				const bool isSelected = (items[currentItem] == items[i]);
+		        if (ImGui::Selectable(items[i], isSelected))
+		        {
+					currentItem = i;
+		        }
+		            
+		        if (isSelected)
+		        {
+			        ImGui::SetItemDefaultFocus();
+		        }
+		    }
+		    ImGui::EndCombo();
+		}
+		ImGui::SameLine();
+
+		if (ImGui::Button("Start Capturing"))
+		{
+			if (AdbValidation::IsDeviceAvailable() == false)
+		    {
+				std::cout << "Device not found." << std::endl;
+				failedToFindDevice = true;
+		    }
+			else
+			{
+				timer.Start();
+				AdbVrApiCapture::ClearLogcatBuffer();
+				capturing = true;
+				failedToFindDevice = false;
+			}			
+		}
+
+		if (failedToFindDevice)
+		{
+			ImGui::Text("Failed to find device. Please try again.");
+		}
+	}
+	else
+	{
+		double currentTime = timer.ElapsedSeconds();
+		double totalTime = duration[currentItem];
+
+		if (currentTime >= totalTime)
+		{
+			std::cout << "Finished capturing file. Captured for " << currentTime << "seconds" << std::endl;
+			timer.Stop();
+			AdbVrApiCapture::CaptureVrApi();
+			capturing = false;
+		}
+		else
+		{
+			if (ImGui::Button("Stop Capturing"))
+			{
+				std::cout << "Finished capturing file. Captured for " << currentTime << "seconds" << std::endl;
+				timer.Stop();
+				AdbVrApiCapture::CaptureVrApi();
+				capturing = false;
+			}
+
+			std::ostringstream overlayStream;
+			overlayStream.precision(1);
+			overlayStream << std::fixed << currentTime << "s / " << totalTime << "s";
+			ImGui::ProgressBar(currentTime / totalTime, ImVec2(-1, 0), overlayStream.str().c_str());
+		}
+	}
 
     ImGui::End();
-}
-
-void AdbCaptureGui::LiveLogcatOutputView()
-{
-	if (AdbVrApiCapture::VrApiLogcatExists() == false)
-	{
-		std::cout << "Failed to find Logcat file" << std::endl;
-		return;
-	}
-
-	std::ifstream file(AdbLive::GetLiveLogcatPath());
-    std::string content((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
-    file.close();
-
-	ImGui::BeginChild("scrolling", ImVec2(0, 0), false, ImGuiWindowFlags_HorizontalScrollbar);
-	ImGui::TextUnformatted(content.c_str());
-
-    if (ImGui::GetScrollY() >= ImGui::GetScrollMaxY())
-	{
-        ImGui::SetScrollHereY(1.0f); // Auto-scroll
-    }
-    ImGui::EndChild();
-}
-
-void AdbCaptureGui::CaptureLogcatButton()
-{
-	if (ImGui::Button("Capture"))
-	{
-		AdbVrApiCapture::CaptureLogcat();
-	}
-}
-
-void AdbCaptureGui::ClearLiveLogcatButton()
-{
-	if (ImGui::Button("Clear Device Logcat"))
-	{
-		AdbVrApiCapture::ClearLogcatBuffer();
-	}
 }
 
 std::string& AdbCaptureGui::GetName() const

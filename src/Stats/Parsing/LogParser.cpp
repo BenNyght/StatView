@@ -7,10 +7,10 @@
 #include <fstream>
 #include <utility>
 
+#include "PathUtility.h"
 #include "StatisticGroup.h"
 #include "Parsers/LogParserVrApi.h"
 #include "Progress/ProgressHandler.h"
-#include "Utility/StringUtility.h"
 
 LogParser::LogParser()
 {
@@ -26,7 +26,7 @@ LogParser::~LogParser()
 
 void LogParser::ProcessLatest()
 {
-	ProcessPath(latestFilePath);
+	ProcessPath(GetLatestCaptureFile());
 }
 
 void LogParser::ProcessPath(std::string path)
@@ -39,11 +39,6 @@ void LogParser::ProcessPath(std::string path)
 	if (std::filesystem::exists(path) == false)
 	{
 		return;
-	}
-
-	if (Contains(path, latestFileName) == false)
-	{
-		std::filesystem::copy(path, latestFilePath, std::filesystem::copy_options::overwrite_existing);
 	}
 
 	OpenFile(path);

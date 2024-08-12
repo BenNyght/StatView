@@ -44,3 +44,15 @@ inline bool Contains(const std::string& search, const std::string& contains)
 
 	return false;
 }
+
+inline std::string GetDateAsString()
+{
+	time_t rawTime;
+	char buffer[80];
+
+    time (&rawTime);
+	const struct tm* timeInfo = localtime(&rawTime);
+
+    strftime(buffer,80,"%d-%m-%Y_%H-%M-%S",timeInfo);
+    return std::string(buffer);
+}
