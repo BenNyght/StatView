@@ -49,9 +49,6 @@ void AdbVrApiCapture::CaptureVrApi()
     {
 		const std::string adbCommand = "adb logcat -d -s VrApi > ";
 		const std::string fullCommand = adbCommand + GetPathToSaveLatestCapture();
-
-        std::cout << fullCommand << std::endl;
-
         AdbUtility::RunCommand(fullCommand);
     }
 	catch (const std::exception& e) 

@@ -87,10 +87,8 @@ std::string AdbUtility::ReadAndCleanupTempFile(const std::string& tempFileName)
     return output;
 }
 
-
-//  const std::string adbCommand = "adb logcat -d -s VrApi > ";
-//  std::string file = "VrApi.log";
-//  std::string fullPath = (std::filesystem::current_path() / file).string();
-//  const std::string fullCommand = adbCommand + fullPath;
-//  system(("echo " + fullCommand).c_str());
-//  system(fullCommand.c_str());
+void AdbUtility::SetBufferSize(const int sizeInMb)
+{
+    std::string command = "adb logcat -G ";
+    RunCommand(command + std::to_string(sizeInMb) + "M");
+}

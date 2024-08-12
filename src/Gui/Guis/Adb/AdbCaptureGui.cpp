@@ -8,6 +8,7 @@
 #include "GuiDrawer.h"
 #include "imgui.h"
 #include "Timer.h"
+#include "Adb/AdbUtility.h"
 #include "Adb/AdbValidation.h"
 #include "Adb/AdbVrApiCapture.h"
 
@@ -76,6 +77,7 @@ void AdbCaptureGui::Draw()
 			else
 			{
 				timer.Start();
+				AdbUtility::SetBufferSize(32);
 				AdbVrApiCapture::ClearLogcatBuffer();
 				capturing = true;
 				failedToFindDevice = false;
@@ -87,7 +89,7 @@ void AdbCaptureGui::Draw()
 			ImGui::Text("Failed to find device. Please try again.");
 		}
 	}
-	else
+	else if (capturing == true)
 	{
 		double currentTime = timer.ElapsedSeconds();
 		double totalTime = duration[currentItem];
