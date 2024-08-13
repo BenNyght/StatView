@@ -5,7 +5,6 @@
 #include <memory>
 
 #include "Drawer.h"
-#include "HomePageGui.h"
 #include "imgui.h"
 #include "imgui_internal.h"
 #include "Adb/AdbCaptureGui.h"
@@ -41,7 +40,6 @@ void GuiDrawer::SetupGuis()
 
 	AddDrawer<MenuBarGui>();
     AddDrawer<ProgressGui>();
-    AddDrawer<HomePageGui>();
     AddDrawer<AdbCaptureGui>();
 
     auto performanceGraphGui = AddDrawer<PerformanceGraphGui>();
@@ -71,7 +69,7 @@ void GuiDrawer::SetupDockBuilder()
 
     ImGui::DockBuilderSplitNode(dockIdMain, ImGuiDir_Up, 0.995f, &dockIdUp, &dockIdDown);
 
-    DockDrawer<HomePageGui>(dockIdUp, ImGuiDockNodeFlags_NoUndocking);
+    DockDrawer<AdbCaptureGui>(dockIdUp, ImGuiDockNodeFlags_NoUndocking);
     DockDrawer(PerformanceGraphGui::GuiName + ": 0", dockIdUp, ImGuiDockNodeFlags_None);
     DockDrawer<ProgressGui>(dockIdDown, ImGuiDockNodeFlags_NoTabBar | ImGuiDockNodeFlags_NoResizeY | ImGuiDockNodeFlags_NoDockingOverMe | ImGuiDockNodeFlags_NoDockingSplit);
 

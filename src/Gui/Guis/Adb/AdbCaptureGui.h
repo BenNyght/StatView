@@ -1,7 +1,6 @@
 #pragma once
 
 #include <string>
-#include <vector>
 
 #include "Timer.h"
 #include "../Drawer.h"
@@ -13,5 +12,5 @@ public:
 	
 	std::string& GetName() const override;
 
-	static inline std::string GuiName = "Adb Performance Capture";
+	static inline std::string GuiName = "Capture";
 };

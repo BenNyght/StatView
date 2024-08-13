@@ -7,73 +7,74 @@
 enum Statistic_VrApi : int
 {
 	Statistic_VrApi_Fps,
-	Statistic_VrApi_FpsWithASW,
-	Statistic_VrApi_PredictionTime,
-	Statistic_VrApi_TearsInSecond,
-	Statistic_VrApi_EarlyFrameCount,
-	Statistic_VrApi_StaleFrameCount,
-	Statistic_VrApi_VSyncCount,
+    Statistic_VrApi_FpsWithASW,
+    Statistic_VrApi_StaleFrameCount,
+    Statistic_VrApi_AppTime,
+    Statistic_VrApi_GpuPercent,
+    Statistic_VrApi_CpuPercentWorst,
+    Statistic_VrApi_CpuPercentAverage,
+    Statistic_VrApi_CpuLevel,
+    Statistic_VrApi_GpuLevel,
+    Statistic_VrApi_GpuCpuTime,
+    Statistic_VrApi_LayerCount,
+    Statistic_VrApi_FoveationLevel,
+    Statistic_VrApi_TearsInSecond,
+    Statistic_VrApi_EarlyFrameCount,
+    Statistic_VrApi_PredictionTime,
+    Statistic_VrApi_AvailableMemory,
+    Statistic_VrApi_PowerLevel,
+    Statistic_VrApi_MemoryFrequency,
+    Statistic_VrApi_BatteryTemperature,
+    Statistic_VrApi_SensorTemperature,
+    Statistic_VrApi_GuardianTime,
+    Statistic_VrApi_DisplayProcessingUnit,
+    Statistic_VrApi_MinimumCompositorFrameLatency,
+    Statistic_VrApi_MaximumCompositorFrameLatency,
+    Statistic_VrApi_PercentileCompositorFrameLatency,
+    Statistic_VrApi_VSyncCount,
+    Statistic_VrApi_LocalDimming,
+    Statistic_VrApi_ScaleFactor,
+    Statistic_VrApi_LowPowerMode,
 	Statistic_VrApi_ExtraLatencyMode,
-	Statistic_VrApi_FoveationLevel,
-	Statistic_VrApi_CpuLevel,
-	Statistic_VrApi_GpuLevel,
-	Statistic_VrApi_MemoryFrequency,
-	Statistic_VrApi_AvailableMemory,
-	Statistic_VrApi_PowerLevel,
-	Statistic_VrApi_BatteryTemperature,
-	Statistic_VrApi_SensorTemperature,
-	Statistic_VrApi_AppTime,
-	Statistic_VrApi_GuardianTime,
-	Statistic_VrApi_GpuCpuTime,
-	Statistic_VrApi_LayerCount,
-	Statistic_VrApi_GpuPercent,
-	Statistic_VrApi_CpuPercentAverage,
-	Statistic_VrApi_CpuPercentWorst,
-	Statistic_VrApi_DisplayProcessingUnit,
-	Statistic_VrApi_MinimumCompositorFrameLatency,
-	Statistic_VrApi_MaximumCompositorFrameLatency,
-	Statistic_VrApi_PercentileCompositorFrameLatency,
-	Statistic_VrApi_LocalDimming,
-	Statistic_VrApi_ScaleFactor,
-	Statistic_VrApi_LowPowerMode,
-	Last,
+    Last,
 };
+
 
 LogParserVrApi::LogParserVrApi(std::shared_ptr<StatisticGroup> statisticGroup) : statisticGroup(statisticGroup)
 {
-	auto& statistics = statisticGroup->statistics;
+    auto& statistics = statisticGroup->statistics;
+    statistics.resize(Statistic_VrApi::Last);
 
-	statistics.resize(Statistic_VrApi::Last);
-	statistics[Statistic_VrApi_Fps] = { "FPS" };
-	statistics[Statistic_VrApi_FpsWithASW] = { "FPS w/Generated Frames" };
-	statistics[Statistic_VrApi_PredictionTime] = { "Prediction", "ms" };
-	statistics[Statistic_VrApi_TearsInSecond] = { "Tears" };
-	statistics[Statistic_VrApi_EarlyFrameCount] = { "EarlyFrameCount" };
-	statistics[Statistic_VrApi_StaleFrameCount] = { "StaleFrameCount" };
-	statistics[Statistic_VrApi_VSyncCount] = { "Swap Interval" };
-	statistics[Statistic_VrApi_ExtraLatencyMode] = { "Extra Latency Mode" };
-	statistics[Statistic_VrApi_FoveationLevel] = { "Foveation Level" };
-	statistics[Statistic_VrApi_CpuLevel] = { "CPU Level (Main Core)" };
-	statistics[Statistic_VrApi_GpuLevel] = { "GPU Level (Main Core)" };
-	statistics[Statistic_VrApi_MemoryFrequency] = { "Memory Frequency", "MHz" };
-	statistics[Statistic_VrApi_AvailableMemory] = { "Available Memory", "MB" };
-	statistics[Statistic_VrApi_PowerLevel] = { "Power Level" };
-	statistics[Statistic_VrApi_BatteryTemperature] = { "Battery Temperature", "C" };
-	statistics[Statistic_VrApi_SensorTemperature] = { "Sensor Temperature", "C" };
-	statistics[Statistic_VrApi_AppTime] = { "AppTime GPU Time", "ms" };
-	statistics[Statistic_VrApi_GuardianTime] = { "Guardian GPU Time", "ms" };
-	statistics[Statistic_VrApi_GpuCpuTime] = { "CPU & GPU Time", "ms" };
-	statistics[Statistic_VrApi_LayerCount] = { "Layer Count", };
-	statistics[Statistic_VrApi_GpuPercent] = { "GPU Utilization" };
-	statistics[Statistic_VrApi_CpuPercentAverage] = { "Average CPU Utilization" };
-	statistics[Statistic_VrApi_CpuPercentWorst] = { "Worst Core CPU Utilization" };
-	statistics[Statistic_VrApi_DisplayProcessingUnit] = { "Display Processing Unit" };
-	statistics[Statistic_VrApi_MinimumCompositorFrameLatency] = { "Minimum Compositor Frame Latency" };
-	statistics[Statistic_VrApi_MaximumCompositorFrameLatency] = { "Maximum Compositor Frame Latency" };
-	statistics[Statistic_VrApi_PercentileCompositorFrameLatency] = { "95th Percentile Compositor Frame Latency" };
-	statistics[Statistic_VrApi_LocalDimming] = { "Local Dimming" };
-	statistics[Statistic_VrApi_ScaleFactor] = { "Scale Factor" };
-	statistics[Statistic_VrApi_LowPowerMode] = { "Low Power Mode" };
+	statistics[Statistic_VrApi_Fps] = { "FPS", "", "Frames per second, the number of frames rendered per second.\nIf this matches the display refresh rate, the performance is generally good." };
+    statistics[Statistic_VrApi_FpsWithASW] = { "FPS w/Generated Frames", "", "Frames per second including frames generated by Asynchronous SpaceWarp (ASW).\nHigher values suggest that ASW is compensating for performance drops." };
+    statistics[Statistic_VrApi_StaleFrameCount] = { "StaleFrameCount", "", "Number of stale frames per second.\nStale frames occur when TimeWarp reuses an outdated frame due to the current frame not being ready.\nHigh values suggest poor user experience." };
+    statistics[Statistic_VrApi_AppTime] = { "AppTime GPU Time", "ms", "Time spent by the GPU rendering the application per frame.\nIf this exceeds the time available for a single frame (e.g., 13.88ms for 72fps), the app is GPU bound." };
+    statistics[Statistic_VrApi_GpuPercent] = { "GPU Utilization", "", "Percentage of GPU utilization.\nIf this reaches 100%, the app is GPU bound, and performance may suffer." };
+    statistics[Statistic_VrApi_CpuPercentWorst] = { "Worst Core CPU Utilization", "", "Utilization of the most stressed core.\nHigh values here can indicate a bottleneck on that core, especially if thread affinity isn't managed properly." };
+    statistics[Statistic_VrApi_CpuPercentAverage] = { "Average CPU Utilization", "", "Average CPU utilization across all cores.\nA higher percentage indicates greater CPU load, but this may not reflect individual core bottlenecks due to thread scheduling." };
+    statistics[Statistic_VrApi_CpuLevel] = { "CPU Level (Main Core)", "", "Performance level setting for the CPU.\nHigher levels provide better performance but consume more power.\nA higher level indicates CPU bottlenecks." };
+    statistics[Statistic_VrApi_GpuLevel] = { "GPU Level (Main Core)", "", "Performance level setting for the GPU.\nHigher levels improve graphics performance but increase power consumption.\nA higher level indicates GPU bottlenecks." };
+	statistics[Statistic_VrApi_GpuCpuTime] = { "CPU & GPU Time", "ms", "Total time spent by both the CPU and GPU to render a frame.\nUseful in Unity and Unreal Engine to measure from when the render thread begins processing to when the GPU completes rendering." };
+    statistics[Statistic_VrApi_LayerCount] = { "Layer Count", "", "Number of layers rendered by TimeWarp per frame.\nHigher values correlate with increased TimeWarp GPU Time and potential screen tearing if not managed properly." };
+    statistics[Statistic_VrApi_FoveationLevel] = { "Foveation Level", "", "Fixed Foveated Rendering level.\nHigher levels reduce the resolution in peripheral vision to improve performance, which may cause visible artifacts at the edges." };
+    statistics[Statistic_VrApi_TearsInSecond] = { "Tears", "", "Number of screen tears per second caused when TimeWarp takes too long to render.\nHigh values indicate performance issues, especially on older devices." };
+    statistics[Statistic_VrApi_EarlyFrameCount] = { "EarlyFrameCount", "", "Number of frames delivered before they are needed, often due to Extra Latency Mode.\nHigh values can indicate that you can reduce CPU/GPU levels or increase rendering quality." };
+    statistics[Statistic_VrApi_PredictionTime] = { "Prediction", "ms", "Time in milliseconds between when the app queries the pose before rendering and when the frame is displayed.\nTypically between 40 and 50ms." };
+    statistics[Statistic_VrApi_AvailableMemory] = { "Available Memory", "MB", "Amount of available memory in MB.\nMonitoring this can help identify memory leaks or excessive memory usage,\nalthough it can be less actionable due to Android's memory management." };
+    statistics[Statistic_VrApi_PowerLevel] = { "Power Level", "", "Indicates the power mode of the device: NORMAL (0), SAVE (1), or DANGER (2).\nHigher levels can lead to thermal throttling and eventual device shutdown." };
+    statistics[Statistic_VrApi_MemoryFrequency] = { "Memory Frequency", "MHz", "Frequency of the memory in MHz.\nHigher values indicate faster memory performance, but this may not always correlate directly to better app performance." };
+    statistics[Statistic_VrApi_BatteryTemperature] = { "Battery Temperature", "C", "Temperature of the battery in Celsius.\nHigh temperatures can lead to thermal throttling or even damage to the battery over time." };
+    statistics[Statistic_VrApi_SensorTemperature] = { "Sensor Temperature", "C", "Temperature of the device's sensors in Celsius.\nImportant to monitor on older devices like Gear VR to prevent overheating." };
+    statistics[Statistic_VrApi_GuardianTime] = { "Guardian GPU Time", "ms", "Time spent by the GPU on the Guardian system per frame.\nThis metric is specific to Quest and helps understand GPU time spent on boundary systems." };
+    statistics[Statistic_VrApi_DisplayProcessingUnit] = { "Display Processing Unit", "", "Performance metrics related to the display processing unit.\nNot commonly actionable but can provide insight into display-related processing times." };
+    statistics[Statistic_VrApi_MinimumCompositorFrameLatency] = { "Minimum Compositor Frame Latency", "ms", "Minimum time for a frame to be processed by the compositor.\nLower values are better, indicating faster frame processing." };
+    statistics[Statistic_VrApi_MaximumCompositorFrameLatency] = { "Maximum Compositor Frame Latency", "ms", "Maximum time for a frame to be processed by the compositor.\nLower values reduce the risk of latency spikes." };
+    statistics[Statistic_VrApi_PercentileCompositorFrameLatency] = { "95th Percentile Compositor Frame Latency", "ms", "95th percentile of compositor frame latency.\nLower values suggest more consistent frame processing times, reducing the likelihood of latency spikes." };
+    statistics[Statistic_VrApi_VSyncCount] = { "Swap Interval", "", "Number of frames skipped before rendering the next frame.\nThis is usually set to 1; setting it to 2 can cause the app to render at half the refresh rate, which can be uncomfortable." };
+    statistics[Statistic_VrApi_LocalDimming] = { "Local Dimming", "", "State of local dimming feature, enhancing contrast by dimming parts of the screen.\nUseful for improving visual quality in darker scenes." };
+    statistics[Statistic_VrApi_ScaleFactor] = { "Scale Factor", "", "Scaling factor applied to the rendered image.\nAdjusting this can impact image sharpness and performance, with higher factors increasing GPU load." };
+    statistics[Statistic_VrApi_LowPowerMode] = { "Low Power Mode", "", "Indicates whether the device is in low power mode.\nActive low power mode reduces performance to extend battery life but may degrade the user experience." };
+    statistics[Statistic_VrApi_ExtraLatencyMode] = { "Extra Latency Mode", "", "Extra Latency Mode introduces a deliberate delay in frame presentation to smooth out rendering and reduce the likelihood of stale frames.\nWhile it can help prevent visual inconsistencies, it also increases\noverall latency, which might impact the responsiveness of the VR experience." };
 }
 
 void LogParserVrApi::Parse(const std::string& logLine) const

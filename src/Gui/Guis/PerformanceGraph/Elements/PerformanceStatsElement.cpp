@@ -63,14 +63,21 @@ void PerformanceStatsElement::Draw() const
                 }
             }
 
+			if (ImGui::IsItemHovered(ImGuiHoveredFlags_AllowWhenDisabled))
+			{
+				ImGui::BeginTooltip();
+				ImGui::SetWindowSize(ImVec2 { 200, 300 });
+				ImGui::Text(statistic.description.c_str());
+				ImGui::EndTooltip();
+			}
+
 			for (size_t column = 0; column < Statistic::GetIndexCount(); column++)
 			{
 				ImGui::TableNextColumn();
 
 				std::stringstream stream;
 				stream << std::fixed << std::setprecision(2) << statistic.GetIndexValue(column);
-				std::string value = stream.str();
-				ImGui::Text("%s", value.c_str());
+				ImGui::Text("%s", stream.str().c_str());
 			}
 		}
 

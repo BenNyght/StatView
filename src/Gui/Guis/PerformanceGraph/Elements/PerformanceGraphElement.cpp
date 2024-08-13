@@ -71,14 +71,12 @@ void PerformanceGraphElement::DrawGraph(Statistic& statistic)
         {
             ImPlot::PushStyleVar(ImPlotStyleVar_FillAlpha, 0.25f);
             ImPlot::PlotShaded(legendName.c_str(), labels.data(), statistic.values.data(), length, shadeMode == 0 ? -INFINITY : shadeMode == 1 ? INFINITY : fillRef, 0);
-            //ImPlot::PlotShaded("Stock 2", labels, PerformanceStats::frameTime.data(), length, shade_mode == 0 ? -INFINITY : shade_mode == 1 ? INFINITY : fill_ref, flags);
             ImPlot::PopStyleVar();
         }
 
-        if (showLines) 
+        if (showLines)
         {
             ImPlot::PlotLine(legendName.c_str(), labels.data(), statistic.values.data(), length);
-            //ImPlot::PlotLine("Stock 2", labels, PerformanceStats::frameTime.data(), length);
         }
         ImPlot::EndPlot();
     }

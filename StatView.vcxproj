@@ -423,6 +423,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Gui\Guis\Adb\AdbCaptureGui.cpp" />
+    <ClCompile Include="src\Gui\ImGui\HyperLink.cpp" />
     <ClCompile Include="src\Utility\Adb\AdbLive.cpp" />
     <ClCompile Include="src\Utility\Adb\AdbValidation.cpp" />
     <ClCompile Include="src\Utility\Adb\AdbVrApiCapture.cpp" />
@@ -434,8 +435,6 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="src\Gui\Guis\Adb\AdbLiveGui.h" />
     <ClCompile Include="D:\dev\StatView\StatView\src\Gui\Guis\HelloWorldGui.cpp" />
     <ClInclude Include="D:\dev\StatView\StatView\src\Gui\Guis\HelloWorldGui.h" />
-    <ClCompile Include="D:\dev\StatView\StatView\src\Gui\Guis\HomePageGui.cpp" />
-    <ClInclude Include="D:\dev\StatView\StatView\src\Gui\Guis\HomePageGui.h" />
     <ClCompile Include="D:\dev\StatView\StatView\src\Gui\Guis\ImGuiDemoGui.cpp" />
     <ClInclude Include="D:\dev\StatView\StatView\src\Gui\Guis\ImGuiDemoGui.h" />
     <ClCompile Include="D:\dev\StatView\StatView\src\Gui\Guis\MenuBarGui.cpp" />

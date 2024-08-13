@@ -9,9 +9,11 @@ public:
     Statistic() = default;
     Statistic(std::string statName) : name(std::move(statName)) {}
     Statistic(std::string statName, std::string statSuffix) : name(std::move(statName)), suffix(std::move(statSuffix)) {}
+    Statistic(std::string statName, std::string statSuffix, std::string statDescription) : name(std::move(statName)), suffix(std::move(statSuffix)), description(std::move(statDescription)) {}
 
 	std::string name;
     std::string suffix;
+    std::string description;
 
     double min = 0;
     double max = 0;

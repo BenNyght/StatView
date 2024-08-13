@@ -7,6 +7,7 @@
 
 #include "GuiDrawer.h"
 #include "imgui.h"
+#include "ImGuiExtensions.h"
 #include "Timer.h"
 #include "Adb/AdbUtility.h"
 #include "Adb/AdbValidation.h"
@@ -83,6 +84,27 @@ void AdbCaptureGui::Draw()
 				failedToFindDevice = false;
 			}			
 		}
+		if (ImGui::IsItemHovered(ImGuiHoveredFlags_AllowWhenDisabled))
+		{
+			ImGui::SetTooltip("Start the timer and clear the logcat buffer");
+		}
+
+		if (ImGui::Button("Capture Now"))
+		{
+			if (AdbValidation::IsDeviceAvailable() == false)
+		    {
+				std::cout << "Device not found." << std::endl;
+				failedToFindDevice = true;
+		    }
+			else
+			{
+				AdbVrApiCapture::CaptureVrApi();
+			}			
+		}
+		if (ImGui::IsItemHovered(ImGuiHoveredFlags_AllowWhenDisabled))
+		{
+			ImGui::SetTooltip("Capture logcat immediately and don't clear the logcat buffer");
+		}
 
 		if (failedToFindDevice)
 		{
@@ -103,13 +125,31 @@ void AdbCaptureGui::Draw()
 		}
 		else
 		{
-			if (ImGui::Button("Stop Capturing"))
+			if (ImGui::Button("Stop and Capture"))
 			{
 				std::cout << "Finished capturing file. Captured for " << currentTime << "seconds" << std::endl;
 				timer.Stop();
 				AdbVrApiCapture::CaptureVrApi();
 				capturing = false;
 			}
+			if (ImGui::IsItemHovered(ImGuiHoveredFlags_AllowWhenDisabled))
+			{
+				ImGui::SetTooltip("Stop and Capture Now");
+			}
+
+			ImGui::SameLine();
+
+			if (ImGui::Button("Cancel"))
+			{
+				timer.Stop();
+				capturing = false;
+			}
+			if (ImGui::IsItemHovered(ImGuiHoveredFlags_AllowWhenDisabled))
+			{
+				ImGui::SetTooltip("Cancel the capture");
+			}
+
+			ImGui::Spacing();
 
 			std::ostringstream overlayStream;
 			overlayStream.precision(1);
@@ -117,6 +157,14 @@ void AdbCaptureGui::Draw()
 			ImGui::ProgressBar(currentTime / totalTime, ImVec2(-1, 0), overlayStream.str().c_str());
 		}
 	}
+
+	ImGui::Spacing();
+	ImGui::Spacing();
+	ImGui::Text("You can find more information on why these statistics are important here:");
+	ImGui::Hyperlink("OVR Metrics Tool + VrApi: What Do These Metrics Mean?", "https://developer.oculus.com/blog/ovr-metrics-tool-vrapi-what-do-these-metrics-mean/");
+	ImGui::Spacing();
+	ImGui::Text("A full definition list can be found here:");
+	ImGui::Hyperlink("Logcat Stats Definitions", "https://developer.oculus.com/documentation/native/android/ts-logcat-stats/");
 
     ImGui::End();
 }

@@ -6,4 +6,5 @@ namespace ImGui
 	bool Spinner(const char* label, float radius, int thickness, const ImU32& color);
 	void LoadingText();
 	void LoadingText(const char*);
+	void Hyperlink(const char* label, const char* url);
 }
